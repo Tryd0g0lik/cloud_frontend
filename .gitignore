@@ -1,0 +1,12 @@
+# project
+.env
+!.env.example
+archive
+dist
+node_modules
+**/node_modules
+logs_server.txt
+bundles
+webpack-stats.json
+package-lock.json
+
