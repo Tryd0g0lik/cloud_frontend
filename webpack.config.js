@@ -9,12 +9,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
-  entry: 'src/index.ts',
+  entry: './src/index.ts',
   mode: 'none',
   output: {
-    path: path.resolve(__dirname, '../backend/cloud_user/static'),
+    path: path.resolve(__dirname, '../backend/cloud_user/static/scripts'),
     filename: 'main-[id]-[fullhash].js',
-    publicPath: 'scripts',
+    publicPath: '/',
     clean: true,
 
   },
@@ -66,7 +66,7 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: 'src/public/index.html',
-      filename: "../temapletes/users/index.html"
+      filename: "../../templates/users/index.html"
     }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
@@ -80,7 +80,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'styles/style.css'
+      filename: '../styles/style.css'
     }),
   ],
   watchOptions: {
