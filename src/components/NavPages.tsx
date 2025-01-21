@@ -36,27 +36,31 @@ export function NavFC(): JSX.Element {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a>Item 1</a></li>
+              <li><a>Главная</a></li>
               <li>
-                <a>Parent</a>
+                <a>Облако</a>
                 <ul className="p-2">
-                  <li><a className='px-1'>Submenu 1</a></li>
+                  <li><a className='px-1'>Мои файлы</a></li>
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </li>
               <li><a>Item 3</a></li>
             </ul>
+            <div className="navbar-end w-20">
+              <a className="btn ">Профиль</a>
+            </div>
           </div>
+
           <a className="btn btn-ghost text-xl ">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><a>Item 1</a></li>
+            <li><a>Главная</a></li>
             <li>
               <details>
-                <summary>Parent</summary>
+                <summary>Облако</summary>
                 <ul className="p-2">
-                  <li><a className='px-1'>Submenu 1</a></li>
+                  <li><a className='px-1'>Мои файлы</a></li>
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </details>
@@ -65,7 +69,7 @@ export function NavFC(): JSX.Element {
           </ul>
         </div>
         <div className="navbar-end w-20">
-          <a className="btn ">Button</a>
+          <a className="btn ">Профиль</a>
         </div>
       </div>
       <button className="text-white px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800">Ghost</button>
