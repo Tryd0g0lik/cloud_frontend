@@ -1,9 +1,9 @@
 import React, { JSX, useEffect } from 'react';
-import "./Atyle.css";
+
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
-export function NavFC(): JSX.Element {
+export function NavbarTopFC(): JSX.Element {
   // useEffect(() => {
   //   doActiveReferences();
   // });
