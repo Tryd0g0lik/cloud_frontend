@@ -12,7 +12,7 @@ module.exports = {
   entry: './src/index.ts',
   mode: 'none',
   output: {
-    path: path.resolve(__dirname, '../dist/static/scripts'),
+    path: path.resolve(__dirname, 'dist/static/scripts'),
     filename: 'main-[id]-[fullhash].js',
     publicPath: '/',
     clean: true,
@@ -89,6 +89,25 @@ module.exports = {
       "**/node_modules"
     ]
   },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist/frontend'), // '../static'
+
+    },
+
+
+    watchFiles: [
+      'dist/frontend',
+    ],
+    hot: true, // Включение горячей перезагрузки
+    liveReload: true, // Включение live-reload
+
+    compress: true,
+    historyApiFallback: true
+    // open: true, // Автоматическое открытие браузера
+    // port: 8080
+  },
+
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
     plugins: [new TsconfigPathsPlugin(),],

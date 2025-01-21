@@ -1,7 +1,7 @@
 
-import './src/styles/tailwind.css';
-import "./src/App.tsx";
+import "/src/App.tsx";
+import '/src/styles/tailwind.css';
 
-console.log("Hallo word")
+// console.log("Hallo word")
 
 
