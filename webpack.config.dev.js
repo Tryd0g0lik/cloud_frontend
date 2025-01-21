@@ -82,7 +82,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'static/styles/style.css'
+      filename: 'static/styles/output.css'
     }),
   ],
   watchOptions: {

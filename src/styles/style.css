@@ -54,6 +54,9 @@
   width: 110px;
 }
 
+.menu-horizontal>li:not(.menu-title)>details>ul {
+  margin-top: 0;
+}
 .navbar .menu>li {
   display: flex;
   flex-wrap: wrap;
