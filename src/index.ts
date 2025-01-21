@@ -1,6 +1,6 @@
 
 import './src/styles/tailwind.css';
-// import "./frontend/src/account/index";
+import "./src/App.tsx";
 
 console.log("Hallo word")
 

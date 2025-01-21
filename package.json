@@ -26,7 +26,8 @@
   "scripts": {
     "lint": "eslint . --ext jsx,ts,tsx",
     "cssstyle": "npx tailwindcss -i ./src/styles/style.css -o ./src/styles/tailwind.css --watch",
-    "build:front": "webpack --mode=development --config webpack.config.js"
+    "build:prod": "webpack --mode=production --config webpack.config.js",
+    "build:dev": "webpack --mode=production --config webpack.config.prod.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.6",
