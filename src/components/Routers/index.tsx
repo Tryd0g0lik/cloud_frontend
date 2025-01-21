@@ -8,8 +8,17 @@ const Router = createBrowserRouter([
     path: Pages.Home,
     element: <NavFC />
   }
-])
+
+],
+  {
+    future: {
+      v7_relativeSplatPath: true,
+
+    },
+  })
 
 export function PagesFC() {
-  return <RouterProvider router={Router} />
+  return <RouterProvider future={{
+    v7_startTransition: true,
+  }} router={Router} />
 }
