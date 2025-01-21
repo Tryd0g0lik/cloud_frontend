@@ -1,6 +1,6 @@
 
 import "/src/App.tsx";
-import '/src/styles/tailwind.css';
+import '/src/styles/output.css';
 
 // console.log("Hallo word")
 

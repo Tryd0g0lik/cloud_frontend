@@ -1,4 +1,5 @@
 import React, { JSX, useEffect } from 'react';
+import "./Atyle.css";
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
@@ -67,6 +68,11 @@ export function NavFC(): JSX.Element {
           <a className="btn">Button</a>
         </div>
       </div>
+      <button className="text-white px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800">Ghost</button>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
+
     </>
   )
 }
