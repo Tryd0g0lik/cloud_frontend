@@ -70,9 +70,10 @@ export function NavFC(): JSX.Element {
         </div>
         <div className="navbar-end w-20">
           <a className="btn ">Профиль</a>
+          <a className="link link-neutral">Регистрация</a>
         </div>
       </div>
-      <button className="text-white px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800">Ghost</button>
+
       <h1 className="text-3xl font-bold underline">
         Hello world!
       </h1>

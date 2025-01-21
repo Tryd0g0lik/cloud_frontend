@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base {
+  body * {
+    font-size: 16px;
+  }
+}
 .navbar {
   display: flex;
   flex-wrap: nowrap;
@@ -12,6 +17,7 @@
   @apply rounded-full;
 }
 
+/* NAVBAR */
 .navbar>div {
   display: flex;
   flex-wrap: nowrap;
@@ -31,9 +37,7 @@
   width: 125px;
 }
 
-/* .dropdown:hover ul.menu {
-  display: inline-block;
-} */
+/* NAVBAR-CENTER*/
 
 .navbar .navbar-center .menu {
   display: flex;
@@ -70,13 +74,27 @@
   align-items: flex-start;
 }
 
+/* NAVBAR-END */
+.navbar-end {
+  position: relative;
+}
+
+
+.navbar-end a.link {
+  position: absolute;
+  bottom: -24px;
+  font-size: 0.75rem;
+  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+  margin: 0 20%;
+  float: right;
+}
 @media screen and (min-width: 8px) {
   .navbar .dropdown {
     display: inline-block;
   }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 640px) {
   .navbar .dropdown {
     display: none;
   }
