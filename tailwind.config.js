@@ -1,8 +1,7 @@
 module.exports = {
   content: [
-    "./src/account/**/*.{js,jsx,ts,tsx}",
-    "./src/account/*.{js,jsx,ts,tsx}",
-    "./public/*.html"
+    "./src/*.{js,jsx,ts,tsx}",
+    "./src/public/*.html"
   ],
 
   theme: {

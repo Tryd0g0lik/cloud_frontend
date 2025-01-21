@@ -1,5 +1,5 @@
 
-// import './frontend/src/account/output.css';
+import './src/styles/tailwind.css';
 // import "./frontend/src/account/index";
 
 console.log("Hallo word")
