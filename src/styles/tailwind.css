@@ -849,3 +849,80 @@ html {
     opacity: 1;
   }
 }
+
+.navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  justify-content: space-between;
+}
+
+.btn {
+  border-radius: 9999px;
+}
+
+.navbar>div {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  justify-content: space-between;
+}
+
+.navbar .dropdown {
+  width: 15px;
+  min-height: 15px;
+  max-width: 15px;
+}
+
+.dropdown ul.menu {
+  position: absolute;
+  width: 125px;
+}
+
+/* .dropdown:hover ul.menu {
+  display: inline-block;
+} */
+
+.navbar .navbar-center .menu {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+.navbar-center .menu li {
+  margin: 0 5px;
+}
+
+.navbar-center details[open] {
+  position: relative;
+}
+
+.navbar-center details[open] ul {
+  position: absolute;
+  width: 110px;
+}
+
+.navbar .menu>li {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.navbar-center .menu {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 8px) {
+  .navbar .dropdown {
+    display: inline-block;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .navbar .dropdown {
+    display: none;
+  }
+}

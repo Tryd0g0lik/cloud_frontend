@@ -15,73 +15,57 @@ export function NavFC(): JSX.Element {
 
   return (
     <>
-      <span className="loading loading-bars loading-xs"></span>
-      <div className="nav-item">
-        <ul className="col menu menu-horizontal bg-base-200 rounded-box">
-          <li className="nav-item">
-            <a href="./index" className="nav-link" >
-              Главная
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/registration" className="nav-link" >Регистрация</a>
-          </li>
-          {/* {% if user.is_authenticated %} */}
-          <li className="nav-item dropdown">
-            <ul>
-              <li className="nav-item">
-                <a href="/profile" className="nav-link
-              dropdown-toggle" tada-togle="dropdown" role="button"
-                  aria-haspopup="true" aria-expanded="false">
-                  Профиль
-                </a>
-
-                <div className="dropdown-memu">
-                  <ul>
-                    <li className="nav-item">
-                      <a className="dropdown-item" href="/profile/ads">
-                        Мои объявления
-                      </a>
-                    </li>
-                    {/* <li onClick={handleGoProfileChange} className="nav-item">
-                      <Link to={Pages.ProfileChanges}>Изменить профиль</Link> */}
-                    {/* <a className="dropdown-item" href="/profile/profile_change">
-                        Изменить личные данные
-                      </a> */}
-                    {/* </li> */}
-                    <li className="nav-item">
-                      <a href="/profile/password_change" className="dropdown-item">
-                        Изменить пароль
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="/profile/profile_dalete" className="dropdown-item">
-                        Удалить
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="dropdown-item" href="/profile/logout/">
-                        Выход
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+      <div className="navbar bg-base-100">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16" />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <li><a>Item 1</a></li>
+              <li>
+                <a>Parent</a>
+                <ul className="p-2">
+                  <li><a>Submenu 1</a></li>
+                  <li><a>Submenu 2</a></li>
+                </ul>
               </li>
+              <li><a>Item 3</a></li>
             </ul>
-          </li>
-          {/* {% else %} */}
-          <li className="nav-item">
-            <a href="/inlogin">Вход</a>
-          </li>
-          {/* {% endif %} */}
-
-          <li className="nav-item">
-            <a href="/about" className="nav-link root" tada-togle="dropdown-item">
-              О сайте
-            </a>
-          </li>
-        </ul>
-
+          </div>
+          <a className="btn btn-ghost text-xl">daisyUI</a>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            <li><a>Item 1</a></li>
+            <li>
+              <details>
+                <summary>Parent</summary>
+                <ul className="p-2">
+                  <li><a>Submenu 1</a></li>
+                  <li><a>Submenu 2</a></li>
+                </ul>
+              </details>
+            </li>
+            <li><a>Item 3</a></li>
+          </ul>
+        </div>
+        <div className="navbar-end">
+          <a className="btn">Button</a>
+        </div>
       </div>
     </>
   )
