@@ -95,6 +95,10 @@
   color:
     color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
 }
+.navbar-end .btnend,
+.navbar-end .btnend a {
+  width: 78.56px;
+}
 .navbar-end .remove {
   display: none
 }
