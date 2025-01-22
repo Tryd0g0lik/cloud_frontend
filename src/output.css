@@ -1593,13 +1593,23 @@ body * {
   position: relative;
 }
 
-.navbar-end a.link {
+.navbar-end .registration {
   position: absolute;
   bottom: -24px;
-  font-size: 0.75rem;
   color: rgb(51 65 85 / var(--tw-text-opacity, 1));
   margin: 0 20%;
   float: right;
+}
+
+.link-neutral {
+  font-size: 0.75rem;
+}
+
+@media (hover: hover) {
+  .navbar-end .registration .link-neutral:hover {
+    color:
+      color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
+  }
 }
 
 @media screen and (min-width: 8px) {

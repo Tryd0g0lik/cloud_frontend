@@ -1,5 +1,5 @@
 import React, { JSX, useEffect } from 'react';
-
+import { NavbarEndFC } from "./NavbarEnd";
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
@@ -68,10 +68,7 @@ export function NavbarTopFC(): JSX.Element {
             <li><a>Item 3</a></li>
           </ul>
         </div>
-        <div className="navbar-end w-20">
-          <a className="btn ">Профиль</a>
-          <a className="link link-neutral">Регистрация</a>
-        </div>
+        <NavbarEndFC />
       </div>
 
       <h1 className="text-3xl font-bold underline">
