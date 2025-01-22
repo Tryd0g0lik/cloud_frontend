@@ -1,12 +1,14 @@
 import React from "react";
+// import { Provider } from "react-redux";
+// import { store } from "src/services/redux/store";
 import { Navigate, createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Pages } from "src/interfaces";
-import { HomePageFC } from "src/components/HomePage";
-import { NavFC } from "src/components/NavPages";
+// import { NavFC } from "src/components/NavPages";
+import { NavbarTopFC } from "src/components/NavbarTop";
 const Router = createBrowserRouter([
   {
     path: Pages.Home,
-    element: <NavFC />
+    element: <NavbarTopFC />
   }
 
 ],
@@ -15,7 +17,8 @@ const Router = createBrowserRouter([
       v7_relativeSplatPath: true,
 
     },
-  })
+  }
+)
 
 export function PagesFC() {
   return <RouterProvider future={{

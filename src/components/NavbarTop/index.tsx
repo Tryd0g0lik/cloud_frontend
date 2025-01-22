@@ -1,9 +1,16 @@
-import React, { JSX, useEffect } from 'react';
-import "./Atyle.css";
+import React, { JSX, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from 'src/services/redux/store';
+import { login, logout } from "src/services/redux/counterSlice";
+import { NavbarEndFC } from "./NavbarEnd";
+import handlerLogin from "./handlers/handlerNavbar";
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
-export function NavFC(): JSX.Element {
+export function NavbarTopFC(): JSX.Element {
+  const curr = useSelector((state: RootState) => state.current.title);
+  const dispatch = useDispatch()
+  // const [hand, setHand] = useState(NavbarEndFC.name);
   // useEffect(() => {
   //   doActiveReferences();
   // });
@@ -13,10 +20,28 @@ export function NavFC(): JSX.Element {
   //   // Перенаправление на /index
   //   navigate('/index');
   // };
+  // const title: { text: "Logout" } | { text: "Login" } = { text: "Logout" }
+  const title = "Logout";
 
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div onClick={(e: React.MouseEvent) => {
+        if ('login'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
+          e.preventDefault()
+          // handlerLogin(e)
+          /* Change the text to button */
+          dispatch(login())
+
+        }
+        if ('logout'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
+          e.preventDefault()
+          // handlerLogin(e)
+          /* Change the text to button */
+          dispatch(logout())
+
+        }
+
+      }} className="navbar bg-base-100">
         <div className="navbar-start w-20">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -68,10 +93,8 @@ export function NavFC(): JSX.Element {
             <li><a>Item 3</a></li>
           </ul>
         </div>
-        <div className="navbar-end w-20">
-          <a className="btn ">Профиль</a>
-          <a className="link link-neutral">Регистрация</a>
-        </div>
+        {/* <NavbarEndFC text={curr} /> */}
+        <NavbarEndFC text={curr} />
       </div>
 
       <h1 className="text-3xl font-bold underline">
