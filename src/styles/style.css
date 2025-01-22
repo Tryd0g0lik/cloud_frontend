@@ -91,12 +91,11 @@
   font-size: 0.75rem;
 }
 
-@media (hover: hover) {
-  .navbar-end .registration .link-neutral:hover {
-    color:
-      color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
-  }
+.navbar-end .registration .link-neutral:hover {
+  color:
+    color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
 }
+
 @media screen and (min-width: 8px) {
   .navbar .dropdown {
     display: inline-block;

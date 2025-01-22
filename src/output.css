@@ -1315,6 +1315,12 @@ body * {
   margin-top: 0;
 }
 
+.mockup-phone .display {
+  overflow: hidden;
+  border-radius: 40px;
+  margin-top: -25px;
+}
+
 @keyframes modal-pop {
   0% {
     opacity: 0;
@@ -1605,11 +1611,9 @@ body * {
   font-size: 0.75rem;
 }
 
-@media (hover: hover) {
-  .navbar-end .registration .link-neutral:hover {
-    color:
-      color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
-  }
+.navbar-end .registration .link-neutral:hover {
+  color:
+    color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
 }
 
 @media screen and (min-width: 8px) {
