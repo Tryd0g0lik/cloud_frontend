@@ -13,23 +13,23 @@ export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.El
   // const [title, setTitle] = useState(props.text);
   const [classtitle, setClasstitle] = useState<string>("");
   //
-  useEffect(() => {
-    if (props.text) {
-      if (((props?.text as string).toLowerCase()).includes("Login".toLowerCase())) {
-        // setTitle(props?.text as "Login" )
-        // if (props?.text === "Login") {
-        // setClasstitle("remove")
-        // }
-        // else {
-        setClasstitle("")
-        // }
-      } else if (((props?.text as string).toLowerCase()).includes("Logout".toLowerCase())) {
-        setClasstitle("remove")
-        // setTitle(props.text)
-      }
-    }
+  // useEffect(() => {
+  //   if (props.text) {
+  //     if (((props?.text as string).toLowerCase()).includes("Login".toLowerCase())) {
+  //       // setTitle(props?.text as "Login" )
+  //       // if (props?.text === "Login") {
+  //       // setClasstitle("remove")
+  //       // }
+  //       // else {
+  //       setClasstitle("")
+  //       // }
+  //     } else if (((props?.text as string).toLowerCase()).includes("Logout".toLowerCase())) {
+  //       setClasstitle("remove")
+  //       // setTitle(props.text)
+  //     }
+  //   }
 
-  }, [])
+  // }, [])
 
   return (
     <div className="navbar-end w-20">
@@ -38,7 +38,7 @@ export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.El
         {props.text && <a className="btn">{props.text}</a>}
       </div>
       {/* <div className={`registration ${classtitle}`} > */}
-      <div className={`registration ${classtitle}`} >
+      <div className={`registration`} >
         <a className="link link-neutral">Регистрация</a>
       </div>
 

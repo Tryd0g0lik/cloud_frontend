@@ -30,14 +30,15 @@ export function NavbarTopFC(): JSX.Element {
           e.preventDefault()
           // handlerLogin(e)
           /* Change the text to button */
-          dispatch(login())
+          dispatch(logout())
 
         }
         if ('logout'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
           // handlerLogin(e)
           /* Change the text to button */
-          dispatch(logout())
+          dispatch(login())
+
 
         }
 
