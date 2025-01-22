@@ -7,7 +7,7 @@ import { Pages } from "src/interfaces";
 import { NavbarTopFC } from "src/components/NavbarTop";
 const Router = createBrowserRouter([
   {
-    path: Pages.Home,
+    path: "/",
     element: <NavbarTopFC />
   }
 
