@@ -1616,6 +1616,10 @@ body * {
     color-mix(in oklab, var(--fallback-n, oklch(var(--n) / 1)) 80%, #2196F3);
 }
 
+.navbar-end .remove {
+  display: none
+}
+
 @media screen and (min-width: 8px) {
   .navbar .dropdown {
     display: inline-block;

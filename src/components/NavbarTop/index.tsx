@@ -10,32 +10,18 @@ import handlerLogin from "./handlers/handlerNavbar";
 export function NavbarTopFC(): JSX.Element {
   const curr = useSelector((state: RootState) => state.current.title);
   const dispatch = useDispatch()
-  // const [hand, setHand] = useState(NavbarEndFC.name);
-  // useEffect(() => {
-  //   doActiveReferences();
-  // });
-  // const navigate = useNavigate();
-
-  // const handleGoHome = () => {
-  //   // Перенаправление на /index
-  //   navigate('/index');
-  // };
-  // const title: { text: "Logout" } | { text: "Login" } = { text: "Logout" }
-  const title = "Logout";
 
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
         if ('login'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
-          // handlerLogin(e)
           /* Change the text to button */
           dispatch(logout())
 
         }
         if ('logout'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
-          // handlerLogin(e)
           /* Change the text to button */
           dispatch(login())
 
@@ -94,7 +80,6 @@ export function NavbarTopFC(): JSX.Element {
             <li><a>Item 3</a></li>
           </ul>
         </div>
-        {/* <NavbarEndFC text={curr} /> */}
         <NavbarEndFC text={curr} />
       </div>
 
