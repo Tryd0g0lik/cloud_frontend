@@ -10,25 +10,35 @@ interface ButtonEndTitle {
 export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.Element {
 
 
-  const [name, setName] = useState("login");
-  const [classname, setClassname] = useState<string>("");
-  // 
-  if (props?.text !== undefined) {
-    setName(props?.text as "Login" | "Logout")
-    if (props?.text === "Login") {
-      setClassname("remove")
+  // const [title, setTitle] = useState(props.text);
+  const [classtitle, setClasstitle] = useState<string>("");
+  //
+  useEffect(() => {
+    if (props.text) {
+      if (((props?.text as string).toLowerCase()).includes("Login".toLowerCase())) {
+        // setTitle(props?.text as "Login" )
+        // if (props?.text === "Login") {
+        // setClasstitle("remove")
+        // }
+        // else {
+        setClasstitle("")
+        // }
+      } else if (((props?.text as string).toLowerCase()).includes("Logout".toLowerCase())) {
+        setClasstitle("remove")
+        // setTitle(props.text)
+      }
     }
-    else {
-      setClassname("")
-    }
-  }
+
+  }, [])
+
   return (
     <div className="navbar-end w-20">
 
       <div className='btnend'>
-        <a className="btn">{name}</a>
+        {props.text && <a className="btn">{props.text}</a>}
       </div>
-      <div className={`registration ${classname}`} >
+      {/* <div className={`registration ${classtitle}`} > */}
+      <div className={`registration ${classtitle}`} >
         <a className="link link-neutral">Регистрация</a>
       </div>
 

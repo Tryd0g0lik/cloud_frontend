@@ -22,24 +22,22 @@ export function NavbarTopFC(): JSX.Element {
   // };
   // const title: { text: "Logout" } | { text: "Login" } = { text: "Logout" }
   const title = "Logout";
-  // const curr = undefined
-
 
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
-        if ('login'.includes((e.currentTarget as HTMLElement).textContent as string)) {
+        if ('login'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
           // handlerLogin(e)
           /* Change the text to button */
-          // dispatch(login())
+          dispatch(login())
 
         }
-        else if ('logout'.includes((e.currentTarget as HTMLElement).textContent as string)) {
+        if ('logout'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
           // handlerLogin(e)
           /* Change the text to button */
-          // dispatch(logout())
+          dispatch(logout())
 
         }
 
