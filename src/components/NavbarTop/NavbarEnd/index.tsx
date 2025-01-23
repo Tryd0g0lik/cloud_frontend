@@ -31,7 +31,7 @@ export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.El
 
       <div className={`registration ${text &&
         text === 'Logout' ? "remove" : ''}`} >
-        <a className="link link-neutral">Регистрация</a>
+        <a href='users/registration/' className="link link-neutral">Регистрация</a>
       </div>
 
 

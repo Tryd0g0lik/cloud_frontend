@@ -17,7 +17,7 @@
   @apply rounded-full;
 }
 
-/* NAVBAR */
+/* -------- NAVBAR -------- */
 .navbar>div {
   display: flex;
   flex-wrap: nowrap;
@@ -37,7 +37,7 @@
   width: 125px;
 }
 
-/* NAVBAR-CENTER*/
+/*-------- NAVBAR-CENTER -------- */
 
 .navbar .navbar-center .menu {
   display: flex;
@@ -74,7 +74,7 @@
   align-items: flex-start;
 }
 
-/* NAVBAR-END */
+/* -------- NAVBAR-END -------- */
 .navbar-end {
   position: relative;
 }
@@ -107,6 +107,17 @@
   .navbar .dropdown {
     display: inline-block;
   }
+/* -------- REGISTRATION -------- */
+section.registration,
+.h1 {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  column-gap: 5px;
+  justify-content: center;
+  max-width: 735px;
+  margin: 0 auto;
+}
 }
 
 @media screen and (min-width: 640px) {
