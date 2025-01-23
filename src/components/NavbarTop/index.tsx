@@ -1,3 +1,7 @@
+/**
+ * src\components\NavbarTop\index.tsx
+ * Upper navigation from the level of the 'head' on page
+ */
 import React, { JSX, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from 'src/services/redux/store';
@@ -7,35 +11,22 @@ import handlerLogin from "./handlers/handlerNavbar";
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
-export function NavbarTopFC(): JSX.Element {
+export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const curr = useSelector((state: RootState) => state.current.title);
   const dispatch = useDispatch()
-  // const [hand, setHand] = useState(NavbarEndFC.name);
-  // useEffect(() => {
-  //   doActiveReferences();
-  // });
-  // const navigate = useNavigate();
-
-  // const handleGoHome = () => {
-  //   // Перенаправление на /index
-  //   navigate('/index');
-  // };
-  // const title: { text: "Logout" } | { text: "Login" } = { text: "Logout" }
-  const title = "Logout";
 
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
         if ('login'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
-          // handlerLogin(e)
+          handlerLogin(e)
           /* Change the text to button */
           dispatch(logout())
 
         }
         if ('logout'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
-          // handlerLogin(e)
           /* Change the text to button */
           dispatch(login())
 
@@ -62,7 +53,7 @@ export function NavbarTopFC(): JSX.Element {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a>Главная</a></li>
+              <li><a href=''>Главная</a></li>
               <li>
                 <a>Облако</a>
                 <ul className="p-2">
@@ -81,7 +72,7 @@ export function NavbarTopFC(): JSX.Element {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><a>Главная</a></li>
+            <li><a href="/">Главная</a></li>
             <li>
               <details>
                 <summary>Облако</summary>
@@ -94,13 +85,14 @@ export function NavbarTopFC(): JSX.Element {
             <li><a>Item 3</a></li>
           </ul>
         </div>
-        {/* <NavbarEndFC text={curr} /> */}
         <NavbarEndFC text={curr} />
       </div>
 
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <section className="h1" >
+        <h1 className="text-3xl font-bold underline pb-8">
+          {props.maintitle}
+        </h1>
+      </section>
 
     </>
   )

@@ -6,17 +6,45 @@ const BundleTracker = require('webpack-bundle-tracker');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-
+// const ChunksWebpackPlugin = require('chunks-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 module.exports = {
-  entry: './src/index.ts',
   mode: 'none',
+  entry:
+  {
+    index: {
+      import: './src/index.ts',
+      dependOn: 'shared'
+    },
+    // https://webpack.js.org/guides/code-splitting/#entry-dependencies
+    another: {
+      import: './src/another-module.ts',
+      dependOn: 'shared',
+    },
+    shared: 'lodash',
+    // another: './src/another-module.js',
+  },
+
+
   output: {
-    path: path.resolve(__dirname, '../backend/cloud_user/static/scripts'),
-    filename: 'main-[id]-[fullhash].js',
+    path: path.resolve(__dirname, '../backend/cloud_user/static'),
+    filename: 'scripts/main-[id]-[fullhash].js',
     publicPath: '/',
     clean: true,
-
+  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
+  // },
+  // https://webpack.js.org/guides/code-splitting/#entry-dependencies
+  optimization: {
+    runtimeChunk: 'single',
+  },
+  performance: {
+    maxAssetSize: 800000, // Set max asset size to 300 KiB
+    maxEntrypointSize: 800000, // Set max entry point size to 300 KiB
+    hints: 'warning', // Can be 'error', 'warning', or false
   },
   target: 'web',
   module: {
@@ -61,8 +89,9 @@ module.exports = {
       path: path.join(__dirname, 'src/bundles'),
       filename: 'webpack-stats.json'
     }),
+    /* Use tools like webpack-bundle-analyzer to visualize the size of your bundles and identify large dependencies*/
+    // new BundleAnalyzerPlugin(),
 
-    // new SpriteLoaderPlugin(), // svg
 
     new HtmlWebpackPlugin({
       template: 'src/public/index.html',
@@ -80,7 +109,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: '../styles/style.css'
+      filename: 'styles/style.css'
     }),
   ],
   watchOptions: {
