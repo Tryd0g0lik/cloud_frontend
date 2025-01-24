@@ -1,3 +1,6 @@
+/***
+ * 
+ */
 import { json } from "body-parser";
 import { includes } from "lodash"
 import { KeyboardEvent } from "react"
@@ -5,7 +8,7 @@ import { KeyboardEvent } from "react"
 
 // REACT_APP_SERVER_URL = (REACT_APP_SERVER_URL === undefined) ? "" : REACT_APP_SERVER_URL;
 const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
-  let REACT_APP_SERVER_URL = process.env.REACT_APP_RENDER_URL as string;
+  let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
   const regexUsername = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;
   const regexLogin = /^[a-zA-Z\s0-9_-]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,12 +46,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     //   formHtml[i].parentElement.style.border = "1px solid red";
     //   return "Not Ok";
     // }
-    else if (formHtml[i].name.toLowerCase().includes("last_login") && (
-      !(formHtml[i].checkValidity()) || !(regexLogin.test(formHtml[i].value))
-    )) {
-      formHtml[i].parentElement.style.border = "1px solid red";
-      return "Not Ok";
-    }
+
     else if (formHtml[i].name.toLowerCase().includes("password") && !(formHtml[i].checkValidity())) {
       formHtml[i].parentElement.style.border = "1px solid red";
       return "Not Ok";
@@ -63,22 +61,50 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   // const headers = new Headers({
   //   "Set-Cookie": "name1=value1",
   // })
+  // const requestBody = JSON.stringify({
   const requestBody = JSON.stringify({
-    last_login: map.get("last_login"),
-    username: map.get("username"),
-    first_name: null,
-    email: map.get("email"),
-    password: map.get("password"),
-    is_superuser: false
-  })
-  const response = await fetch(`${REACT_APP_SERVER_URL}/api/v1//users/choice/`, {
-    method: "POST",
-    headers: {
-      "Content-Type:": "application/json;charset=utf-8"
-    },
-    body: requestBody
-  })
-  const resultJson = await response.json();
+    "username": map.get("username"),
+    "first_name": null,
+    "email": map.get("email"),
+    "password": map.get("password"),
+    "is_superuser": false
+  }
+  )
+  try {
+    const response = await fetch(`${REACT_APP_SERVER_URL}/api/v1/users/choice/`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: requestBody
+    })
+    if (response.ok) {
+      const responseJson = await response.json();
+      return String(responseJson);
+    }
+    if (!response.ok) {
+
+      // Если ответ не успешный (например, 4xx или 5xx)
+      return response.json().then(err => {
+        const message = ""
+        if (typeof (err) === "object") {
+
+          throw new Error(JSON.stringify(err));
+        }
+        throw new Error(err.message || 'Ошибка');
+      });
+    }
+    // else {
+    //   const errorData = await response.body;
+    //   return "Not Ok"
+    // }
+    // const resultJson = await response;
+    // return "Ok"
+  } catch (e: unknown | any) {
+    console.error(e.message)
+  } finally {
+    null
+  }
   return "Ok"
 }
 
