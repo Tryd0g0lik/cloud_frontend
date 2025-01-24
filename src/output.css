@@ -1961,6 +1961,10 @@ body * {
   }
 }
 
+.alter {
+  color: #0b9fbf;
+}
+
 @media screen and (min-width: 640px) {
   .navbar .dropdown {
     display: none;

@@ -1,5 +1,5 @@
 /***
- * 
+ *
  */
 import { json } from "body-parser";
 import { includes } from "lodash"
@@ -80,6 +80,8 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     })
     if (response.ok) {
       const responseJson = await response.json();
+      const messageHtml = "<div class='alter'><storng>Сообщение на почте</storng>";
+      (formHtml.parentElement as HTMLFormElement).insertAdjacentHTML("afterend", messageHtml);
       return String(responseJson);
     }
     if (!response.ok) {

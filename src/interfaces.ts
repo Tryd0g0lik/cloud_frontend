@@ -26,3 +26,8 @@ export interface CookiOptions {
   secure?: boolean,
   sameSite?: "Strict" | "Lax" | "None"
 }
+
+// H1 header insede of page
+export interface HeaderForPages {
+  maintitle: string
+}

@@ -3,18 +3,33 @@
  * Upper navigation from the level of the 'head' on page
  */
 import React, { JSX, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from 'src/services/redux/store';
 import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
 import handlerLogin from "./handlers/handlerNavbar";
+
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
+/* Get params of user for the PRIMARY ACTIVATION of the user 
+ after the authentification/resitration of user. */
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search)
+}
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
+  // Redux
   const curr = useSelector((state: RootState) => state.current.title);
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  // Location - Get params of user for the PRIMARY ACTIVATION
+  const query = useQuery();
+  const queryArrayParams = Array.from(query.entries());
+  if (queryArrayParams.length === 3) {
+    const use_session_array = queryArrayParams[0];
+    const is_superuser_array = queryArrayParams[1];
+    const is_active_array = queryArrayParams[2];
+  }
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {

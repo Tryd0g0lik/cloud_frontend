@@ -119,6 +119,9 @@ section.registration,
   margin: 0 auto;
 }
 }
+ .alter {
+   color: #0b9fbf;
+ }
 
 @media screen and (min-width: 640px) {
   .navbar .dropdown {

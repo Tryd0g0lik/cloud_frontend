@@ -4,17 +4,17 @@ interface ButtonEndTitle {
   text?: "Login" | "Logout"
 }
 
-const classTitleState = (prop: string) => {
-  const [classtitle, setClasstitle] = useState<string>(prop);
-  // useEffect(() => {
-  if (prop.toLowerCase().includes("logout")) {
-    setClasstitle("remove")
-  } else {
-    setClasstitle("")
-  }
-  // }, [])
-  return classtitle
-}
+// const classTitleState = (prop: string) => {
+//   const [classtitle, setClasstitle] = useState<string>(prop);
+//   // useEffect(() => {
+//   if (prop.toLowerCase().includes("logout")) {
+//     setClasstitle("remove")
+//   } else {
+//     setClasstitle("")
+//   }
+//   // }, [])
+//   return classtitle
+// }
 
 /**
  * Change a text from the 'a.btn' and  'div.registration' for display or removed
@@ -31,7 +31,7 @@ export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.El
 
       <div className={`registration ${text &&
         text === 'Logout' ? "remove" : ''}`} >
-        <a href='users/registration/' className="link link-neutral">Регистрация</a>
+        <a href='/users/registration/' className="link link-neutral">Регистрация</a>
       </div>
 
 
