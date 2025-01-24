@@ -1,3 +1,6 @@
+/**
+ * src\components\NavbarTop\NavbarEnd\index.tsx
+ */
 import React, { JSX, useState, useEffect } from 'react';
 
 interface ButtonEndTitle {
