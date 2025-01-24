@@ -22,7 +22,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   // Redux
   const curr = useSelector((state: RootState) => state.current.title);
   const dispatch = useDispatch();
-  // Location - Get params of user for the PRIMARY ACTIVATION
+  // Location - Get params of user for the cookie records
   const query = useQuery();
   const queryArrayParams = Array.from(query.entries());
   if (queryArrayParams.length === 3) {

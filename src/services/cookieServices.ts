@@ -127,15 +127,6 @@ export class CookieUser {
 
     // ENCODE
     key = this.__encodeKey(key);
-    // if (key && key.match(/^\w+$/)) {
-    //   key = encodeURIComponent(key);
-    // } else {
-    //   if (this.sessionId.match(/^\w+$/)) {
-    //     key = encodeURIComponent(this.sessionId);
-    //   } else {
-    //     key = this.sessionId.slice();
-    //   }
-    // }
     // CHECKs
     if (this.getOneCookie(key) !== null) {
       return true;
