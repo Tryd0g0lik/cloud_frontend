@@ -42,7 +42,7 @@ class CookieUser {
       ...options
     };
     // GET KEY
-    const key = this.sessionId;
+    const key = this.sessionId.slice();
     // ENCODE
     let updateCookie = encodeKeyValueOfCookie(key, value);
 
@@ -57,16 +57,54 @@ class CookieUser {
   }
 
   /**
+   * Encode the sessionId (key).
+   * @param key: string, If , the key to the enrty point equals the 'undefined',\
+   * the key receives a value from the 'this.sessionId'
+   * @returns the encoded string
+   */
+  __encodeKey(key: undefined | string = undefined): string {
+    if (key && key.match(/^\w+$/)) {
+      key = encodeURIComponent(key);
+    } else {
+      if (this.sessionId.match(/^\w+$/)) {
+        key = encodeURIComponent(this.sessionId);
+      } else {
+        key = this.sessionId.slice();
+      }
+    }
+    return key.slice()
+  }
+
+  /***
+   * Get one the line of cookie.
+   */
+  getCookie(key: undefined | string = undefined): string | null {
+    const keyBool = this.checkCoockie(key);
+    if (keyBool) {
+      const cookieRow = document.cookie[this.__encodeKey().slice()]
+      return cookieRow.slice()
+    }
+    return null;
+  }
+
+  /**
    * Entry point gets a sessionId (key) from the cookie.\
    * Checks the key. If the sessionId exists, means return the true.\
    *  It, not exists, return the false.
    */
-  checkCoockie(key: string): boolean {
+  checkCoockie(key: undefined | string = undefined): boolean {
 
     // ENCODE
-    if (key.match(/^\w+$/)) {
-      key = encodeURIComponent(key);
-    }
+    key = this.__encodeKey(key);
+    // if (key && key.match(/^\w+$/)) {
+    //   key = encodeURIComponent(key);
+    // } else {
+    //   if (this.sessionId.match(/^\w+$/)) {
+    //     key = encodeURIComponent(this.sessionId);
+    //   } else {
+    //     key = this.sessionId.slice();
+    //   }
+    // }
     // CHECKs
     if (document.cookie[key]) {
       return true;
@@ -79,7 +117,7 @@ class CookieUser {
    * First, the key will go for verification whether it exists or not.
    */
   deleteCookie(): boolean {
-    let key = this.sessionId;
+    let key = this.sessionId.slice();
     if (!this.checkCoockie(key)) {
       return false;
     }
