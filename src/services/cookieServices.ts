@@ -15,7 +15,7 @@ interface CookieOptions {
 /**
  * Services for a work wiht the cookie
  */
-export default class CookieUser {
+export class CookieUser {
   private _sessionId: string
   constructor(sessionId: string) {
     this._sessionId = sessionId;
@@ -35,27 +35,49 @@ export default class CookieUser {
     this._sessionId = value;
   }
 
+  /**
+   *
+   * @param value: string | number. Value for a sessiionId /key.
+   * @param options: object.\
+   * ```ts
+   * interface CookieOptions {
+   *   key?: string;
+   *   value?: string;
+   *   max_age?: string;
+   *   path?: string;
+   *   domain?: string;
+   *   secure?: boolean;
+   * }
+   * ```
+   * @param secureBool: Boolean. It has value the true  by default. 'secureBoll', \
+   * it is one from everyone properties of the cookie browser.
+   */
   setCookie(value: string | number,
-    options: CookieOptions = {}) {
+    options: CookieOptions = {}, secureBool = true): boolean {
 
     options = {
       path: "/",
-      secure: true,
+      secure: secureBool,
       ...options
     };
+    try {
     // GET KEY
     const key = this.sessionId.slice();
     // ENCODE
     let updateCookie = encodeKeyValueOfCookie(key, value);
 
     // get PARAMS for document.cookie
-    // for (let key in options) {
-    updateCookie += `; ${key}`;
-    if (Object.hasOwn(options, key) !== true) {
-      updateCookie += `=${options[key as keyof CookieOptions]}`
+      for (let optionsKey in options) {
+        updateCookie += `; ${optionsKey}`;
+        // if (Object.hasOwn(options, optionsKey)) {
+        updateCookie += `=${options[optionsKey as keyof CookieOptions]}`
+      // }
       }
-    // }
     document.cookie = updateCookie;
+      return true;
+    } catch (e: unknown | object | string) {
+      throw new Error(e as string)
+    }
   }
 
   /**

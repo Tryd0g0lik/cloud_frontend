@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": true,
     "module": "ES6",
-    "target": "ES2020",
+    "target": "ES2022",
     // "rootDirs": [
     //   "./src/frontend/src"
     // ],
