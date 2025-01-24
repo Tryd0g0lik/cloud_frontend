@@ -4,7 +4,7 @@
  */
 import React, { FormEvent, JSX, useEffect } from "react";
 import { NavbarTopFC } from "../NavbarTop";
-import sendFieldsOfRegistr from "./handlers/checkFields";
+import sendFieldsOfRegistr from "./handlers/handllerFields";
 interface HeaderForPages {
   maintitle: string
 }
