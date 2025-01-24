@@ -51,8 +51,6 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           e.preventDefault()
           /* Change the text to button */
           dispatch(login())
-
-
         }
 
       }} className="navbar bg-base-100">

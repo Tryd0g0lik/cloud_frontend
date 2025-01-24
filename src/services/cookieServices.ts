@@ -165,10 +165,10 @@ export function encodeKeyValueOfCookie(key: string, value: string | number): str
     updateCookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
   }
   else if (String(value).match(/^\w+$/) && !String(key).match(/^\w+$/)) {
-    updateCookie = `${encodeURIComponent(key)}=${value}`;
+    updateCookie = `${key}=${encodeURIComponent(value)}`;
   }
   else if (!String(value).match(/^\w+$/) && String(key).match(/^\w+$/)) {
-    updateCookie = `${key}=${encodeURIComponent(key)}`;
+    updateCookie = `${encodeURIComponent(key)}=${value}`;
   } else {
     updateCookie = `${key}=${value}`;
   }
