@@ -9,7 +9,7 @@ import type { RootState } from 'src/services/redux/store';
 import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
 import handlerLogin from "./handlers/handlerNavbar";
-
+import { CookieUser } from "src/services/cookieServices";
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
@@ -29,6 +29,13 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
     const use_session_array = queryArrayParams[0];
     const is_superuser_array = queryArrayParams[1];
     const is_active_array = queryArrayParams[2];
+    // SAVE of user in COOKIE
+    const cookieUser = new CookieUser(use_session_array[0]);
+    cookieUser.setCookie(use_session_array[1]);
+    cookieUser.sessionId = is_superuser_array[0];
+    cookieUser.setCookie(is_superuser_array[1]);
+    cookieUser.sessionId = is_active_array[0];
+    cookieUser.setCookie(is_active_array[1]);
   }
   return (
     <>
