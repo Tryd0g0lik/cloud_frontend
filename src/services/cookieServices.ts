@@ -4,16 +4,18 @@
  */
 
 interface CookieOptions {
-  max_age?: string
-  path?: string
-  domain?: string
-  secure?: boolean
+  key?: string;
+  value?: string;
+  max_age?: string;
+  path?: string;
+  domain?: string;
+  secure?: boolean;
 }
 
 /**
  * Services for a work wiht the cookie
  */
-class CookieUser {
+export default class CookieUser {
   private _sessionId: string
   constructor(sessionId: string) {
     this._sessionId = sessionId;
@@ -47,12 +49,12 @@ class CookieUser {
     let updateCookie = encodeKeyValueOfCookie(key, value);
 
     // get PARAMS for document.cookie
-    for (let optionKey in options) {
-      updateCookie += `; ${optionKey}`;
-      if (options[optionKey] !== true) {
-        updateCookie += `=${options[optionKey]}`
+    // for (let key in options) {
+    updateCookie += `; ${key}`;
+    if (Object.hasOwn(options, key) !== true) {
+      updateCookie += `=${options[key as keyof CookieOptions]}`
       }
-    }
+    // }
     document.cookie = updateCookie;
   }
 
@@ -78,12 +80,19 @@ class CookieUser {
   /***
    * Get one the line of cookie.
    */
-  getCookie(key: undefined | string = undefined): string | null {
-    const keyBool = this.checkCoockie(key);
-    if (keyBool) {
-      const cookieRow = document.cookie[this.__encodeKey().slice()]
-      return cookieRow.slice()
+  getOneCookie(key: undefined | string = undefined): string | null {
+    // const keyBool = this.checkCoockie(key);
+
+    const cookies = document.cookie
+    // return cookieRow.slice()
+    if (key) {
+      key = this.__encodeKey(key);
+      const parts = `; ${cookies}`.split(`; ${key}=`)
+      if (parts.length === 2) {
+        return parts.pop()?.split(';').shift() as string;
+      }
     }
+
     return null;
   }
 
@@ -106,7 +115,7 @@ class CookieUser {
     //   }
     // }
     // CHECKs
-    if (document.cookie[key]) {
+    if (this.getOneCookie(key) !== null) {
       return true;
     }
     return false;
@@ -136,7 +145,7 @@ class CookieUser {
 /**
  * Encode a key and value for the key before when be save in cookie
  */
-function encodeKeyValueOfCookie(key: string, value: string | number): string {
+export function encodeKeyValueOfCookie(key: string, value: string | number): string {
 
   let updateCookie: string = "";
   if (String(value).match(/^\w+$/) && String(key).match(/^\w+$/)) {
@@ -152,3 +161,4 @@ function encodeKeyValueOfCookie(key: string, value: string | number): string {
   }
   return updateCookie;
 }
+
