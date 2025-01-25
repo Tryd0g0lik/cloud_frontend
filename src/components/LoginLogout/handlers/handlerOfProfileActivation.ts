@@ -1,6 +1,7 @@
 import { includes } from "lodash";
 import { CookieUser } from "@Services/cookieServices";
 import Encrypto from "@Services/encrypts";
+import changeDOM from "@Services/scripts";
 
 const handlerLogin = (e?: React.MouseEvent) => (key?: string) => {
   if (e && (e.type) && (((e.type).toLowerCase() !== 'click') || (
@@ -13,10 +14,35 @@ const handlerLogin = (e?: React.MouseEvent) => (key?: string) => {
     return true;
   }
 
-  // Below is the FIRST login (the first receiveing data).
+
+  /**
+   * Entry point receives the key by name the 'is_session'.\
+   * If the 'is_session' is the 'true', IT is means what user is activate to web site.\
+   * Next,  run the fun 'receivingDataOfFirstLogin()'.
+   */
   if (!key) {
     return false;
   }
+
+  // Run tasks some in parallel.
+  const task = () => new Promise(resolve => changeDOM("true".includes(key) ? true : false));
+  (async () => {
+    // @ts-ignore
+    await new Promise.race([receivingDataOfFirstLogin(key as string), task()]);
+  })();
+  return true;
+}
+export default handlerLogin;
+
+
+/**
+ * We can get the number (index) of user from db.\
+ * When the 'is_session' is 'true', from template string the '/user_session_\d+/' receive \
+ * the user ID. It number (type string) and saving in the localstorage.
+ * @param key string. It is key name the 'is_session' from a cookie.
+ * @returns
+ */
+async function receivingDataOfFirstLogin(key: string) {
   // GET of key name from cookie
   const cookieUser = new CookieUser(key);
   let result = cookieUser.getOneCookie();
@@ -33,11 +59,8 @@ const handlerLogin = (e?: React.MouseEvent) => (key?: string) => {
     const encrypto = new Encrypto(cookie as string);
     // Save the user's id
     localStorage.setItem("session", encrypto.encryptData());
+
   } else {
     null
   }
-
-
-  return true;
 }
-export default handlerLogin;

@@ -106,14 +106,14 @@ export class CookieUser {
     // const keyBool = this.checkCoockie(key);
 
     const cookies = document.cookie
-    // return cookieRow.slice()
-    if (key) {
-      key = this.__encodeKey(key);
-      const parts = `; ${cookies}`.split(`; ${key}=`)
-      if (parts.length === 2) {
-        return parts.pop()?.split(';').shift() as string;
-      }
+
+
+    key = key ? this.__encodeKey(key) : this.__encodeKey();
+    const parts = `; ${cookies}`.split(`; ${key}=`)
+    if (parts.length === 2) {
+      return parts.pop()?.split(';').shift() as string;
     }
+
 
     return null;
   }

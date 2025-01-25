@@ -8,8 +8,10 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from 'src/services/redux/store';
 import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
-import handlerLogin from "./handlers/handlerNavbar";
+// import handlerLogin from "./handlers/handlerNavbar";
 import { CookieUser } from "src/services/cookieServices";
+import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
+import { assignIn } from 'lodash';
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
@@ -19,17 +21,21 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search)
 }
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
-  // Redux
+  /*----- Redux ----- */
   const curr = useSelector((state: RootState) => state.current.title);
   const dispatch = useDispatch();
-  // Location - Get params of user for the cookie records
+  /* ----- Location - Get params ACTIVATION of USER for SAVING in the COOKIE file. ----- */
   const query = useQuery();
   const queryArrayParams = Array.from(query.entries());
   if (queryArrayParams.length === 3) {
+    /**
+     * This part of the code will be only one run.\ 
+     * It initially receiving data from registration a new user on the site.
+     */
     const use_session_array = queryArrayParams[0];
     const is_superuser_array = queryArrayParams[1];
     const is_active_array = queryArrayParams[2];
-    // SAVE of user in COOKIE
+    // SAVE of user in COOKIE (this coockie does not have a live time)
     const cookieUser = new CookieUser(use_session_array[0]);
     cookieUser.setCookie(use_session_array[1]);
     cookieUser.sessionId = is_superuser_array[0];
@@ -37,12 +43,25 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
     cookieUser.sessionId = is_active_array[0];
     cookieUser.setCookie(is_active_array[1]);
   }
+  /* ----- Handler activation the user profile  ----- */
+  useEffect(() => {
+    return () => {
+      // document.addEventListener("DOMContentLoaded ", async () => {
+      const login = handlerLogin();
+      login("is_active");
+      // })
+    }
+  }, [])
+
+
+
+
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
         if ('login'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
-          handlerLogin(e)
+          // handlerLogin(e)
           /* Change the text to button */
           dispatch(logout())
 
