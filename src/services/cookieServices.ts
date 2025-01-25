@@ -13,7 +13,8 @@ interface CookieOptions {
 }
 
 /**
- * Services for a work wiht the cookie
+ * Services for a work wiht the cookie.
+ * @sessionId string. It is a key for cookie.
  */
 export class CookieUser {
   private _sessionId: string
@@ -22,7 +23,7 @@ export class CookieUser {
   }
 
   /**
-   * The sessionId (the cookie's key) will recieve.
+   * The new sessionId (the cookie's key) saving.
    */
   get sessionId(): string {
     return this._sessionId

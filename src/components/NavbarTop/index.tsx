@@ -9,9 +9,12 @@ import type { RootState } from 'src/services/redux/store';
 import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
 // import handlerLogin from "./handlers/handlerNavbar";
-import { CookieUser } from "src/services/cookieServices";
+import { CookieUser } from "@Services/cookieServices";
+import Encrypto from "@Services/encrypts";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { assignIn } from 'lodash';
+import { Loginout } from "src/interfaces";
+
 // import { useNavigate, } from 'react-router-dom';
 // import { doActiveReferences } from '@Services/menuServise'
 
@@ -21,6 +24,7 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search)
 }
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
+  const [useactive, setUseactive] = useState(Loginout.LOGOUT);
   /*----- Redux ----- */
   const curr = useSelector((state: RootState) => state.current.title);
   const dispatch = useDispatch();
@@ -46,11 +50,24 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
     return () => {
-      // document.addEventListener("DOMContentLoaded ", async () => {
-      const login = handlerLogin();
-      login("is_active");
-      // })
+      const task0 = () => new Promise(resolve => resolve((async () => {
+        const login = handlerLogin();
+        login("is_active");
+      })()));
+      // NAVIGATE by profile will be ACTIVATION
+      const task1 = () => new Promise(resolve => resolve((async () => {
+        const cookieUser = new CookieUser("is_active");
+        let falseTrue: string | boolean | null = cookieUser.getOneCookie();
+        falseTrue = (falseTrue && typeof falseTrue === "string") ? (
+          (falseTrue as string).includes("false") ? false : true
+        ) : false;
+        // status of a profile.
+        setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
+      })()));
+      (async () => await Promise.race([task0(), task1()]))();
+
     }
+    // Note: Смотреть примечание ниже по странице.
   }, [])
 
 
@@ -112,7 +129,28 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li><a href="/">Главная</a></li>
-            <li>
+            {/*
+              * 'useactive' если имеет значение "Logout" значит пользователь активирован на 
+              * сайте и ему доступно меню проыиля.
+              * Если имеет значение "Login" значит пользователь НЕ активирован на сайте.
+              * 
+              * "Logout" - Даный текст можно видеть в правой верхней кнопке. В активном режиме
+              * мы должны иметь кнопку для выхода из профиля.
+              * 
+              * "Login" - Текст можно видеть в правой верхней кнопке. В НЕ активном режиме
+              * мы должны иметь кнопку для входа в профиль.
+              * 
+              * 
+              * Почему "Logout" и "Login" ?
+              * Изначально текст создавался для изменеия текста в кнопке (верхнее меню).
+              * При активации пользователя, в куки получаем данне 'is_active="True/False"'.
+              * 
+              * Для решения - дать доступ к меню или НЕ дать ориентируемся конечно на'is_active'.
+              * "Logout" и "Login" ипользуется , так как был уже создан и новые переменные в коде 
+              * НЕ возстребованы. 
+              * 
+            */}
+            {useactive.includes("Logout") && <li>
               <details>
                 <summary>Облако</summary>
                 <ul className="p-2">
@@ -120,7 +158,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </details>
-            </li>
+            </li>} 
             <li><a>Item 3</a></li>
           </ul>
         </div>

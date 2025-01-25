@@ -23,13 +23,12 @@ const handlerLogin = (e?: React.MouseEvent) => (key?: string) => {
   if (!key) {
     return false;
   }
-
+  // TASKS async
   // Run tasks some in parallel.
   const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
   const task1 = () => new Promise(resolve => resolve((async () => changeDOM("true".includes(key) ? true : false))()));
   const task2 = () => new Promise(resolve => { resolve((async () => buttonLoginLogout(Loginout.LOGIN))()) });
   (async () => {
-
     await Promise.race([task0(), task1(), task2()]);
   })();
   return true;

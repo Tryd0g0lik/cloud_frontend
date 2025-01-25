@@ -40,11 +40,11 @@ export default class Encrypto {
   }
 
   /**
-   * Get a secret_message 'this.dencrypt = < secret_message_for_decrypt >' for decrypt.
+   * Get a new message 'this.dencrypt = < secret_message_for_decrypt >' for decrypt.
    * @param seccret_message: string.
    */
-  set dencrypt(seccret_message: string) {
-    this.message = seccret_message;
+  set dencrypt(message: string) {
+    this.message = message;
   }
 
   /**
