@@ -10,6 +10,11 @@ export enum FetchMethods {
   DELETE = "DELETE",
 }
 
+export enum Loginout {
+  LOGOUT = "Logout",
+  LOGIN = "Login"
+}
+
 export interface FetchParams {
   method: FetchMethods,
   body?: string,
@@ -25,4 +30,9 @@ export interface CookiOptions {
   domain?: string,
   secure?: boolean,
   sameSite?: "Strict" | "Lax" | "None"
+}
+
+// H1 header insede of page
+export interface HeaderForPages {
+  maintitle: string
 }

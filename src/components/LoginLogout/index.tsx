@@ -1,19 +1,17 @@
 /**
- * src\components\RegistrationPage\index.tsx
- * This page is containe the form of the user's registration.
+ * src\components\LoginLogout\index.tsx
  */
-import React, { FormEvent, JSX, useEffect } from "react";
+import React, { JSX } from "react";
 import { NavbarTopFC } from "../NavbarTop";
-import sendFieldsOfRegistr from "./handlers/handllerFields";
-import { HeaderForPages } from "src/interfaces";
-// import
-export function RegistrationFormFC(props: HeaderForPages): JSX.Element {
+import { HeaderForPages } from "../../interfaces";
+
+export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
   const maintitle = { maintitle: props.maintitle }
 
   return (<>
     <NavbarTopFC {...maintitle} />
     <section onKeyDown={async (e: React.KeyboardEvent) => {
-      await sendFieldsOfRegistr(e)
+      null
     }} className="registration">
       <form>
         <label className="input input-bordered flex items-center gap-2">

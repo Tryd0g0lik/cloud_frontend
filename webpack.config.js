@@ -128,6 +128,7 @@ module.exports = {
     ],
 
     alias: {
+      "@Service": path.resolve(__dirname, "src/services"),
     }
   },
 

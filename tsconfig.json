@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": true,
     "module": "ES6",
-    "target": "ES2020",
+    "target": "ES2022",
     // "rootDirs": [
     //   "./src/frontend/src"
     // ],
@@ -30,20 +30,11 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      // "@Interfaces": [
-      //   "src/frontend/src/account/interfaces.ts"
-      // ],
-      // "@Components/*": [
-      //   "src/frontend/src/account/components/*"
-      // ],
-      // "@Services/*": [
-      //   "src/frontend/src/account/services/*"
-      // ],
+      "@Services/*": [
+        "src/services/*"
+      ],
       // "@Logs": [
       //   "src/backend/src/server/logs/index.ts",
-      // ],
-      // "@Interfaceback": [
-      //   "src/backend/src/server/interfaces.ts"
       // ],
     }
   },
