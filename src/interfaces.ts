@@ -10,6 +10,11 @@ export enum FetchMethods {
   DELETE = "DELETE",
 }
 
+export enum Loginout {
+  LOGOUT = "Logout",
+  LOGIN = "Login"
+}
+
 export interface FetchParams {
   method: FetchMethods,
   body?: string,

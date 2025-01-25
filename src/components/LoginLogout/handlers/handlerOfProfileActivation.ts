@@ -1,8 +1,8 @@
 import { includes } from "lodash";
 import { CookieUser } from "@Services/cookieServices";
 import Encrypto from "@Services/encrypts";
-import changeDOM from "@Services/scripts";
-
+import { Loginout } from "src/interfaces";
+import { changeDOM, buttonLoginLogout } from "@Services/scripts";
 const handlerLogin = (e?: React.MouseEvent) => (key?: string) => {
   if (e && (e.type) && (((e.type).toLowerCase() !== 'click') || (
     (e.target as HTMLElement).textContent?.toLowerCase() !== 'login'
@@ -25,10 +25,12 @@ const handlerLogin = (e?: React.MouseEvent) => (key?: string) => {
   }
 
   // Run tasks some in parallel.
-  const task = () => new Promise(resolve => changeDOM("true".includes(key) ? true : false));
+  const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
+  const task1 = () => new Promise(resolve => resolve((async () => changeDOM("true".includes(key) ? true : false))()));
+  const task2 = () => new Promise(resolve => { resolve((async () => buttonLoginLogout(Loginout.LOGIN))()) });
   (async () => {
-    // @ts-ignore
-    await new Promise.race([receivingDataOfFirstLogin(key as string), task()]);
+
+    await Promise.race([task0(), task1(), task2()]);
   })();
   return true;
 }
