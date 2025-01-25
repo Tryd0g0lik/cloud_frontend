@@ -8,15 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from 'src/services/redux/store';
 import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
-// import handlerLogin from "./handlers/handlerNavbar";
 import { CookieUser } from "@Services/cookieServices";
-import Encrypto from "@Services/encrypts";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
-import { assignIn } from 'lodash';
 import { Loginout } from "src/interfaces";
 
-// import { useNavigate, } from 'react-router-dom';
-// import { doActiveReferences } from '@Services/menuServise'
+
 
 /* Get params of user for the PRIMARY ACTIVATION of the user 
  after the authentification/resitration of user. */
@@ -24,7 +20,7 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search)
 }
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
-  const [useactive, setUseactive] = useState(Loginout.LOGOUT);
+  const [useactive, setUseactive] = useState(Loginout.LOGIN);
   /*----- Redux ----- */
   const curr = useSelector((state: RootState) => state.current.title);
   const dispatch = useDispatch();
