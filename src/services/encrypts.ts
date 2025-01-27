@@ -35,6 +35,10 @@ export default class Encrypto {
    */
   encryptData(): string {
     const key = this.__secretKey;
+    if (!this.message) {
+      // throw new Error("[Encrypto.encryptData]: Mistake => 'message' is invalid.")
+      return "";
+    }
     const ciphertext = CryptoJS.AES.encrypt(this.message.slice(), key).toString();
     return ciphertext;
   }
@@ -52,6 +56,10 @@ export default class Encrypto {
    */
   get decrypt(): string {
     const key = this.__secretKey;
+    if (!this.message) {
+      // throw new Error("[Encrypto.decrypt]: Mistake => 'message' is invalid.")
+      return "";
+    }
     const bytes = CryptoJS.AES.decrypt(this.message.slice(), key);
     const originalText = bytes.toString(CryptoJS.enc.Utf8);
     return originalText

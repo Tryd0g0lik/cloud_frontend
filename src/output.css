@@ -1207,16 +1207,16 @@ body * {
   justify-content: flex-end;
 }
 
-.btm-nav > *:where(.active) {
-  border-top-width: 2px;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
-}
-
 .btm-nav > *:where(.\!active) {
   border-top-width: 2px !important;
   --tw-bg-opacity: 1 !important;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity))) !important;
+}
+
+.btm-nav > *:where(.active) {
+  border-top-width: 2px;
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
 }
 
 .btm-nav > * .label {
@@ -1629,6 +1629,12 @@ body * {
   }
 }
 
+.table tr.\!active,
+  .table tr.\!active:nth-child(even) {
+  --tw-bg-opacity: 1 !important;
+  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity))) !important;
+}
+
 .table tr.active,
   .table tr.active:nth-child(even),
   .table-zebra tbody tr:nth-child(even) {
@@ -1640,6 +1646,12 @@ body * {
   .table tr.\!active:nth-child(even) {
   --tw-bg-opacity: 1 !important;
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity))) !important;
+}
+
+.table-zebra tr.\!active,
+    .table-zebra tr.\!active:nth-child(even) {
+  --tw-bg-opacity: 1 !important;
+  background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity))) !important;
 }
 
 .table-zebra tr.active,
@@ -1667,23 +1679,19 @@ body * {
   }
 }
 
-.btm-nav-xs > *:where(.active) {
-  border-top-width: 1px;
-}
-
 .btm-nav-xs > *:where(.\!active) {
   border-top-width: 1px !important;
 }
 
-.btm-nav-sm > *:where(.active) {
-  border-top-width: 2px;
+.btm-nav-xs > *:where(.active) {
+  border-top-width: 1px;
 }
 
 .btm-nav-sm > *:where(.\!active) {
   border-top-width: 2px !important;
 }
 
-.btm-nav-md > *:where(.active) {
+.btm-nav-sm > *:where(.active) {
   border-top-width: 2px;
 }
 
@@ -1691,12 +1699,16 @@ body * {
   border-top-width: 2px !important;
 }
 
-.btm-nav-lg > *:where(.active) {
-  border-top-width: 4px;
+.btm-nav-md > *:where(.active) {
+  border-top-width: 2px;
 }
 
 .btm-nav-lg > *:where(.\!active) {
   border-top-width: 4px !important;
+}
+
+.btm-nav-lg > *:where(.active) {
+  border-top-width: 4px;
 }
 
 .join.join-vertical {

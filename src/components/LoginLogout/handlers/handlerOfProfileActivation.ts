@@ -1,4 +1,6 @@
-import { includes } from "lodash";
+/**
+ * src\components\LoginLogout\handlers\handlerOfProfileActivation.ts
+ */
 import { CookieUser } from "@Services/cookieServices";
 import Encrypto from "@Services/encrypts";
 import { Loginout } from "src/interfaces";
@@ -53,7 +55,7 @@ async function receivingDataOfFirstLogin(key: string) {
   if ('true'.includes(result.toLowerCase())) {
     let cookie = (document.cookie).match(/user_session_\d+/) as Array<string> | null | string;
     // GET if user's number id from the key's name.
-    cookie = cookie ? (cookie as Array<string>).pop() as string : null;
+    cookie = cookie ? ((cookie as Array<string>).pop() as string).split("_").pop() as string : null;
     if (!result) {
       return false
     }

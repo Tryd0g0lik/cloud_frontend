@@ -1,12 +1,15 @@
 /***
- *
+ * src\components\RegistrationPage\handlers\handllerFields.ts
  */
-import { json } from "body-parser";
-import { includes } from "lodash"
 import { KeyboardEvent } from "react"
 
 
 // REACT_APP_SERVER_URL = (REACT_APP_SERVER_URL === undefined) ? "" : REACT_APP_SERVER_URL;
+/**
+ * Here is we creat a new user of web-site.
+ * @param e This is the Event (KeyboardEvent) of registration.
+ * @returns 'OK' or 'Not OK'
+ */
 const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
   const regexUsername = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;

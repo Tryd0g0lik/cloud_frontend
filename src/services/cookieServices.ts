@@ -1,6 +1,8 @@
 /**
  * src\services\cookieServise.ts
  * Here is the class of Cookie and methods of the set new sessionId and to get the sessionId
+ *
+ * `https://github.com/js-cookie/js-cookie/` module is an alternative for a code below.
  */
 
 interface CookieOptions {
@@ -50,11 +52,13 @@ export class CookieUser {
    *   secure?: boolean;
    * }
    * ```
-   * @param secureBool: Boolean. It has value the true  by default. 'secureBoll', \
-   * it is one from everyone properties of the cookie browser.
+   *
+   * @param secureBool: Boolean. It has value the true (by default). 'secureBoll', \
+   * it is one from everyone properties of the cookie browser. It is \
+   * the Cookie to only be transmitted over secure protocol as https.
    */
   setCookie(value: string | number,
-    options: CookieOptions = {}, secureBool = true): boolean {
+    options: CookieOptions = {}, secureBool = false): boolean {
 
     options = {
       path: "/",

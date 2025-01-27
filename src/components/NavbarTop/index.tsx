@@ -72,14 +72,15 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
-        if ('login'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
+        if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
           // handlerLogin(e)
           /* Change the text to button */
+
           dispatch(logout())
 
         }
-        if ('logout'.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
+        if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
           e.preventDefault()
           /* Change the text to button */
           dispatch(login())

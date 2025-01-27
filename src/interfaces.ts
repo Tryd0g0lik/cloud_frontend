@@ -2,7 +2,7 @@ export enum Pages {
   Home = "/"
 }
 
-export enum FetchMethods {
+export enum HttpMethods {
   POST = "POST",
   GET = "GET",
   PUT = "PUT",
@@ -16,12 +16,13 @@ export enum Loginout {
 }
 
 export interface FetchParams {
-  method: FetchMethods,
+  method: HttpMethods,
   body?: string,
   headers?: {
     "X-CSRFToken"?: string,
     "Content-Type": "application/json"
-  }
+  },
+  credentials?: "some-origin"
 }
 
 export interface CookiOptions {
