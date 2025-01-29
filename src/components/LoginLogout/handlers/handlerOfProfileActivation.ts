@@ -56,8 +56,8 @@ const handlerLogin = (e?: React.MouseEvent) => (key: string = "is_active") => {
           return false;
         }).catch(response => {
           console.error(response);
-        })
-        .then((result) => location.pathname = "/");
+        });
+      // .then((result) => location.pathname = "/");
     })();
   }
 
