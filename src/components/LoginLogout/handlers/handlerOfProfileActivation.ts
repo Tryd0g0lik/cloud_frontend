@@ -24,7 +24,7 @@ import { result } from "lodash";
 const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
   let data = "";
   if (e && (e.type) && (
-    ((e.type).toLowerCase() !== 'click') || ((e as React.KeyboardEvent).key !== 'Enter')
+    ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
   )) {
     return false
   } else if (
