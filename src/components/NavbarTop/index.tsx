@@ -99,9 +99,10 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
     //     is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
     //   ) : Loginout.LOGIN
     // );
+    (async () => await Promise.all([task0(), task1(), task3()]))();
     return () => {
 
-      (async () => await Promise.all([task0(), task1(), task3()]))();
+
 
     }
     // Note: Смотреть примечание ниже по странице.

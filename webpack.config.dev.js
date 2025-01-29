@@ -67,7 +67,7 @@ module.exports = {
     // new SpriteLoaderPlugin(), // svg
 
     new HtmlWebpackPlugin({
-      template: 'src/public/index.html',
+      template: 'src/public/index_dev.html',
       filename: "index.html"
     }),
     new webpack.SourceMapDevToolPlugin({
