@@ -3,23 +3,23 @@
  * Upper navigation from the level of the 'head' on page
  */
 import React, { JSX, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from 'src/services/redux/store';
-import { login, logout } from "src/services/redux/counterSlice";
+// import { useLocation } from 'react-router-dom';
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState } from 'src/services/redux/store';
+// import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
 import { CookieUser } from "@Services/cookieServices";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
-import { includes } from 'lodash';
+// import { includes } from 'lodash';
 // import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
 
 
 /* Get params of user for the PRIMARY ACTIVATION of the user 
  after the authentification/resitration of user. */
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search)
-}
+// const useQuery = () => {
+//   return new URLSearchParams(useLocation().search)
+// }
 
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
@@ -43,14 +43,14 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       ) : false;
 
       // status of a profile.
-      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
+      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN); 
     }, 0);
   })()));
   /*  ---- task3 ----
    * The right  upper button, if it has a 'Login' text, the function
    * below inserts the link to the page of the form.
    */
-  const task3 = () => new Promise(resolve => resolve((async () => {
+  const task3 = () => new Promise(resolve => resolve(
     setTimeout(() => {
       const ancorHtml = document.querySelectorAll(".navbar-end a");
       if (!ancorHtml) {
@@ -63,10 +63,9 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
         } else if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGOUT).toLowerCase())) {
           (item as HTMLAnchorElement).href = "";
         }
-      }, 700);
-    });
-
-  })()));
+      });
+    }, 700)
+  ));
   /*----- Redux ----- */
   // const curr = useSelector((state: RootState) => state.current.title);
   // const dispatch = useDispatch();
