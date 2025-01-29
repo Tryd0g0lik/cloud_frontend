@@ -19,16 +19,17 @@ interface CookieOptions {
  * @sessionId string. It is a key for cookie.
  */
 export class CookieUser {
-  private _sessionId: string
-  constructor(sessionId: string) {
-    this._sessionId = sessionId;
+  private _sessionId?: string
+  constructor() {
+    this._sessionId = undefined;
   }
 
   /**
-   * The new sessionId (the cookie's key) saving.
+   * The new sessionId (the cookie's key) saving in objects.
+   * The 'sessionId' it is 'set'/'get'
    */
   get sessionId(): string {
-    return this._sessionId
+    return this._sessionId as string
   }
 
   /**
@@ -105,7 +106,7 @@ export class CookieUser {
   }
 
   /***
-   * Get one the line of cookie.
+   * Get one a line of cookie by a key.
    */
   getOneCookie(key: undefined | string = undefined): string | null {
     // const keyBool = this.checkCoockie(key);
@@ -161,7 +162,7 @@ export class CookieUser {
 
 
 /**
- * Encode a key and value for the key before when be save in cookie
+ * Encode a key and value for the key, before when be save in cookie
  */
 export function encodeKeyValueOfCookie(key: string, value: string | number): string {
 
