@@ -1,4 +1,7 @@
 import { Loginout } from "src/interfaces";
+import { CookieUser } from "@Services/cookieServices";
+// import Encrypto from "@Services/encrypts";
+// import { result } from "lodash";
 
 /**
  * To the `DOM` add or remove the 'active' class (`div#root.active`).
@@ -62,11 +65,7 @@ export default async function cleaning() {
     item.remove();
   });
 }
-import { CookieUser } from "@Services/cookieServices";
-import Encrypto from "@Services/encrypts";
-import { result } from "lodash";
 
-let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
 
 // Fetch()
 /** ---- PATCH Method ----
@@ -74,6 +73,8 @@ let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
  * @returns
  */
 export async function fetches(prop: string) {
+
+  let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
   const cookie = new CookieUser();
   const indexOfCookie = cookie.getOneCookie("index");
   const url = `${REACT_APP_SERVER_URL}/api/v1/users/patch/${indexOfCookie}/`;

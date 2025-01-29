@@ -7,7 +7,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const ChunksWebpackPlugin = require('chunks-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 module.exports = {
   mode: 'none',
   entry:

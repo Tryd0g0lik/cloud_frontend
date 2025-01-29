@@ -11,6 +11,7 @@ import { NavbarEndFC } from "./NavbarEnd";
 import { CookieUser } from "@Services/cookieServices";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
+import { includes } from 'lodash';
 // import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
 
 
@@ -37,13 +38,13 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       const cookieUser = new CookieUser();
       let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
 
-      falseTrue = (falseTrue && typeof falseTrue === "string") ? (
-        (falseTrue as string).includes("false") ? false : true
+      falseTrue = (falseTrue && (typeof falseTrue).includes("boolean")) ? (
+        falseTrue ? false : true
       ) : false;
 
       // status of a profile.
       setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
-    }, 700);
+    }, 0);
   })()));
   /*  ---- task3 ----
    * The right  upper button, if it has a 'Login' text, the function
@@ -92,13 +93,13 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
 
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    const cookie = new CookieUser();
-    const is_active_cookie = cookie.getOneCookie('is_active');
-    setUseactive(
-      is_active_cookie ? (
-        is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
-      ) : Loginout.LOGIN
-    );
+    // const cookie = new CookieUser();
+    // const is_active_cookie = cookie.getOneCookie('is_active');
+    // setUseactive(
+    //   is_active_cookie ? (
+    //     is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
+    //   ) : Loginout.LOGIN
+    // );
     return () => {
 
       (async () => await Promise.all([task0(), task1(), task3()]))();
