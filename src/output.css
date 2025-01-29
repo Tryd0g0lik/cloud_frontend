@@ -2019,6 +2019,7 @@ body * {
   color: rgb(51 65 85 / var(--tw-text-opacity, 1));
   margin: 0 20%;
   float: right;
+  z-index: 2;
 }
 
 .link-neutral {
@@ -2060,7 +2061,14 @@ body * {
 }
 
 .alter {
+  max-width: 600px;
   color: #0b9fbf;
+  display: block;
+  margin: 0 auto;
+}
+
+.alter.error {
+  color: red;
 }
 
 @media screen and (min-width: 640px) {

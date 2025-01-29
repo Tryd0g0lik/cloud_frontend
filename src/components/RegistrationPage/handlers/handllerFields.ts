@@ -1,10 +1,9 @@
 /***
  * src\components\RegistrationPage\handlers\handllerFields.ts
  */
+import cleaning from "@Services/scripts";
 import { KeyboardEvent } from "react"
 
-
-// REACT_APP_SERVER_URL = (REACT_APP_SERVER_URL === undefined) ? "" : REACT_APP_SERVER_URL;
 /**
  * Here is we creat a new user of web-site.
  * @param e This is the Event (KeyboardEvent) of registration.
@@ -43,13 +42,6 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
       formHtml[i].parentElement.style.border = "1px solid red";
       return "Not Ok";
     }
-    // else if (formHtml[i].name.toLowerCase().includes("first_name") && (
-    //   !(formHtml[i].checkValidity()) || !(regexLogin.test(formHtml[i].value))
-    // )) {
-    //   formHtml[i].parentElement.style.border = "1px solid red";
-    //   return "Not Ok";
-    // }
-
     else if (formHtml[i].name.toLowerCase().includes("password") && !(formHtml[i].checkValidity())) {
       formHtml[i].parentElement.style.border = "1px solid red";
       return "Not Ok";
@@ -61,10 +53,6 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     }
     map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
   }
-  // const headers = new Headers({
-  //   "Set-Cookie": "name1=value1",
-  // })
-  // const requestBody = JSON.stringify({
   const requestBody = JSON.stringify({
     "username": map.get("username"),
     "first_name": null,
@@ -74,6 +62,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   }
   )
   try {
+    (async () => await Promise.all([cleaning()]))();
     const response = await fetch(`${REACT_APP_SERVER_URL}/api/v1/users/choice/`, {
       method: "POST",
       headers: {
@@ -90,13 +79,20 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     if (!response.ok) {
 
       // Если ответ не успешный (например, 4xx или 5xx)
-      return response.json().then(err => {
-        const message = ""
+      response.json().then(err => {
         if (typeof (err) === "object") {
+          let messageHtml = "<div class='alter error'>";
+          Array.from(Object.keys(err)).forEach((key) => {
+            messageHtml += `<storng>${key}:</storng> ${err[key]}. `;
 
-          throw new Error(JSON.stringify(err));
+          });
+          messageHtml += "</div>";
+
+          (formHtml.parentElement as HTMLFormElement).insertAdjacentHTML("afterend", messageHtml);
+          return messageHtml
         }
-        throw new Error(err.message || 'Ошибка');
+        (formHtml.parentElement as HTMLFormElement).insertAdjacentHTML("afterend",
+          `<div <div class='alter error'>${'Ошибка'}</div>`);
       });
     }
     // else {

@@ -1,12 +1,18 @@
 // import React from "react"
-// const handlerLogin = async (e: React.MouseEvent): Promise<boolean> => {
-//   if ((e.type) && (((e.type).toLowerCase() !== 'click') || (
-//     (e.target as HTMLElement).textContent?.toLowerCase() !== 'login'
-//   ))) {
-//     return false
+// const handlerLinkOfLogin = async (): Promise<boolean> => {
+// // if ((e.type) && (((e.type).toLowerCase() !== 'click') || (
+// //   (e.target as HTMLElement).textContent?.toLowerCase() !== 'login'
+// // ))) {
+// //   return false
+// // }
+
+//   const linkHtml = document.querySelector('.navbar-end a');
+//   if (!linkHtml) {
+//     return false;
 //   }
-//   // fetch()
+//   (linkHtml as HTMLAnchorElement).href = "/users/login/";
+
 
 //   return true
 // }
-// export default handlerLogin
+// export default handlerLinkOfLogin

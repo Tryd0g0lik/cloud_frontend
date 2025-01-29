@@ -11,7 +11,7 @@ import { NavbarEndFC } from "./NavbarEnd";
 import { CookieUser } from "@Services/cookieServices";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
-
+// import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
 
 
 /* Get params of user for the PRIMARY ACTIVATION of the user 
@@ -19,48 +19,89 @@ import { Loginout } from "src/interfaces";
 const useQuery = () => {
   return new URLSearchParams(useLocation().search)
 }
+
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
+  const task0 = () => new Promise(resolve => resolve((async () => {
+    setTimeout(() => {
+      const login = handlerLogin();
+      login("is_active");
+    }, 700);
+  })()));
+  /** ---- task1 ----
+   * The data of 'is_active' geting from the cookie and change  the text to the buttom.
+   * If, it is a true, means -> NAVIGATE by profile will be ACTIVATION
+   * */
+  const task1 = () => new Promise(resolve => resolve((async () => {
+    setTimeout(() => {
+      const cookieUser = new CookieUser();
+      let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
+
+      falseTrue = (falseTrue && typeof falseTrue === "string") ? (
+        (falseTrue as string).includes("false") ? false : true
+      ) : false;
+
+      // status of a profile.
+      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
+    }, 700);
+  })()));
+  /*  ---- task3 ----
+   * The right  upper button, if it has a 'Login' text, the function
+   * below inserts the link to the page of the form.
+   */
+  const task3 = () => new Promise(resolve => resolve((async () => {
+    setTimeout(() => {
+      const ancorHtml = document.querySelectorAll(".navbar-end a");
+      if (!ancorHtml) {
+        console.log('Button is invaid.');
+        return false
+      }
+      Array.from(ancorHtml).forEach((item) => {
+        if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGIN).toLowerCase())) {
+          (item as HTMLAnchorElement).href = "/users/login/";
+        } else if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGOUT).toLowerCase())) {
+          (item as HTMLAnchorElement).href = "";
+        }
+      }, 700);
+    });
+
+  })()));
   /*----- Redux ----- */
-  const curr = useSelector((state: RootState) => state.current.title);
-  const dispatch = useDispatch();
+  // const curr = useSelector((state: RootState) => state.current.title);
+  // const dispatch = useDispatch();
   /* ----- Location - Get params ACTIVATION of USER for SAVING in the COOKIE file. ----- */
-  const query = useQuery();
-  const queryArrayParams = Array.from(query.entries());
-  if (queryArrayParams.length === 3) {
-    /**
-     * This part of the code will be only one run.\ 
-     * It initially receiving data from registration a new user on the site.
-     */
-    const use_session_array = queryArrayParams[0];
-    const is_superuser_array = queryArrayParams[1];
-    const is_active_array = queryArrayParams[2];
-    // SAVE of user in COOKIE (this coockie does not have a live time)
-    const cookieUser = new CookieUser(use_session_array[0]);
-    cookieUser.setCookie(use_session_array[1]);
-    cookieUser.sessionId = is_superuser_array[0];
-    cookieUser.setCookie(is_superuser_array[1]);
-    cookieUser.sessionId = is_active_array[0];
-    cookieUser.setCookie(is_active_array[1]);
-  }
+  // const query = useQuery();
+  // const queryArrayParams = Array.from(query.entries());
+  // if (queryArrayParams.length === 3) {
+  /**
+   * This part of the code will be only one run.\ 
+   * It initially receiving data from registration a new user on the site.
+   */
+  // const use_session_array = queryArrayParams[0];
+  // const is_superuser_array = queryArrayParams[1];
+  // const is_active_array = queryArrayParams[2];
+  // SAVE of user in COOKIE (this coockie does not have a live time)
+  // const cookieUser = new CookieUser(use_session_array[0]);
+  // cookieUser.setCookie(use_session_array[1]);
+  // cookieUser.sessionId = is_superuser_array[0];
+  // cookieUser.setCookie(is_superuser_array[1]);
+  // cookieUser.sessionId = is_active_array[0];
+  // cookieUser.setCookie(is_active_array[1]);
+  // }
+
+
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
+    const cookie = new CookieUser();
+    const is_active_cookie = cookie.getOneCookie('is_active');
+    setUseactive(
+      is_active_cookie ? (
+        is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
+      ) : Loginout.LOGIN
+    );
     return () => {
-      const task0 = () => new Promise(resolve => resolve((async () => {
-        const login = handlerLogin();
-        login("is_active");
-      })()));
-      // NAVIGATE by profile will be ACTIVATION
-      const task1 = () => new Promise(resolve => resolve((async () => {
-        const cookieUser = new CookieUser("is_active");
-        let falseTrue: string | boolean | null = cookieUser.getOneCookie();
-        falseTrue = (falseTrue && typeof falseTrue === "string") ? (
-          (falseTrue as string).includes("false") ? false : true
-        ) : false;
-        // status of a profile.
-        setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
-      })()));
-      (async () => await Promise.race([task0(), task1()]))();
+
+      (async () => await Promise.all([task0(), task1(), task3()]))();
 
     }
     // Note: Смотреть примечание ниже по странице.
@@ -72,19 +113,28 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
-        if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
-          e.preventDefault()
-          // handlerLogin(e)
-          /* Change the text to button */
+        // if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
+        // e.preventDefault()
+        const login = handlerLogin(e);
+        login("is_active");
+        // (async () => await Promise.all([task1(), task3()]))();
+        /* Change the text to button
+          'If the button has the 'Logout' text, it means what
+          user is authorized.
+          Here is an exit from the profile.
+        */
+        // dispatch(logout())
 
-          dispatch(logout())
-
-        }
-        if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
-          e.preventDefault()
-          /* Change the text to button */
-          dispatch(login())
-        }
+        // }
+        // if (!useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
+        // e.preventDefault()
+        /* Change the text to button
+        'If the button has the 'Login' text, it means what
+          user is no authorized.
+          Here is an entrance to the profile.
+        */
+        // dispatch(login())
+        // }
 
       }} className="navbar bg-base-100">
         <div className="navbar-start w-20">
@@ -117,7 +167,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
               <li><a>Item 3</a></li>
             </ul>
             <div className="navbar-end w-20">
-              <a className="btn ">Профиль</a>
+              <a className="btn ">{useactive}</a>
             </div>
           </div>
 
@@ -159,7 +209,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
             <li><a>Item 3</a></li>
           </ul>
         </div>
-        <NavbarEndFC text={curr} />
+        <NavbarEndFC text={useactive} />
       </div>
 
       <section className="h1" >
