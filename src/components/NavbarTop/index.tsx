@@ -38,8 +38,8 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       const cookieUser = new CookieUser();
       let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
 
-      falseTrue = (falseTrue && (typeof falseTrue).includes("boolean")) ? (
-        falseTrue ? false : true
+      falseTrue = (falseTrue) ? (
+        (falseTrue.toLowerCase()).includes("false") ? false : true
       ) : false;
 
       // status of a profile.
@@ -116,8 +116,12 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       <div onClick={(e: React.MouseEvent) => {
         // if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
         // e.preventDefault()
+        if ((location.pathname).includes("/users/registration/") || (
+          (location.pathname).includes("/users/login/"))
+        ) {
         const login = handlerLogin(e);
         login("is_active");
+        }
         // (async () => await Promise.all([task1(), task3()]))();
         /* Change the text to button
           'If the button has the 'Logout' text, it means what

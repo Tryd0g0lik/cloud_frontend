@@ -24,16 +24,20 @@ export function changeDOM(active = false) {
  *The function changes the text from right upper button.
  * @param text 'Logout' or 'Login'
  */
-export async function buttonLoginLogout(text: Loginout = Loginout.LOGIN) {
+export async function buttonLoginLogout() {
   setTimeout(() => {
 
     const divArray = document.querySelectorAll(".navbar .navbar-end > div");
     if (divArray.length < 2) {
       return false;
     }
+    const cookie = new CookieUser();
+    const is_active_str = cookie.getOneCookie("is_active");
 
     divArray.forEach((view, ind) => {
-      if (text.toLowerCase().includes((Loginout.LOGIN).toLowerCase())) {
+      // if (text.toLowerCase().includes((Loginout.LOGIN).toLowerCase())) {
+      if (Boolean(is_active_str) &&
+        (is_active_str as string).toLowerCase().includes("true")) {
         if (ind === 0) {
           (view.firstElementChild as HTMLElement).innerText = "Logout";
           (view as HTMLAnchorElement).href = "";

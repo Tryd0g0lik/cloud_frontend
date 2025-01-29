@@ -21,8 +21,11 @@ import { result } from "lodash";
  * the function makes of changes.
  * @returns boolean.
  */
-const handlerLogin = (e?: React.MouseEvent) => (key: string = "is_active") => {
-  if (e && (e.type) && ((e.type).toLowerCase() !== 'click')) {
+const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
+  let data = "";
+  if (e && (e.type) && (
+    ((e.type).toLowerCase() !== 'click') || ((e as React.KeyboardEvent).key !== 'Enter')
+  )) {
     return false
   } else if (
     e && (e.target as HTMLElement).localName === 'a' &&
@@ -30,25 +33,44 @@ const handlerLogin = (e?: React.MouseEvent) => (key: string = "is_active") => {
   ) {
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
-    (async () => {
-      fetches(JSON.stringify({ is_active: true }))
-        .then(response => {
-          if (response.ok) {
-            return true;
-          }
-          return false;
-        }).catch(response => {
-          console.error(response);
-        });
-    })();
-    return true;
+    data = JSON.stringify({ is_active: true });
+    // (async () => {
+    //   fetches(JSON.stringify({ is_active: true }))
+    //     .then(response => {
+    //       if (response.ok) {
+    //         return true;
+    //       }
+    //       return false;
+    //     }).catch(response => {
+    //       console.error(response);
+    //     });
+    // })();
+    // return true;
   } else if (e && (e.target as HTMLElement).localName === 'a' &&
     ((e as React.MouseEvent).target as HTMLElement).textContent?.toLowerCase() === Loginout.LOGOUT.toLowerCase()
   ) {
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
+    data = JSON.stringify({ is_active: false });
+    // (async () => {
+    //   fetches(JSON.stringify({ is_active: false }))
+    //     .then(response => {
+    //       if (response.ok) {
+    //         return true;
+    //       }
+    //       return false;
+    //     }).catch(response => {
+    //       console.error(response);
+    //     })
+    //     .then((result) => location.pathname = "/");
+    // })();
+  }
+  else if (location.pathname.includes("users/login/")) {
+    data = JSON.stringify({ is_active: true });
+  }
+  if ((data).length > 3) {
     (async () => {
-      fetches(JSON.stringify({ is_active: false }))
+      fetches(data)
         .then(response => {
           if (response.ok) {
             return true;
@@ -59,8 +81,8 @@ const handlerLogin = (e?: React.MouseEvent) => (key: string = "is_active") => {
         })
         .then((result) => location.pathname = "/");
     })();
+    return true;
   }
-
 
   /**
    * Entry point receives the key by name the 'is_session'.\
@@ -79,9 +101,9 @@ const handlerLogin = (e?: React.MouseEvent) => (key: string = "is_active") => {
   }
   // const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
   const task1 = () => new Promise(resolve => resolve((async () => changeDOM("true".includes(key) ? true : false))()));
-  // const task2 = () => new Promise(resolve => { resolve(buttonLoginLogout(Loginout.LOGIN)) });
+  const task2 = () => new Promise(resolve => { resolve(buttonLoginLogout()) });
   (async () => {
-    await Promise.all([task1(),]); // task0(),  task2()
+    await Promise.all([task1(), task2()]); // task0(),
   })();
   return true;
 }
