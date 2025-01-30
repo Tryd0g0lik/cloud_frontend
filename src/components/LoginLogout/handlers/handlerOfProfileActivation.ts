@@ -28,24 +28,54 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
   )) {
     return false
-  } else if (
-    e && (e.target as HTMLElement).localName === 'a' &&
-    ((e as React.MouseEvent).target as HTMLElement)?.textContent?.toLowerCase() === Loginout.LOGIN.toLowerCase()
+  }
+  else if ((location.pathname.includes("/users/login/")) &&
+    (e && (e as React.KeyboardEvent).key === 'Enter')
   ) {
     (e as React.MouseEvent).preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexUsername = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;
     // Условие если был клик
-    data = JSON.stringify({ is_active: true });
-  } else if (e && (e.target as HTMLElement).localName === 'a' &&
+    const formHtml = (e.target as HTMLFormElement).form;
+    // .parentElement as HTMLLabelElement).parentElement as HTMLFormElement);
+
+    const map = new Map();
+    for (let i = 0; i < formHtml.length; i++) {
+      // Remove the color red from border of the label
+      if (formHtml[i].parentElement.style.border.length > 0) {
+        const lebalHtml = formHtml[i].parentElement;
+        lebalHtml.style.border = ""
+      };
+
+      if (formHtml[i].name.toLowerCase().includes("email") && (
+        !(formHtml[i].checkValidity()) || !(emailRegex.test(formHtml[i].value)
+        ))) {
+        formHtml[i].parentElement.style.border = "1px solid red";
+        return "Not Ok";
+      }
+      else if (formHtml[i].name.toLowerCase().includes("password") && !(formHtml[i].checkValidity())) {
+        formHtml[i].parentElement.style.border = "1px solid red";
+        return "Not Ok";
+      }
+      map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
+    }
+    data = JSON.stringify({
+      "email": map.get("email"),
+      "password": map.get("password"),
+      is_active: true,
+    });
+  }
+  else if (e && (e.target as HTMLElement).localName === 'a' &&
     ((e as React.MouseEvent).target as HTMLElement).textContent?.toLowerCase() === Loginout.LOGOUT.toLowerCase()
   ) {
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
     data = JSON.stringify({ is_active: false });
   }
-  else if (location.pathname.includes("users/login/")) {
-    (e as React.MouseEvent).preventDefault();
-    data = JSON.stringify({ is_active: true });
-  }
+  // else if (location.pathname.includes("users/login/")) {
+  //   (e as React.MouseEvent).preventDefault();
+  //   data = JSON.stringify({ is_active: true });
+  // }
   if ((data).length > 3) {
     const task0 = () => new Promise(resolve => resolve(fetches(data)
         .then(response => {
