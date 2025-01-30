@@ -102,7 +102,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
 
     return () => {
 
-      (async () => await Promise.all([task0(), task1(), task3()]))();
+      (async () => await Promise.all([task1(), task3()]))(); // task0(),,
 
     }
     // Note: Смотреть примечание ниже по странице.
