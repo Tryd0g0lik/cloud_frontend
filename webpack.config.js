@@ -86,7 +86,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new BundleTracker({
-      path: path.join(__dirname, '../backend/project/bundles'),
+      path: path.join(__dirname, '../backend/cloud_user/static/bundles'),
       filename: 'webpack-stats.json'
     }),
     /* Use tools like webpack-bundle-analyzer to visualize the size of your bundles and identify large dependencies*/
