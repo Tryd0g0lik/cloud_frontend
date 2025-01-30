@@ -1,11 +1,12 @@
+/***
+ * src\components\Routers\index.tsx
+ */
 import React from "react";
 // import { Provider } from "react-redux";
 // import { store } from "src/services/redux/store";
 import { Navigate, createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Pages } from "src/interfaces";
 import { RegistrationFormFC } from "src/components/RegistrationPage";
 import { LoginLogoutFC } from "src/components/LoginLogout";
-// import { NavFC } from "src/components/NavPages";
 import { NavbarTopFC } from "src/components/NavbarTop";
 
 const HeaderToMain = { maintitle: "Главная" };

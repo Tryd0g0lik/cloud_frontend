@@ -15,6 +15,11 @@ export enum Loginout {
   LOGIN = "Login"
 }
 
+export enum UserLevel {
+  ADMIN = "Admin",
+  USER = "User"
+}
+
 export interface FetchParams {
   method: HttpMethods,
   body?: string,

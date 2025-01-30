@@ -2,11 +2,11 @@
  * src\components\RegistrationPage\index.tsx
  * This page is containe the form of the user's registration.
  */
-import React, { FormEvent, JSX, useEffect } from "react";
+import React, { JSX, } from "react";
 import { NavbarTopFC } from "../NavbarTop";
 import sendFieldsOfRegistr from "./handlers/handllerFields";
 import { HeaderForPages } from "src/interfaces";
-// import
+
 export function RegistrationFormFC(props: HeaderForPages): JSX.Element {
   const maintitle = { maintitle: props.maintitle }
 

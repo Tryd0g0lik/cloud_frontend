@@ -37,12 +37,14 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     }
     else if (formHtml[i].name.toLowerCase().includes("username") && (!(
       formHtml[i].checkValidity()
-    ) || !(regexUsername.test(formHtml[i].value))
+    ) || !(regexUsername.test(formHtml[i].value)) || formHtml[i].value.length < 4 ||
+      formHtml[i].value.length > 20
     )) {
       formHtml[i].parentElement.style.border = "1px solid red";
       return "Not Ok";
     }
-    else if (formHtml[i].name.toLowerCase().includes("password") && !(formHtml[i].checkValidity())) {
+    else if (formHtml[i].name.toLowerCase().includes("password") &&
+      !(formHtml[i].checkValidity() || formHtml[i].value.length < 6)) {
       formHtml[i].parentElement.style.border = "1px solid red";
       return "Not Ok";
     }
@@ -95,12 +97,6 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
           `<div <div class='alter error'>${'Ошибка'}</div>`);
       });
     }
-    // else {
-    //   const errorData = await response.body;
-    //   return "Not Ok"
-    // }
-    // const resultJson = await response;
-    // return "Ok"
   } catch (e: unknown | any) {
     console.error(e.message)
   } finally {

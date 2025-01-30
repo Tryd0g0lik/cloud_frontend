@@ -3,22 +3,23 @@
  * Upper navigation from the level of the 'head' on page
  */
 import React, { JSX, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from 'src/services/redux/store';
-import { login, logout } from "src/services/redux/counterSlice";
+// import { useLocation } from 'react-router-dom';
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState } from 'src/services/redux/store';
+// import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
 import { CookieUser } from "@Services/cookieServices";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
+// import { includes } from 'lodash';
 // import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
 
 
 /* Get params of user for the PRIMARY ACTIVATION of the user 
  after the authentification/resitration of user. */
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search)
-}
+// const useQuery = () => {
+//   return new URLSearchParams(useLocation().search)
+// }
 
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
@@ -26,7 +27,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
     setTimeout(() => {
       const login = handlerLogin();
       login("is_active");
-    }, 700);
+    }, 200);
   })()));
   /** ---- task1 ----
    * The data of 'is_active' geting from the cookie and change  the text to the buttom.
@@ -37,19 +38,19 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       const cookieUser = new CookieUser();
       let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
 
-      falseTrue = (falseTrue && typeof falseTrue === "string") ? (
-        (falseTrue as string).includes("false") ? false : true
+      falseTrue = (falseTrue) ? (
+        (falseTrue.toLowerCase()).includes("false") ? false : true
       ) : false;
 
       // status of a profile.
-      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
-    }, 700);
+      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN); 
+    }, 0);
   })()));
   /*  ---- task3 ----
    * The right  upper button, if it has a 'Login' text, the function
    * below inserts the link to the page of the form.
    */
-  const task3 = () => new Promise(resolve => resolve((async () => {
+  const task3 = () => new Promise(resolve => resolve(
     setTimeout(() => {
       const ancorHtml = document.querySelectorAll(".navbar-end a");
       if (!ancorHtml) {
@@ -62,10 +63,9 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
         } else if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGOUT).toLowerCase())) {
           (item as HTMLAnchorElement).href = "";
         }
-      }, 700);
-    });
-
-  })()));
+      });
+    }, 500)
+  ));
   /*----- Redux ----- */
   // const curr = useSelector((state: RootState) => state.current.title);
   // const dispatch = useDispatch();
@@ -92,50 +92,27 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
 
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    const cookie = new CookieUser();
-    const is_active_cookie = cookie.getOneCookie('is_active');
-    setUseactive(
-      is_active_cookie ? (
-        is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
-      ) : Loginout.LOGIN
-    );
+    // const cookie = new CookieUser();
+    // const is_active_cookie = cookie.getOneCookie('is_active');
+    // setUseactive(
+    //   is_active_cookie ? (
+    //     is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
+    //   ) : Loginout.LOGIN
+    // );
+
     return () => {
 
-      (async () => await Promise.all([task0(), task1(), task3()]))();
+      (async () => await Promise.all([task0(), task1(), task3()]))(); // 
 
     }
     // Note: Смотреть примечание ниже по странице.
   }, [])
 
-
-
-
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
-        // if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
-        // e.preventDefault()
         const login = handlerLogin(e);
         login("is_active");
-        // (async () => await Promise.all([task1(), task3()]))();
-        /* Change the text to button
-          'If the button has the 'Logout' text, it means what
-          user is authorized.
-          Here is an exit from the profile.
-        */
-        // dispatch(logout())
-
-        // }
-        // if (!useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
-        // e.preventDefault()
-        /* Change the text to button
-        'If the button has the 'Login' text, it means what
-          user is no authorized.
-          Here is an entrance to the profile.
-        */
-        // dispatch(login())
-        // }
-
       }} className="navbar bg-base-100">
         <div className="navbar-start w-20">
           <div className="dropdown">
@@ -164,7 +141,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </li>
-              <li><a>Item 3</a></li>
+              <li><a>Профиль</a></li>
             </ul>
             <div className="navbar-end w-20">
               <a className="btn ">{useactive}</a>
@@ -206,7 +183,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                 </ul>
               </details>
             </li>} 
-            <li><a>Item 3</a></li>
+            <li><a>Профиль</a></li>
           </ul>
         </div>
         <NavbarEndFC text={useactive} />

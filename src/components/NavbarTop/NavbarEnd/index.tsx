@@ -7,18 +7,6 @@ interface ButtonEndTitle {
   text?: "Login" | "Logout"
 }
 
-// const classTitleState = (prop: string) => {
-//   const [classtitle, setClasstitle] = useState<string>(prop);
-//   // useEffect(() => {
-//   if (prop.toLowerCase().includes("logout")) {
-//     setClasstitle("remove")
-//   } else {
-//     setClasstitle("")
-//   }
-//   // }, [])
-//   return classtitle
-// }
-
 /**
  * Change a text from the 'a.btn' and  'div.registration' for display or removed
  * @param 'props.text': this is 'HTMLELement.text' for the '.btnend a' of 'a.btn'

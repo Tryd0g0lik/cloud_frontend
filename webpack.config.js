@@ -6,10 +6,11 @@ const BundleTracker = require('webpack-bundle-tracker');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const ChunksWebpackPlugin = require('chunks-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
-  mode: 'none',
+
+  // entry: './src/index.ts',
   entry:
   {
     index: {
@@ -24,22 +25,31 @@ module.exports = {
     shared: 'lodash',
     // another: './src/another-module.js',
   },
-
-
+  cache: false, // the cache is close
+  mode: 'none',
   output: {
+    // path: path.resolve(__dirname, 'dist'),
     path: path.resolve(__dirname, '../backend/cloud_user/static'),
-    filename: 'scripts/main-[id]-[fullhash].js',
+    filename: '../static/scripts/main-[id]-[fullhash].js',
     publicPath: '/',
+    // publicPath: 'auto',
     clean: true,
+
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // },
   // https://webpack.js.org/guides/code-splitting/#entry-dependencies
   optimization: {
     runtimeChunk: 'single',
+    // minimize: false,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          format: {
+            comments: false, // Удалите все комментарии
+          },
+        },
+        extractComments: false, // Не сохранять комментарии в отдельный файл
+      }),
+    ],
   },
   performance: {
     maxAssetSize: 800000, // Set max asset size to 300 KiB
@@ -85,22 +95,22 @@ module.exports = {
 
   plugins: [
     new Dotenv(),
+    new CleanWebpackPlugin(), // the 'dist/' is cleans
     new BundleTracker({
-      path: path.join(__dirname, 'src/bundles'),
+      path: path.join(__dirname, '../backend/cloud_user/static/bundles'),
       filename: 'webpack-stats.json'
     }),
-    /* Use tools like webpack-bundle-analyzer to visualize the size of your bundles and identify large dependencies*/
-    // new BundleAnalyzerPlugin(),
 
+    // new SpriteLoaderPlugin(), // svg
 
     new HtmlWebpackPlugin({
-      template: 'src/public/index.html',
+      template: 'src/public/index_dev.html',
       filename: "../../templates/users/index.html"
     }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
-      filename: './dist/maps/[file].map.[query]',
-      include: path.resolve(__dirname, 'src/'),
+      filename: '[file].map.[query]',
+      include: path.resolve(__dirname, '../backend/cloud_user/static/bundles/maps'),
     }),
 
     new ESLintPlugin({
@@ -109,7 +119,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'styles/style.css'
+      filename: '../static/styles/output.css'
     }),
   ],
   watchOptions: {
@@ -118,6 +128,29 @@ module.exports = {
       "**/node_modules"
     ]
   },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'src'), // '../static'
+
+    },
+
+
+    watchFiles: [
+      // 'dist',
+      'src',
+      // '../backend/cloud_user/static'
+
+    ],
+    hot: true, // Включение горячей перезагрузки
+    liveReload: true, // Включение live-reload
+
+    compress: true,
+    historyApiFallback: true,
+    host: "127.0.0.1"
+    // open: true, // Автоматическое открытие браузера
+    // port: 8080
+  },
+
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
     plugins: [new TsconfigPathsPlugin(),],
