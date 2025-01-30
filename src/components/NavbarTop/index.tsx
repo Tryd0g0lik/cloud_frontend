@@ -141,7 +141,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </li>
-              <li><a>Item 3</a></li>
+              <li><a>Профиль</a></li>
             </ul>
             <div className="navbar-end w-20">
               <a className="btn ">{useactive}</a>
@@ -183,7 +183,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                 </ul>
               </details>
             </li>} 
-            <li><a>Item 3</a></li>
+            <li><a>Профиль</a></li>
           </ul>
         </div>
         <NavbarEndFC text={useactive} />
