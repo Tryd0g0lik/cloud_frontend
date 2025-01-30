@@ -1,4 +1,6 @@
-// import React { JsxEmit, useEffect, useState } from "react";
+/**
+ * src\components\HomePage\index.tsx
+ */
 import React from "react"
 
 export function HomePageFC(): React.JSX.Element {

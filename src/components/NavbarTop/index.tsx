@@ -108,39 +108,11 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
     // Note: Смотреть примечание ниже по странице.
   }, [])
 
-
-
-
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
-        // if (useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
-        // e.preventDefault()
-        // if ((location.pathname).includes("/users/registration/") || (
-        //   (location.pathname).includes("/users/login/"))
-        // ) {
         const login = handlerLogin(e);
         login("is_active");
-        // }
-        // (async () => await Promise.all([task1(), task3()]))();
-        /* Change the text to button
-          'If the button has the 'Logout' text, it means what
-          user is authorized.
-          Here is an exit from the profile.
-        */
-        // dispatch(logout())
-
-        // }
-        // if (!useactive.toLowerCase().includes(((e.target as HTMLElement).textContent as string).toLowerCase())) {
-        // e.preventDefault()
-        /* Change the text to button
-        'If the button has the 'Login' text, it means what
-          user is no authorized.
-          Here is an entrance to the profile.
-        */
-        // dispatch(login())
-        // }
-
       }} className="navbar bg-base-100">
         <div className="navbar-start w-20">
           <div className="dropdown">
