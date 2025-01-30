@@ -23,6 +23,7 @@ import { result } from "lodash";
  */
 const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
   let data = "";
+  // LOGIN & LOGOUT button (right top dashboard)
   if (e && (e.type) && (
     ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
   )) {
@@ -34,43 +35,19 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
     data = JSON.stringify({ is_active: true });
-    // (async () => {
-    //   fetches(JSON.stringify({ is_active: true }))
-    //     .then(response => {
-    //       if (response.ok) {
-    //         return true;
-    //       }
-    //       return false;
-    //     }).catch(response => {
-    //       console.error(response);
-    //     });
-    // })();
-    // return true;
   } else if (e && (e.target as HTMLElement).localName === 'a' &&
     ((e as React.MouseEvent).target as HTMLElement).textContent?.toLowerCase() === Loginout.LOGOUT.toLowerCase()
   ) {
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
     data = JSON.stringify({ is_active: false });
-    // (async () => {
-    //   fetches(JSON.stringify({ is_active: false }))
-    //     .then(response => {
-    //       if (response.ok) {
-    //         return true;
-    //       }
-    //       return false;
-    //     }).catch(response => {
-    //       console.error(response);
-    //     })
-    //     .then((result) => location.pathname = "/");
-    // })();
   }
   else if (location.pathname.includes("users/login/")) {
+    (e as React.MouseEvent).preventDefault();
     data = JSON.stringify({ is_active: true });
   }
   if ((data).length > 3) {
-    (async () => {
-      fetches(data)
+    const task0 = () => new Promise(resolve => resolve(fetches(data)
         .then(response => {
           if (response.ok) {
             return true;
@@ -79,8 +56,9 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         }).catch(response => {
           console.error(response);
         })
-        .then((result) => location.pathname = "/");
-    })();
+      .then((result) => location.pathname = "/")
+    ));
+    (async () => await Promise.all([task0()]))();
     return true;
   }
 
