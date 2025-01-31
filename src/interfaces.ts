@@ -1,3 +1,4 @@
+// COMMON
 export enum Pages {
   Home = "/"
 }
@@ -17,7 +18,7 @@ export enum Loginout {
 
 export enum UserLevel {
   ADMIN = "Admin",
-  USER = "Passanger"
+  PASSANGER = "Passanger"
 }
 
 export interface FetchParams {
@@ -29,7 +30,7 @@ export interface FetchParams {
   },
   credentials?: "some-origin"
 }
-
+// COOKIE
 export interface CookiOptions {
   expires?: Date | string,
   path?: string,
@@ -42,3 +43,24 @@ export interface CookiOptions {
 export interface HeaderForPages {
   maintitle: string
 }
+
+// PROFILE
+export interface Usermeta {
+  username: string,
+  firstname?: string,
+  lastname?: string,
+  email?: string,
+  userlevel?: UserLevel.PASSANGER | UserLevel.ADMIN,
+  password: boolean,
+  is_staff?: boolean,
+  is_active?: boolean,
+  is_superuser?: boolean,
+  "date_joined"?: string,
+  "last_login"?: string,
+  "first_name"?: string,
+  "last_name"?: string,
+
+}
+// interface Profile {
+//   usermeta: Usermeta,
+// }

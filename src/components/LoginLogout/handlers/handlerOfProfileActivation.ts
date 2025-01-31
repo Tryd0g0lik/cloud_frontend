@@ -4,7 +4,9 @@
 import { CookieUser } from "@Services/cookieServices";
 import { errorFormAuthentification as error } from "@Services/scripts";
 import { Loginout } from "src/interfaces";
-import { changeDOM, buttonLoginLogout, fetches } from "@Services/scripts";
+import { changeDOM, buttonLoginLogout, } from "@Services/scripts";
+import { fetches } from "@Services/request/loginout";
+
 /**
  * This function has two  entry-points.\
  *

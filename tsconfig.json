@@ -6,7 +6,7 @@
     "module": "ES6",
     "target": "ES2022",
     // "rootDirs": [
-    //   "./src/frontend/src"
+    //   "./src"
     // ],
 
     "allowSyntheticDefaultImports": true,
@@ -50,6 +50,6 @@
     "*/**/*.json"
   ],
   "include": [
-    "src/*",
+    "src",
   ]
 }

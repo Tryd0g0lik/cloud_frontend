@@ -3,7 +3,7 @@
  */
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { fetches } from "@Services/scripts";
+import { fetches } from "@Services/request/loginout";
 import { HttpMethods, Loginout } from "src/interfaces";
 export interface TitleState {
   title: "Login" | "Logout"

@@ -8,10 +8,22 @@ import { Navigate, createBrowserRouter, RouterProvider } from "react-router-dom"
 import { RegistrationFormFC } from "src/components/RegistrationPage";
 import { LoginLogoutFC } from "src/components/LoginLogout";
 import { NavbarTopFC } from "src/components/NavbarTop";
+import { ProfileFC } from "src/components/Profile";
 
+
+import { Usermeta, UserLevel } from "@Interfaces";
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
 const HeaderLoginLogout = { maintitle: "Авторизация" };
+
+const userMeta: Usermeta = {
+  username: "NULL",
+  firstname: "NULL",
+  lastname: "NULL",
+  email: "NULL",
+  userlevel: UserLevel.PASSANGER,
+  password: false,
+}
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +36,10 @@ const Router = createBrowserRouter([
   {
     path: "users/login/",
     element: <LoginLogoutFC {...HeaderLoginLogout} />
+  },
+  {
+    path: "profile/",
+    element: <ProfileFC />
   }
 
 ],

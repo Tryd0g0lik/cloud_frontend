@@ -15,7 +15,7 @@ import { Loginout } from "src/interfaces";
 // import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
 
 
-/* Get params of user for the PRIMARY ACTIVATION of the user 
+/* Get params of user for the PRIMARY ACTIVATION of the user
  after the authentification/resitration of user. */
 // const useQuery = () => {
 //   return new URLSearchParams(useLocation().search)
@@ -43,7 +43,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       ) : false;
 
       // status of a profile.
-      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN); 
+      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
     }, 0);
   })()));
   /*  ---- task3 ----
@@ -74,7 +74,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   // const queryArrayParams = Array.from(query.entries());
   // if (queryArrayParams.length === 3) {
   /**
-   * This part of the code will be only one run.\ 
+   * This part of the code will be only one run.\
    * It initially receiving data from registration a new user on the site.
    */
   // const use_session_array = queryArrayParams[0];
@@ -102,7 +102,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
 
     return () => {
 
-      (async () => await Promise.all([task0(), task1(), task3()]))(); // 
+      (async () => await Promise.all([task0(), task1(), task3()]))(); //
 
     }
     // Note: Смотреть примечание ниже по странице.
@@ -143,7 +143,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   </ul>
                 </details>
               </li>}
-              {useactive.includes("Logout") && <li><a>Профиль</a></li>}
+              {useactive.includes("Logout") && <li><a href="/profile/">Профиль</a></li>}
             </ul>
             <div className="navbar-end w-20">
               <a className="btn ">{useactive}</a>
@@ -156,25 +156,25 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           <ul className="menu menu-horizontal px-1">
             <li><a href="/">Главная</a></li>
             {/*
-              * 'useactive' если имеет значение "Logout" значит пользователь активирован на 
+              * 'useactive' если имеет значение "Logout" значит пользователь активирован на
               * сайте и ему доступно меню проыиля.
               * Если имеет значение "Login" значит пользователь НЕ активирован на сайте.
-              * 
+              *
               * "Logout" - Даный текст можно видеть в правой верхней кнопке. В активном режиме
               * мы должны иметь кнопку для выхода из профиля.
-              * 
+              *
               * "Login" - Текст можно видеть в правой верхней кнопке. В НЕ активном режиме
               * мы должны иметь кнопку для входа в профиль.
-              * 
-              * 
+              *
+              *
               * Почему "Logout" и "Login" ?
               * Изначально текст создавался для изменеия текста в кнопке (верхнее меню).
               * При активации пользователя, в куки получаем данне 'is_active="True/False"'.
-              * 
+              *
               * Для решения - дать доступ к меню или НЕ дать ориентируемся конечно на'is_active'.
-              * "Logout" и "Login" ипользуется , так как был уже создан и новые переменные в коде 
-              * НЕ возстребованы. 
-              * 
+              * "Logout" и "Login" ипользуется , так как был уже создан и новые переменные в коде
+              * НЕ возстребованы.
+              *
             */}
             {useactive.includes("Logout") && <li>
               <details>
@@ -184,8 +184,8 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </details>
-            </li>} 
-            {useactive.includes("Logout") && <li><a>Профиль</a></li>}
+            </li>}
+            {useactive.includes("Logout") && <li><a href="/profile/">Профиль</a></li>}
           </ul>
         </div>
         <NavbarEndFC text={useactive} />
