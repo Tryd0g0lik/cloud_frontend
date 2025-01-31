@@ -1,7 +1,7 @@
 /***
  * src\components\RegistrationPage\handlers\handllerFields.ts
  */
-import cleaning from "@Services/scripts";
+import cleaning, { errorFormAuthentification } from "@Services/scripts";
 import { KeyboardEvent } from "react"
 
 /**
@@ -29,10 +29,13 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
       lebalHtml.style.border = ""
     };
 
+
     if (formHtml[i].name.toLowerCase().includes("email") && (
       !(formHtml[i].checkValidity()) || !(emailRegex.test(formHtml[i].value)
       ))) {
       formHtml[i].parentElement.style.border = "1px solid red";
+      formHtml[i].setCustomValidity(errorFormAuthentification["email"]["valueMissing"]);
+      formHtml[i].reportValidity();
       return "Not Ok";
     }
     else if (formHtml[i].name.toLowerCase().includes("username") && (!(
@@ -41,16 +44,20 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
       formHtml[i].value.length > 20
     )) {
       formHtml[i].parentElement.style.border = "1px solid red";
+      formHtml[i].setCustomValidity(errorFormAuthentification["username"]["valueMissing"]);
+      formHtml[i].reportValidity();
       return "Not Ok";
     }
     else if (formHtml[i].name.toLowerCase().includes("password") &&
       !(formHtml[i].checkValidity() || formHtml[i].value.length < 6)) {
       formHtml[i].parentElement.style.border = "1px solid red";
+      formHtml[i].setCustomValidity(errorFormAuthentification["password"]["valueMissing"]);
       return "Not Ok";
     }
     else if (formHtml[i].name.toLowerCase().includes("password2") && !(formHtml[i].checkValidity()) && !(
       (formHtml[i - 1].value) === formHtml[i].value)) {
       formHtml[i].parentElement.style.border = "1px solid red";
+      formHtml[i].setCustomValidity(errorFormAuthentification["password"]["valueMissing"]);
       return "Not Ok";
     }
     map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)

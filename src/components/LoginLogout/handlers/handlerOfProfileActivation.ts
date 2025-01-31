@@ -2,6 +2,7 @@
  * src\components\LoginLogout\handlers\handlerOfProfileActivation.ts
  */
 import { CookieUser } from "@Services/cookieServices";
+import { errorFormAuthentification as error } from "@Services/scripts";
 import { Loginout } from "src/interfaces";
 import { changeDOM, buttonLoginLogout, fetches } from "@Services/scripts";
 /**
@@ -47,10 +48,13 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         !(formHtml[i].checkValidity()) || !(emailRegex.test(formHtml[i].value)
         ))) {
         formHtml[i].parentElement.style.border = "1px solid red";
+        formHtml[i].setCustomValidity(error["email"]["valueMissing"]);
+        formHtml[i].reportValidity();
         return "Not Ok";
       }
       else if (formHtml[i].name.toLowerCase().includes("password") && !(formHtml[i].checkValidity())) {
         formHtml[i].parentElement.style.border = "1px solid red";
+        formHtml[i].setCustomValidity(error["password"]["valueMissing"]);
         return "Not Ok";
       }
       map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)

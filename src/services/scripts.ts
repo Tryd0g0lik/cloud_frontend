@@ -1,4 +1,4 @@
-import { Loginout } from "src/interfaces";
+// import { Loginout } from "src/interfaces";
 import { CookieUser } from "@Services/cookieServices";
 // import Encrypto from "@Services/encrypts";
 // import { result } from "lodash";
@@ -102,4 +102,18 @@ export async function fetches(prop: string) {
       body: prop //
     })
   return response
+}
+
+export const errorFormAuthentification = {
+  email: {
+    valueMissing: "Проверьте указанный вами - email.",
+    typeMissing: "Данные не соответствуют шаблонному типу данных.",
+  },
+  username: {
+    valueMissing: "Проверьте символы в имени.",
+    typeMissing: "Не тот тип данных",
+  },
+  password: {
+    valueMissing: "Проверьте количество сиволов или наличие пробелов. Min. 6. "
+  }
 }
