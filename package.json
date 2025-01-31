@@ -2,6 +2,7 @@
   "name": "cloud_user",
   "author": "Workaholic",
   "type": "commonjs",
+  "packageManager": "yarn@1.22.19",
   "license": "ISC",
   "version": "0.1.0",
   "description": "REadme.md",
@@ -25,7 +26,7 @@
   },
   "engines": {
     "node": ">=18.19.1",
-    "yarn": ">=1.22.22"
+    "yarn": ">=1.22.19"
   },
   "scripts": {
     "lint": "eslint . --ext jsx,ts,tsx",

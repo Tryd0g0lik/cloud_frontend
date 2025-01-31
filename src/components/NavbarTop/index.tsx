@@ -134,14 +134,16 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <li><a href=''>Главная</a></li>
-              <li>
-                <a>Облако</a>
-                <ul className="p-2">
-                  <li><a className='px-1'>Мои файлы</a></li>
-                  <li><a className='px-1'>Submenu 2</a></li>
-                </ul>
-              </li>
-              <li><a>Профиль</a></li>
+              {useactive.includes("Logout") && <li>
+                <details>
+                  <summary>Облако</summary>
+                  <ul className="p-2">
+                    <li><a className='px-1'>Мои файлы</a></li>
+                    <li><a className='px-1'>Submenu 2</a></li>
+                  </ul>
+                </details>
+              </li>}
+              {useactive.includes("Logout") && <li><a>Профиль</a></li>}
             </ul>
             <div className="navbar-end w-20">
               <a className="btn ">{useactive}</a>
@@ -183,7 +185,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                 </ul>
               </details>
             </li>} 
-            <li><a>Профиль</a></li>
+            {useactive.includes("Logout") && <li><a>Профиль</a></li>}
           </ul>
         </div>
         <NavbarEndFC text={useactive} />

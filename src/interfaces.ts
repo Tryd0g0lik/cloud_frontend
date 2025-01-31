@@ -17,7 +17,7 @@ export enum Loginout {
 
 export enum UserLevel {
   ADMIN = "Admin",
-  USER = "User"
+  USER = "Passanger"
 }
 
 export interface FetchParams {

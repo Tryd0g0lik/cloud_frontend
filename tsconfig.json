@@ -31,7 +31,10 @@
     "baseUrl": ".",
     "paths": {
       "@Services/*": [
-        "src/services/*"
+        "src/services/*",
+      ],
+      "@Interfaces": [
+        "src/interfaces.ts",
       ],
       // "@Logs": [
       //   "src/backend/src/server/logs/index.ts",

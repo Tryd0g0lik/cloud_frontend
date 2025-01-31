@@ -78,7 +78,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
           if (response.ok) {
             return true;
           }
-          return false;
+          return new Error("[handlerLogin] Response is not OK");
         }).catch(response => {
           console.error(response);
         })

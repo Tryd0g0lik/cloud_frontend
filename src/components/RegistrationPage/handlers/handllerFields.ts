@@ -3,7 +3,7 @@
  */
 import cleaning, { errorFormAuthentification } from "@Services/scripts";
 import { KeyboardEvent } from "react"
-
+import { UserLevel } from "@Interfaces";
 /**
  * Here is we creat a new user of web-site.
  * @param e This is the Event (KeyboardEvent) of registration.
