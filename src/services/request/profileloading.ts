@@ -1,5 +1,5 @@
 import { CookieUser } from "@Services/cookieServices";
-import { Usermeta } from "@Interfaces";
+import { Usermeta, UserAPI } from "@Interfaces";
 
 /**
  * By requesе with method the 'GET' and API '{{baseUrl}}/api/v1/users/choice/{pk}/' seтding the reques to the server.* \
@@ -14,7 +14,7 @@ export async function profileLoader(): Promise<Usermeta | {}> {
   if (!index) {
     throw new Error("[clientLoadder]: Mistake => THe index from the cookie can't found")
   }
-  const url = new URL(`/api/v1/users/choice/${index}/`, `${REACT_APP_SERVER_URL}`,)
+  const url = new URL(`${UserAPI.CHOICE}${index}/`, `${REACT_APP_SERVER_URL}`,)
   const response = await fetch(url)
   if (!response.ok) {
     return {};

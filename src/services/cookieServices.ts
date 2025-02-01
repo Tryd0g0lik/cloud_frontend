@@ -67,19 +67,19 @@ export class CookieUser {
       ...options
     };
     try {
-    // GET KEY
-    const key = this.sessionId.slice();
-    // ENCODE
-    let updateCookie = encodeKeyValueOfCookie(key, value);
+      // GET KEY
+      const key = this.sessionId.slice();
+      // ENCODE
+      let updateCookie = encodeKeyValueOfCookie(key, value);
 
-    // get PARAMS for document.cookie
+      // get PARAMS for document.cookie
       for (let optionsKey in options) {
         updateCookie += `; ${optionsKey}`;
         // if (Object.hasOwn(options, optionsKey)) {
         updateCookie += `=${options[optionsKey as keyof CookieOptions]}`
       // }
       }
-    document.cookie = updateCookie;
+      document.cookie = updateCookie;
       return true;
     } catch (e: unknown | object | string) {
       throw new Error(e as string)

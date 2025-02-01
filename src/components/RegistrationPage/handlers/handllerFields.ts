@@ -3,7 +3,7 @@
  */
 import cleaning, { errorFormAuthentification } from "@Services/scripts";
 import { KeyboardEvent } from "react"
-import { UserLevel } from "@Interfaces";
+import { UserLevel, UserAPI } from "@Interfaces";
 /**
  * Here is we creat a new user of web-site.
  * @param e This is the Event (KeyboardEvent) of registration.
@@ -72,7 +72,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   )
   try {
     (async () => await Promise.all([cleaning()]))();
-    const response = await fetch(`${REACT_APP_SERVER_URL}/api/v1/users/choice/`, {
+    const response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.CHOICE}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

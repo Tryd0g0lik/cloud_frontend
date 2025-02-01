@@ -21,6 +21,13 @@ export enum UserLevel {
   PASSANGER = "Passanger"
 }
 
+
+export enum UserAPI {
+  BASIS = "/api/v1/users/",
+  CHOICE = "/api/v1/users/choice/",
+  PATCH = "/api/v1/users/patch/"
+}
+
 export interface FetchParams {
   method: HttpMethods,
   body?: string,

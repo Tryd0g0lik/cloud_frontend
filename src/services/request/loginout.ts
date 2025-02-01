@@ -2,6 +2,7 @@
 // Fetch()
 
 import { CookieUser } from "@Services/cookieServices";
+import { UserAPI } from "@Interfaces";
 
 /** ---- PATCH Method ----
 
@@ -12,9 +13,9 @@ export async function fetches(prop: string) {
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
   const cookie = new CookieUser();
   const indexOfCookie = cookie.getOneCookie("index");
-  const url = `${REACT_APP_SERVER_URL}/api/v1/users/patch/${indexOfCookie}/`;
+  const url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
   // first is the 'GET' method for get a 'csrftoken'
-  let response = await fetch(`${REACT_APP_SERVER_URL}/api/v1/users/`)
+  let response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
   if (!response.ok) {
     return response;
   }
