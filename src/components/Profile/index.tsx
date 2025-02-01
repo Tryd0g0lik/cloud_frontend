@@ -11,7 +11,7 @@ export function ProfileFC(): JSX.Element {
 
   (async () => {
     const response: Usermeta | {} = await profileLoader();
-    if ((typeof response).includes("boolean")) {
+    if (typeof response === "boolean") {
       console.log("[ProfileFC]: 'Profile\index.tsx' Mistake => Somefing What wrang not true ")
       return false;
     }
