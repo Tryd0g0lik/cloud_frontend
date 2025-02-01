@@ -16,14 +16,14 @@ const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
 const HeaderLoginLogout = { maintitle: "Авторизация" };
 
-const userMeta: Usermeta = {
-  username: "NULL",
-  firstname: "NULL",
-  lastname: "NULL",
-  email: "NULL",
-  userlevel: UserLevel.PASSANGER,
-  password: false,
-}
+// const userMeta: Usermeta = {
+//   username: "NULL",
+//   firstname: "NULL",
+//   lastname: "NULL",
+//   email: "NULL",
+//   userlevel: UserLevel.PASSANGER,
+//   password: false,
+// }
 const Router = createBrowserRouter([
   {
     path: "/",

@@ -17,10 +17,10 @@ export function ProfileFC(): JSX.Element {
     }
 
     setProfile({
-      "username": (response as Usermeta)["username"] ? (response as Usermeta)["username"] : "",
-      "firstname": (response as Usermeta)['first_name'] ? (response as Usermeta)["first_name"] : undefined,
-      "lastname": (response as Usermeta)["last_name"] ? (response as Usermeta)["last_name"] : undefined,
-      "email": (response as Usermeta)["email"] ? (response as Usermeta)["email"] : undefined,
+      "username": (response as Usermeta)["username"] || "",
+      "firstname": (response as Usermeta)['first_name'] || undefined,
+      "lastname": (response as Usermeta)["last_name"] || undefined,
+      "email": (response as Usermeta)["email"] || undefined,
       "userlevel": (response as Usermeta)["is_superuser"] ? (
         (response as Usermeta)["is_superuser"] ?
           UserLevel.ADMIN : UserLevel.PASSANGER) : undefined,
@@ -36,31 +36,42 @@ export function ProfileFC(): JSX.Element {
   if (!profile) {
     return <HydrateFallback />
   }
-
-  const maintitle = { maintitle: profile && (profile as Usermeta).firstname ? `Здравствуйте, ${(profile as Usermeta).firstname}!` : "Ваш профиль!" };
+  const greeting = (profile as Usermeta).firstname ? `Здравствуйте, ${(profile as Usermeta).firstname}!` : "Здравствуйте!";
+  const maintitle = { maintitle: profile && greeting };
   return <>
     <NavbarTopFC {...maintitle} />
 
     <section id="profile">
 
     <div className="profile__fields">
-        <div className="w-full max-w-9/10 field_h2"><h2>Страница профиля</h2></div>
+        <div className="w-full max-w-9/10 field_h2">
+          <h2>Страница профиля</h2>
+        </div>
 
         {
           profile && Array.from(Object.keys((profile as Usermeta))).map((item, index) => (
 
-            <div id={String(index)} data-name={item} className="w-full max-w-1/3"><div>{item}</div><div>{
-              "email".includes(item) ? profile.email : ("username".includes(item) ? profile.username : (
-                "firstname".includes(item) ? profile.firstname : (
-                  "lastname".includes(item) ? profile.lastname : (
-                    "userLevel".includes(item) ? profile.userlevel : (
-                      "password".includes(item) ? `♦♦♦♦♦♦` : ""
-                    )
-                  )
-                )
-              )
-              )
-            }
+            <div id={String(index)} data-name={item} className="w-full max-w-1/3">
+              <div>{item}</div>
+              <div>
+                {(() => {
+                  switch (item) {
+                    case "email":
+                      return profile.email;
+                    case "username":
+                      return profile.username;
+                    case "firstname":
+                      return profile.firstname;
+                    case "lastname":
+                      return profile.lastname;
+                    case "userLevel":
+                      return profile.userlevel;
+                    case "password":
+                      return "♦♦♦♦♦♦";
+                    default:
+                      return "";
+                  }
+                })()}
             </div></div>
           ), [])
         }
