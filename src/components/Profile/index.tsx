@@ -1,21 +1,31 @@
+/**
+ * src\components\Profile\index.tsx
+ * Open the profile page. In to 'Profile' page, you can see the user's information.
+ */
 import React, { JSX, useState } from "react";
 import { Usermeta, UserLevel } from "@Interfaces";
 import { HydrateFallback } from "src/components/Loading";
 import { profileLoader } from "@Services/request/profileloading"
-import { NavbarTopFC } from "../NavbarTop";
+import { NavbarTopFC } from "src/components/NavbarTop";
 
-
-
+/**
+ * Open the prof 'Profile' page.From a first 'Profile' page, you can see the user's information.\
+ * - 'setPRofile' - Set the user's information. It is a state to the 'Profile' page.
+ * @param {Usermeta} profile - The user's information.
+ * @returns JSX.Element - The page's content.
+ */
 export function ProfileFC(): JSX.Element {
   const [profile, setProfile] = useState<Usermeta | null>(null);
-
+  // SEND request to the server. to get the user's information. from the server.
   (async () => {
+    // Run the loader request to the server. It to get the user's information.
+    //  from the server.
     const response: Usermeta | {} = await profileLoader();
-    if (typeof response === "boolean") {
+    if (typeof response === "boolean" && typeof response !== "object") {
       console.log("[ProfileFC]: 'Profile\index.tsx' Mistake => Somefing What wrang not true ")
       return false;
-    }
-
+    } 
+    // Change Set the user's information on the 'Profile' page.
     setProfile({
       "username": (response as Usermeta)["username"] || "",
       "firstname": (response as Usermeta)['first_name'] || undefined,
@@ -36,6 +46,7 @@ export function ProfileFC(): JSX.Element {
   if (!profile) {
     return <HydrateFallback />
   }
+  // Heading of the page's content.
   const greeting = (profile as Usermeta).firstname ? `Здравствуйте, ${(profile as Usermeta).firstname}!` : "Здравствуйте!";
   const maintitle = { maintitle: profile && greeting };
   return <>

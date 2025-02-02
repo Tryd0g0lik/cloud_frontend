@@ -8,7 +8,7 @@ import { UserAPI } from "@Interfaces";
 
  * @returns
  */
-export async function fetches(prop: string) {
+export async function fetchLoginOut(prop: string) {
 
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
   const cookie = new CookieUser();

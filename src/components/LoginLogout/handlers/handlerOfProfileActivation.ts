@@ -5,7 +5,7 @@ import { CookieUser } from "@Services/cookieServices";
 import { errorFormAuthentification as error } from "@Services/scripts";
 import { Loginout } from "src/interfaces";
 import { changeDOM, buttonLoginLogout, } from "@Services/scripts";
-import { fetches } from "@Services/request/loginout";
+import { fetchLoginOut } from "@Services/request/loginout";
 
 /**
  * This function has two  entry-points.\
@@ -23,7 +23,7 @@ import { fetches } from "@Services/request/loginout";
  * @returns boolean.
  */
 const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
-  let data = "";
+  let passworEmail = "";
   // LOGIN & LOGOUT button (right top dashboard)
   if (e && (e.type) && (
     ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
@@ -61,7 +61,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       }
       map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
     }
-    data = JSON.stringify({
+    passworEmail = JSON.stringify({
       "email": map.get("email"),
       "password": map.get("password"),
       is_active: true,
@@ -72,19 +72,19 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   ) {
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
-    data = JSON.stringify({ is_active: false });
+    passworEmail = JSON.stringify({ is_active: false });
   }
-  if ((data).length > 3) {
-    const task0 = () => new Promise(resolve => resolve(fetches(data)
+  if ((passworEmail).length > 3) {
+    const task0 = () => new Promise(resolve => resolve(fetchLoginOut(passworEmail)
         .then(response => {
           if (response.ok) {
-            return true;
+            location.pathname = "/";
           }
           return new Error("[handlerLogin] Response is not OK");
         }).catch(response => {
           console.error(response);
         })
-      .then((result) => location.pathname = "/")
+
     ));
     (async () => await Promise.all([task0()]))();
     return true;
@@ -114,4 +114,3 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   return true;
 }
 export default handlerLogin;
-

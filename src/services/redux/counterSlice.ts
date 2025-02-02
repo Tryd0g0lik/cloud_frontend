@@ -3,7 +3,7 @@
  */
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { fetches } from "@Services/request/loginout";
+import { fetchLoginOut } from "@Services/request/loginout";
 import { HttpMethods, Loginout } from "src/interfaces";
 export interface TitleState {
   title: "Login" | "Logout"
@@ -44,7 +44,7 @@ export const titleSlice = createSlice({
       // const task0 = () => new Promise(resolve => resolve(async () => )
       // if (state.title === Loginout.LOGOUT) {
         (async () => {
-          fetches(JSON.stringify({ is_active: false })).then(response => {
+          fetchLoginOut(JSON.stringify({ is_active: false })).then(response => {
               if (response.ok) {
                 state.title = Loginout.LOGIN;
                 return true;
@@ -60,7 +60,7 @@ export const titleSlice = createSlice({
     logout: (state) => {
       // if (state.title === Loginout.LOGIN) {
         (async () => {
-          fetches(JSON.stringify({ is_active: true })).then(response => {
+          fetchLoginOut(JSON.stringify({ is_active: true })).then(response => {
               if (response.ok) {
                 state.title = Loginout.LOGOUT;
                 return true;

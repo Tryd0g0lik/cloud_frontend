@@ -12,6 +12,7 @@ import { ProfileFC } from "src/components/Profile";
 
 
 import { Usermeta, UserLevel } from "@Interfaces";
+import { CookieUser } from "@Services/cookieServices";
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
 const HeaderLoginLogout = { maintitle: "Авторизация" };
@@ -24,6 +25,9 @@ const HeaderLoginLogout = { maintitle: "Авторизация" };
 //   userlevel: UserLevel.PASSANGER,
 //   password: false,
 // }
+// let userId: string = "";
+
+
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -38,9 +42,21 @@ const Router = createBrowserRouter([
     element: <LoginLogoutFC {...HeaderLoginLogout} />
   },
   {
-    path: "profile/",
-    element: <ProfileFC />
-  }
+    path: `profile/:pk/`,
+    element: <ProfileFC />,
+    // loader: async () => {
+    //   if (userId) {
+    //     const coockie = new CookieUser();
+    //     const userId = coockie.getOneCookie("index")
+    //     return <Navigate to={`profile/${userId}/`} />
+    //   }
+    //   return <Navigate to="/" />
+    // }
+  },
+  // {
+  //   path: "profile/:id/",
+  //   element: <ProfileFC />,
+  // }
 
 ],
   {
@@ -56,4 +72,5 @@ export function PagesFC() {
     v7_startTransition: true,
   }} router={Router} />
 }
-{/* <Passwor> 3!p~TT{:(Cdx/eBf  </Passwor> */ }
+{/* < login: work801@mail.ru />
+  <Passwor> 3!p~TT{:(Cdx/eBf  </Passwor> */ }

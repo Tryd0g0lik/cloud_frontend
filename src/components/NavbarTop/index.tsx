@@ -29,6 +29,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       login("is_active");
     }, 200);
   })()));
+
   /** ---- task1 ----
    * The data of 'is_active' geting from the cookie and change  the text to the buttom.
    * If, it is a true, means -> NAVIGATE by profile will be ACTIVATION
@@ -46,6 +47,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
     }, 0);
   })()));
+
   /*  ---- task3 ----
    * The right  upper button, if it has a 'Login' text, the function
    * below inserts the link to the page of the form.
@@ -64,45 +66,30 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           (item as HTMLAnchorElement).href = "";
         }
       });
-    }, 500)
+    }, 100)
   ));
-  /*----- Redux ----- */
-  // const curr = useSelector((state: RootState) => state.current.title);
-  // const dispatch = useDispatch();
-  /* ----- Location - Get params ACTIVATION of USER for SAVING in the COOKIE file. ----- */
-  // const query = useQuery();
-  // const queryArrayParams = Array.from(query.entries());
-  // if (queryArrayParams.length === 3) {
-  /**
-   * This part of the code will be only one run.\
-   * It initially receiving data from registration a new user on the site.
-   */
-  // const use_session_array = queryArrayParams[0];
-  // const is_superuser_array = queryArrayParams[1];
-  // const is_active_array = queryArrayParams[2];
-  // SAVE of user in COOKIE (this coockie does not have a live time)
-  // const cookieUser = new CookieUser(use_session_array[0]);
-  // cookieUser.setCookie(use_session_array[1]);
-  // cookieUser.sessionId = is_superuser_array[0];
-  // cookieUser.setCookie(is_superuser_array[1]);
-  // cookieUser.sessionId = is_active_array[0];
-  // cookieUser.setCookie(is_active_array[1]);
-  // }
 
 
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    // const cookie = new CookieUser();
-    // const is_active_cookie = cookie.getOneCookie('is_active');
-    // setUseactive(
-    //   is_active_cookie ? (
-    //     is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
-    //   ) : Loginout.LOGIN
-    // );
+    const task2 = () => new Promise(resolve => resolve(
 
+      setTimeout(() => {
+        const coockie = new CookieUser();
+        const userId = coockie.getOneCookie("index") as string;
+        if (userId) {
+          const profileLink = document.querySelector('a[href="/profile/"]');
+          if (profileLink) {
+            (profileLink as HTMLAnchorElement).href =
+              (profileLink as HTMLAnchorElement).href + `${userId}/`;
+          }
+        }
+      }, 100)
+    ));
+    (async () => await Promise.all([task0(), task1(), task3(), task2(),]))(); //
     return () => {
 
-      (async () => await Promise.all([task0(), task1(), task3()]))(); //
+
 
     }
     // Note: Смотреть примечание ниже по странице.
