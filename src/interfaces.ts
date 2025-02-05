@@ -25,7 +25,8 @@ export enum UserLevel {
 export enum UserAPI {
   BASIS = "/api/v1/users/",
   CHOICE = "/api/v1/users/choice/",
-  PATCH = "/api/v1/users/patch/"
+  PATCH = "/api/v1/users/patch/",
+  GETofAPI = "/api/v1/users/get/"
 }
 
 export interface FetchParams {
