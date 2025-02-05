@@ -3,7 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "noImplicitAny": true,
-    "module": "ES6",
+    "module": "commonjs", //"ES6",
     "target": "ES2022",
     // "rootDirs": [
     //   "./src"
