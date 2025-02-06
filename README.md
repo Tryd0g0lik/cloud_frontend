@@ -38,6 +38,9 @@ URL дополнен паррамертрами:
 
 - [класс для шифрования](src\services\encrypts.ts).
 
+# Forms
+![medssage](/img/errorMessingForm.png)
+
 
 
 

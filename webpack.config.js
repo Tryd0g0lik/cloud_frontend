@@ -162,7 +162,16 @@ module.exports = {
 
     alias: {
       "@Service": path.resolve(__dirname, "src/services"),
-    }
+      "@Interfaces": path.resolve(__dirname, "src/interfaces.ts"),
+
+    },
+    packages: [
+      {
+        name: 'crypto-ts',
+        location: 'path-to/bower_components/crypto-ts',
+        main: 'index'
+      }
+    ]
   },
 
 };

@@ -15,7 +15,7 @@ import { Loginout } from "src/interfaces";
 // import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
 
 
-/* Get params of user for the PRIMARY ACTIVATION of the user 
+/* Get params of user for the PRIMARY ACTIVATION of the user
  after the authentification/resitration of user. */
 // const useQuery = () => {
 //   return new URLSearchParams(useLocation().search)
@@ -29,6 +29,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       login("is_active");
     }, 200);
   })()));
+
   /** ---- task1 ----
    * The data of 'is_active' geting from the cookie and change  the text to the buttom.
    * If, it is a true, means -> NAVIGATE by profile will be ACTIVATION
@@ -43,9 +44,10 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       ) : false;
 
       // status of a profile.
-      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN); 
+      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
     }, 0);
   })()));
+
   /*  ---- task3 ----
    * The right  upper button, if it has a 'Login' text, the function
    * below inserts the link to the page of the form.
@@ -64,45 +66,30 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           (item as HTMLAnchorElement).href = "";
         }
       });
-    }, 500)
+    }, 100)
   ));
-  /*----- Redux ----- */
-  // const curr = useSelector((state: RootState) => state.current.title);
-  // const dispatch = useDispatch();
-  /* ----- Location - Get params ACTIVATION of USER for SAVING in the COOKIE file. ----- */
-  // const query = useQuery();
-  // const queryArrayParams = Array.from(query.entries());
-  // if (queryArrayParams.length === 3) {
-  /**
-   * This part of the code will be only one run.\ 
-   * It initially receiving data from registration a new user on the site.
-   */
-  // const use_session_array = queryArrayParams[0];
-  // const is_superuser_array = queryArrayParams[1];
-  // const is_active_array = queryArrayParams[2];
-  // SAVE of user in COOKIE (this coockie does not have a live time)
-  // const cookieUser = new CookieUser(use_session_array[0]);
-  // cookieUser.setCookie(use_session_array[1]);
-  // cookieUser.sessionId = is_superuser_array[0];
-  // cookieUser.setCookie(is_superuser_array[1]);
-  // cookieUser.sessionId = is_active_array[0];
-  // cookieUser.setCookie(is_active_array[1]);
-  // }
 
 
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    // const cookie = new CookieUser();
-    // const is_active_cookie = cookie.getOneCookie('is_active');
-    // setUseactive(
-    //   is_active_cookie ? (
-    //     is_active_cookie?.toLowerCase()?.includes("true") ? Loginout.LOGOUT : Loginout.LOGIN
-    //   ) : Loginout.LOGIN
-    // );
+    const task2 = () => new Promise(resolve => resolve(
 
+      setTimeout(() => {
+        const coockie = new CookieUser();
+        const userId = coockie.getOneCookie("index") as string;
+        if (userId) {
+          const profileLink = document.querySelector('a[href="/profile/"]');
+          if (profileLink) {
+            (profileLink as HTMLAnchorElement).href =
+              (profileLink as HTMLAnchorElement).href + `${userId}/`;
+          }
+        }
+      }, 100)
+    ));
+    (async () => await Promise.all([task0(), task1(), task3(), task2(),]))(); //
     return () => {
 
-      (async () => await Promise.all([task0(), task1(), task3()]))(); // 
+
 
     }
     // Note: Смотреть примечание ниже по странице.
@@ -134,14 +121,16 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <li><a href=''>Главная</a></li>
-              <li>
-                <a>Облако</a>
-                <ul className="p-2">
-                  <li><a className='px-1'>Мои файлы</a></li>
-                  <li><a className='px-1'>Submenu 2</a></li>
-                </ul>
-              </li>
-              <li><a>Профиль</a></li>
+              {useactive.includes("Logout") && <li>
+                <details>
+                  <summary>Облако</summary>
+                  <ul className="p-2">
+                    <li><a className='px-1'>Мои файлы</a></li>
+                    <li><a className='px-1'>Submenu 2</a></li>
+                  </ul>
+                </details>
+              </li>}
+              {useactive.includes("Logout") && <li><a href="/profile/">Профиль</a></li>}
             </ul>
             <div className="navbar-end w-20">
               <a className="btn ">{useactive}</a>
@@ -154,25 +143,25 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           <ul className="menu menu-horizontal px-1">
             <li><a href="/">Главная</a></li>
             {/*
-              * 'useactive' если имеет значение "Logout" значит пользователь активирован на 
+              * 'useactive' если имеет значение "Logout" значит пользователь активирован на
               * сайте и ему доступно меню проыиля.
               * Если имеет значение "Login" значит пользователь НЕ активирован на сайте.
-              * 
+              *
               * "Logout" - Даный текст можно видеть в правой верхней кнопке. В активном режиме
               * мы должны иметь кнопку для выхода из профиля.
-              * 
+              *
               * "Login" - Текст можно видеть в правой верхней кнопке. В НЕ активном режиме
               * мы должны иметь кнопку для входа в профиль.
-              * 
-              * 
+              *
+              *
               * Почему "Logout" и "Login" ?
               * Изначально текст создавался для изменеия текста в кнопке (верхнее меню).
               * При активации пользователя, в куки получаем данне 'is_active="True/False"'.
-              * 
+              *
               * Для решения - дать доступ к меню или НЕ дать ориентируемся конечно на'is_active'.
-              * "Logout" и "Login" ипользуется , так как был уже создан и новые переменные в коде 
-              * НЕ возстребованы. 
-              * 
+              * "Logout" и "Login" ипользуется , так как был уже создан и новые переменные в коде
+              * НЕ возстребованы.
+              *
             */}
             {useactive.includes("Logout") && <li>
               <details>
@@ -182,8 +171,8 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </details>
-            </li>} 
-            <li><a>Профиль</a></li>
+            </li>}
+            {useactive.includes("Logout") && <li><a href="/profile/">Профиль</a></li>}
           </ul>
         </div>
         <NavbarEndFC text={useactive} />

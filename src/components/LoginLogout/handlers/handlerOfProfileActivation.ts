@@ -2,8 +2,11 @@
  * src\components\LoginLogout\handlers\handlerOfProfileActivation.ts
  */
 import { CookieUser } from "@Services/cookieServices";
+import { errorFormAuthentification as error } from "@Services/scripts";
 import { Loginout } from "src/interfaces";
-import { changeDOM, buttonLoginLogout, fetches } from "@Services/scripts";
+import { changeDOM, buttonLoginLogout, } from "@Services/scripts";
+import { fetchLoginOut } from "@Services/request/loginout";
+
 /**
  * This function has two  entry-points.\
  *
@@ -20,7 +23,7 @@ import { changeDOM, buttonLoginLogout, fetches } from "@Services/scripts";
  * @returns boolean.
  */
 const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
-  let data = "";
+  let passworEmail = "";
   // LOGIN & LOGOUT button (right top dashboard)
   if (e && (e.type) && (
     ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
@@ -47,15 +50,18 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         !(formHtml[i].checkValidity()) || !(emailRegex.test(formHtml[i].value)
         ))) {
         formHtml[i].parentElement.style.border = "1px solid red";
+        formHtml[i].setCustomValidity(error["email"]["valueMissing"]);
+        formHtml[i].reportValidity();
         return "Not Ok";
       }
       else if (formHtml[i].name.toLowerCase().includes("password") && !(formHtml[i].checkValidity())) {
         formHtml[i].parentElement.style.border = "1px solid red";
+        formHtml[i].setCustomValidity(error["password"]["valueMissing"]);
         return "Not Ok";
       }
       map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
     }
-    data = JSON.stringify({
+    passworEmail = JSON.stringify({
       "email": map.get("email"),
       "password": map.get("password"),
       is_active: true,
@@ -66,19 +72,24 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   ) {
     (e as React.MouseEvent).preventDefault();
     // Условие если был клик
-    data = JSON.stringify({ is_active: false });
+    passworEmail = JSON.stringify({ is_active: false });
   }
-  if ((data).length > 3) {
-    const task0 = () => new Promise(resolve => resolve(fetches(data)
+  if ((passworEmail).length > 3) {
+    const task0 = () => new Promise(resolve => resolve(fetchLoginOut(passworEmail)
         .then(response => {
           if (response.ok) {
-            return true;
+            const result = response.json();
+            return result;
           }
-          return false;
+          return new Error("[handlerLogin] Response is not OK");
         }).catch(response => {
           console.error(response);
         })
-      .then((result) => location.pathname = "/")
+      .then((resp) => {
+        resp
+        location.pathname = "/";
+      })
+
     ));
     (async () => await Promise.all([task0()]))();
     return true;
@@ -108,4 +119,3 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   return true;
 }
 export default handlerLogin;
-

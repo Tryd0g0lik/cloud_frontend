@@ -3,10 +3,10 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "noImplicitAny": true,
-    "module": "ES6",
+    "module": "commonjs", //"ES6",
     "target": "ES2022",
     // "rootDirs": [
-    //   "./src/frontend/src"
+    //   "./src"
     // ],
 
     "allowSyntheticDefaultImports": true,
@@ -31,7 +31,10 @@
     "baseUrl": ".",
     "paths": {
       "@Services/*": [
-        "src/services/*"
+        "src/services/*",
+      ],
+      "@Interfaces": [
+        "src/interfaces.ts",
       ],
       // "@Logs": [
       //   "src/backend/src/server/logs/index.ts",
@@ -47,6 +50,6 @@
     "*/**/*.json"
   ],
   "include": [
-    "src/*",
+    "src",
   ]
 }
