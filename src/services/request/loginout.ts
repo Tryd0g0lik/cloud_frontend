@@ -15,30 +15,21 @@ export async function fetchLoginOut(prop: string) {
   let indexOfCookie = cookie.getOneCookie("index");
   let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
   let response: Response | undefined = undefined;
+  // If a cookies data files are empty, we neet to get an user's id
   if (!indexOfCookie) {
     const secret_key = process.env.REACT_APP_SECRET_KEY || "null";
-    // Bufer bytes is a string, so we need to convert it to a string
-    const buffer = new Int16Array(128 - secret_key.length);
-    const bufferKey = new Uint32Array(buffer);
-    Array.from(bufferKey).forEach((byte, index) => {
-      bufferKey[index] = secret_key.charCodeAt(byte)
-    });
-
-
+    // ENCRYPT
+    // Encrypt of email and sending to the server. We need to get the user ID
     const textEncoder = new TextEncoder();
     const numbStr = Array.from(textEncoder.encode(secret_key)).join('');
-    // const key = enc.Utf8.parse(numbStr);
-    // const iv = enc.Utf8.parse(numbStr);
     const key = enc.Utf8.parse(numbStr.slice(0, 32));
     const iv = enc.Utf8.parse(numbStr.slice(0, 16));
-
 
     const encrypt = AES.encrypt(JSON.parse(prop)["email"], key, {
       "iv": iv,
       "mode": mode.CBC,
       "padding": pad.PKCS7
     }).toString()
-    // response = await fetch(new URL(`${UserAPI.GETofAPI}${emailEncode.replace(":", "__null__")}/`, `${REACT_APP_SERVER_URL}`), {
     url = new URL(`${UserAPI.CHOICE}name/`, `${REACT_APP_SERVER_URL}`) as URL
     url.searchParams.set('data', encrypt);
     response = await fetch(url, {
@@ -56,16 +47,17 @@ export async function fetchLoginOut(prop: string) {
     url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
   }
 
-
+  // CSRFTOKEN
   // first is the 'GET' method for get a 'csrftoken'
   response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
   if (!response.ok) {
     return response;
   }
   const result = await response.json();
+  // AUTHORISATION
   response = await fetch(url,
     {
-      method: HttpMethods.PATCH,  // HttpMethods.PATCH,
+      method: HttpMethods.PATCH,
       // mode: 'same-origin' as RequestMode,
       headers: {
         'X-CSRFToken': result["csrftoken"],

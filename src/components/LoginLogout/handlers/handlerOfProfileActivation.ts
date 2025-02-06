@@ -78,12 +78,17 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     const task0 = () => new Promise(resolve => resolve(fetchLoginOut(passworEmail)
         .then(response => {
           if (response.ok) {
-            location.pathname = "/";
+            const result = response.json();
+            return result;
           }
           return new Error("[handlerLogin] Response is not OK");
         }).catch(response => {
           console.error(response);
         })
+      .then((resp) => {
+        resp
+        location.pathname = "/";
+      })
 
     ));
     (async () => await Promise.all([task0()]))();
