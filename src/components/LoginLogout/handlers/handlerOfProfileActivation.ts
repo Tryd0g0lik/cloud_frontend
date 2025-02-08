@@ -61,6 +61,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       }
       map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
     }
+    map.clear(); // Clear the map
     passworEmail = JSON.stringify({
       "email": map.get("email"),
       "password": map.get("password"),
@@ -71,14 +72,20 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     ((e as React.MouseEvent).target as HTMLElement).textContent?.toLowerCase() === Loginout.LOGOUT.toLowerCase()
   ) {
     (e as React.MouseEvent).preventDefault();
-    // Условие если был клик
+    /**
+     * If was the mouse clike on the button from metu. This is from
+     * the level top of the dashboard  of the rigth side buttom
+     */
     passworEmail = JSON.stringify({ is_active: false });
   }
   if ((passworEmail).length > 3) {
     const task0 = () => new Promise(resolve => resolve(fetchLoginOut(passworEmail)
-        .then(response => {
+      .then(async (response) => {
+      /**
+       * Check a status of response
+       */
           if (response.ok) {
-            const result = response.json();
+            const result = await response.json();
             return result;
           }
           return new Error("[handlerLogin] Response is not OK");
@@ -86,8 +93,28 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
           console.error(response);
         })
       .then((resp) => {
-        resp
-        location.pathname = "/";
+        if (resp instanceof Error) {
+          null
+        }
+        else if (resp["is_session"]) {
+          /**
+           * If user was activation to web site, then his redictet to the profile page of web site
+           */
+          const linHtml = document.querySelector(".navbar a[href*='/profile/']");
+          if (linHtml) {
+            const textOfLink = (linHtml as HTMLAnchorElement).href = "/profile/";
+            if (!textOfLink) {
+              return false;
+            }
+            location.pathname = textOfLink;
+          }
+          location.pathname = "/"
+        }
+        else {
+          location.pathname = "/"
+        }
+        // setTimeout(() => location.pathname = "/", 4000)
+
       })
 
     ));
