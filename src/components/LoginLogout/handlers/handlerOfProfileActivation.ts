@@ -24,7 +24,7 @@ import { fetchLoginOut } from "@Services/request/loginout";
  */
 const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
   let passworEmail = "";
-  // LOGIN & LOGOUT button (right top dashboard)
+  // CHECK the event type. THis is the mous clik of thhe keyboard of 'Enter'.
   if (e && (e.type) && (
     ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
   )) {
@@ -34,6 +34,10 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     (e && (e as React.KeyboardEvent).key === 'Enter')
   ) {
     (e as React.MouseEvent).preventDefault();
+    /**
+     *  KEYBOARD is the board down the 'Enater', was pressed.
+     *  LOGIN & LOGOUT from the authorization form/ppage
+     *  */
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // Условие если был клик
     const formHtml = (e.target as HTMLFormElement).form;
@@ -72,7 +76,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     ((e as React.MouseEvent).target as HTMLElement).textContent?.toLowerCase() === Loginout.LOGOUT.toLowerCase()
   ) {
     (e as React.MouseEvent).preventDefault();
-    /**
+    /** MOUSE CLIKE
      * If was the mouse clike on the button from metu. This is from
      * the level top of the dashboard  of the rigth side buttom
      */
@@ -130,7 +134,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   if (!key) {
     return false;
   }
-  // TASKS async
+  // TASKS ASYNC
   // Run tasks some in parallel.
   const cookie = new CookieUser();
   const session = cookie.getOneCookie(key);
