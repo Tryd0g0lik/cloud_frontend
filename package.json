@@ -50,6 +50,8 @@
     "@reduxjs/toolkit": "^2.5.0",
     "@stylistic/eslint-plugin": "^1.7.0",
     "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/cli": "^4.0.4",
+    "@tailwindcss/postcss": "^4.0.4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/babel__generator": "^7.6.8",
     "@types/body-parser": "^1.19.5",

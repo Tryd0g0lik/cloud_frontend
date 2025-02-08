@@ -7,6 +7,7 @@ import { Usermeta, UserLevel } from "@Interfaces";
 import { HydrateFallback } from "src/components/Loading";
 import { profileLoader } from "@Services/request/profileloading"
 import { NavbarTopFC } from "src/components/NavbarTop";
+import "tailwindcss";
 // The simple emapty data for the 'Profile's' page.
 const plugProfile: Usermeta = {
   "username": "Пользователь",

@@ -1,10 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer base {
-  body * {
-    font-size: 16px;
-  }
+@tailwind screens;
+
+
+/* @theme {}
+
+ 
+
+ @variant {} */
+
+
+
+/* @source; */
+/* @layer base {
+
+} */
+body * {
+  font-size: 16px;
 }
 .navbar {
   display: flex;

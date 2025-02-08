@@ -29,7 +29,6 @@ module.exports = {
   cache: false, // the cache is close
   mode: 'none',
   output: {
-    // path: path.resolve(__dirname, 'dist'),
     path: path.resolve(__dirname, '../backend/cloud_user/static'),
     filename: '../static/scripts/main-[id]-[fullhash].js',
     publicPath: '/',
