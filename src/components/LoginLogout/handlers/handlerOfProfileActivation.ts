@@ -71,7 +71,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       "password": map.get("password").slice().trim(),
       is_active: true,
     });
-    map.clear(); 
+    map.clear();
   }
 
   else if (e && (e.target as HTMLElement).localName === 'a' &&
@@ -108,7 +108,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
            */
           const linHtml = document.querySelector(".navbar a[href*='/profile/']");
           if (linHtml) {
-            const textOfLink = (linHtml as HTMLAnchorElement).href = "/profile/";
+            const textOfLink = (linHtml as HTMLAnchorElement).href;
             if (!textOfLink) {
               return false;
             }
@@ -142,10 +142,10 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     return false
   }
   // const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
-  const task1 = () => async () => changeDOM("true".includes(key) ? true : false);
-  const task2 = () => async () => buttonLoginLogout();
+  const task1 = () => new Promise<void>(resolve => { changeDOM("true".includes(key) ? true : false); resolve() });
+  const task2 = () => new Promise<void>(resolve => { buttonLoginLogout(); resolve() });
   (async () => {
-    await Promise.all([task1(), task2()]); // task0(),
+    await Promise.allSettled([task1(), task2()]); // task0(),
   })();
   return true;
 }
