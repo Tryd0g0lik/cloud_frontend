@@ -49,7 +49,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         const lebalHtml = formHtml[i].parentElement;
         lebalHtml.style.border = ""
       };
-
+      // VALIDATE the form
       if (formHtml[i].name.toLowerCase().includes("email") && (
         !(formHtml[i].checkValidity()) || !(emailRegex.test(formHtml[i].value)
         ))) {
@@ -65,13 +65,13 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       }
       map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
     }
-
+    // SEND the data to the server for activation the user to the profile.
     passworEmail = JSON.stringify({
       "email": map.get("email").slice().trim(),
       "password": map.get("password").slice().trim(),
       is_active: true,
     });
-    map.clear(); // Clear the map
+    map.clear(); 
   }
 
   else if (e && (e.target as HTMLElement).localName === 'a' &&

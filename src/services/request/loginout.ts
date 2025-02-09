@@ -15,7 +15,7 @@ export async function fetchLoginOut(prop: string) {
   let indexOfCookie = cookie.getOneCookie("index");
   let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
   let response: Response | undefined = undefined;
-  // If a cookies data files are empty, we neet to get an user's id
+  // If a cookies data files are empty, we neet to get (restore) the user's id
   if (!indexOfCookie) {
     const secret_key = process.env.REACT_APP_SECRET_KEY || "null";
     // ENCRYPT
