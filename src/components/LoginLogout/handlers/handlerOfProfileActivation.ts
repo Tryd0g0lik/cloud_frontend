@@ -71,7 +71,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       "password": map.get("password").slice().trim(),
       is_active: true,
     });
-    map.clear(); 
+    map.clear();
   }
 
   else if (e && (e.target as HTMLElement).localName === 'a' &&
@@ -108,7 +108,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
            */
           const linHtml = document.querySelector(".navbar a[href*='/profile/']");
           if (linHtml) {
-            const textOfLink = (linHtml as HTMLAnchorElement).href = "/profile/";
+            const textOfLink = (linHtml as HTMLAnchorElement).href;
             if (!textOfLink) {
               return false;
             }
