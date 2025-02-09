@@ -71,7 +71,8 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   }
   )
   try {
-    (async () => await Promise.all([cleaning()]))();
+    const task0 = () => new Promise<void>(resolve => { cleaning(); resolve()});
+    (async () => await Promise.allSettled([task0]))();
     const response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.CHOICE}`, {
       method: "POST",
       headers: {

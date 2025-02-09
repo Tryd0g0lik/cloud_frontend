@@ -142,10 +142,10 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     return false
   }
   // const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
-  const task1 = () => async () => changeDOM("true".includes(key) ? true : false);
-  const task2 = () => async () => buttonLoginLogout();
+  const task1 = () => new Promise<void>(resolve => { changeDOM("true".includes(key) ? true : false); resolve() });
+  const task2 = () => new Promise<void>(resolve => { buttonLoginLogout(); resolve() });
   (async () => {
-    await Promise.all([task1(), task2()]); // task0(),
+    await Promise.allSettled([task1(), task2()]); // task0(),
   })();
   return true;
 }
