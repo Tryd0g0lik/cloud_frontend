@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
-
+@import "tailwindcss";
 
 /* @theme {}
 
@@ -16,9 +16,20 @@
 /* @layer base {
 
 } */
+/* @theme {
+
+} */
+.profile__fields .toggle {
+  border: 0;
+}
+
+.profile__fields>div:first-child:hover {
+  /* background-color: none; */
+}
 body * {
   font-size: 16px;
 }
+
 .navbar {
   display: flex;
   flex-wrap: nowrap;

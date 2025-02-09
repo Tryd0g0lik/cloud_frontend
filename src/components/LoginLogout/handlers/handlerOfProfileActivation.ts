@@ -65,25 +65,27 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       }
       map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
     }
-    map.clear(); // Clear the map
+
     passworEmail = JSON.stringify({
-      "email": map.get("email"),
-      "password": map.get("password"),
+      "email": map.get("email").slice().trim(),
+      "password": map.get("password").slice().trim(),
       is_active: true,
     });
+    map.clear(); // Clear the map
   }
+
   else if (e && (e.target as HTMLElement).localName === 'a' &&
     ((e as React.MouseEvent).target as HTMLElement).textContent?.toLowerCase() === Loginout.LOGOUT.toLowerCase()
   ) {
     (e as React.MouseEvent).preventDefault();
     /** MOUSE CLIKE
-     * If was the mouse clike on the button from metu. This is from
+     * If was the mouse clike on the button from menu. This is from
      * the level top of the dashboard  of the rigth side buttom
      */
     passworEmail = JSON.stringify({ is_active: false });
   }
   if ((passworEmail).length > 3) {
-    const task0 = () => new Promise(resolve => resolve(fetchLoginOut(passworEmail)
+    const task0 = async () => fetchLoginOut(passworEmail)
       .then(async (response) => {
       /**
        * Check a status of response
@@ -119,10 +121,8 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         }
         // setTimeout(() => location.pathname = "/", 4000)
 
-      })
-
-    ));
-    (async () => await Promise.all([task0()]))();
+      });
+    task0();
     return true;
   }
 
@@ -142,8 +142,8 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     return false
   }
   // const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
-  const task1 = () => new Promise(resolve => resolve((async () => changeDOM("true".includes(key) ? true : false))()));
-  const task2 = () => new Promise(resolve => { resolve(buttonLoginLogout()) });
+  const task1 = () => async () => changeDOM("true".includes(key) ? true : false);
+  const task2 = () => async () => buttonLoginLogout();
   (async () => {
     await Promise.all([task1(), task2()]); // task0(),
   })();

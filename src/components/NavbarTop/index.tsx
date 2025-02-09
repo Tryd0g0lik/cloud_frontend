@@ -23,18 +23,18 @@ import { Loginout } from "src/interfaces";
 
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
-  const task0 = () => new Promise(resolve => resolve((async () => {
+  const task0 = () => async () => {
     setTimeout(() => {
       const login = handlerLogin();
       login("is_active");
     }, 200);
-  })()));
+  };
 
   /** ---- task1 ----
    * The data of 'is_active' geting from the cookie and change  the text to the buttom.
    * If, it is a true, means -> NAVIGATE by profile will be ACTIVATION
    * */
-  const task1 = () => new Promise(resolve => resolve((async () => {
+  const task1 = () => async () => {
     setTimeout(() => {
       const cookieUser = new CookieUser();
       let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
@@ -46,13 +46,13 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       // status of a profile.
       setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
     }, 0);
-  })()));
+  };
 
   /*  ---- task3 ----
    * The right  upper button, if it has a 'Login' text, the function
    * below inserts the link to the page of the form.
    */
-  const task3 = () => new Promise(resolve => resolve(
+  const task3 = () => async () => {
     setTimeout(() => {
       const ancorHtml = document.querySelectorAll(".navbar-end a");
       if (!ancorHtml) {
@@ -66,13 +66,13 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           (item as HTMLAnchorElement).href = "";
         }
       });
-    }, 100)
-  ));
+    }, 100);
+  };
 
 
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    const task2 = () => new Promise(resolve => resolve(
+    const task2 = () => async () => {
 
       setTimeout(() => {
         const coockie = new CookieUser();
@@ -85,7 +85,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
           }
         }
       }, 100)
-    ));
+    };
     (async () => await Promise.all([task0(), task1(), task3(), task2(),]))(); //
     return () => {
 
