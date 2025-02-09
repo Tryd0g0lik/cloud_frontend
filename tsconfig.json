@@ -41,15 +41,17 @@
       // ],
     }
   },
+  "include": [
+    "src",
+  ],
   "exclude": [
     "./node_modules/**/*.js",
     "*.config.js",
+    "./**/index.ts",
     "**/dist",
     "*eslintrc.*",
     "src/backend",
     "*/**/*.json"
   ],
-  "include": [
-    "src",
-  ]
+  
 }

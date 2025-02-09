@@ -1,12 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind screens;
 @import "tailwindcss";
-@layer base {
-  body * {
-    font-size: 16px;
-  }
+
+/* @theme {}
+
+ 
+
+ @variant {} */
+
+
+
+/* @source; */
+/* @layer base {
+
+} */
+/* @theme {
+
+} */
+.profile__fields .toggle {
+  border: 0;
 }
+
+.profile__fields>div:first-child:hover {
+  /* background-color: none; */
+}
+body * {
+  font-size: 16px;
+}
+
 .navbar {
   display: flex;
   flex-wrap: nowrap;

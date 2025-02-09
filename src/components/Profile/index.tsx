@@ -7,6 +7,7 @@ import { Usermeta, UserLevel } from "@Interfaces";
 import { HydrateFallback } from "src/components/Loading";
 import { profileLoader } from "@Services/request/profileloading"
 import { NavbarTopFC } from "src/components/NavbarTop";
+
 // The simple emapty data for the 'Profile's' page.
 const plugProfile: Usermeta = {
   "username": "Пользователь",
@@ -56,27 +57,36 @@ export function ProfileFC(): JSX.Element {
         // Change Set the user's name on the 'Profile' page, from db.
         setUserName((response as Usermeta)["username"] || (response as Usermeta)["first_name"] || "");
       })();
+      // The state of the CHECKBOX (for redaction on the PRIFILE's FIELDS).
+      const htmlCheckbox = document.querySelectorAll(".profile__fields input[type='checkbox']");
+      if (htmlCheckbox.length !== 0) {
+        Array.from(htmlCheckbox).forEach((item) => {
+          (item as HTMLInputElement).checked = false;
+        });
+      }
     });
   }, []);
   // greeting - The greeting for the user name.
   const greeting = !userName || userName === "!" || userName === "Пользователь" ? "!" : `, ${userName}!`;
   const maintitle = { maintitle: `Здравствуйте${greeting}` };
+  const arr = ["email", "username", "firstname", "userLevel", "password"]
   return <>
     <NavbarTopFC {...maintitle} />
 
     <section id="profile">
 
-    <div className="profile__fields">
-        <div className="w-full max-w-9/10 field_h2">
+      <div className="profile__fields flex flex-col">
+        <div className="w-full ">
           <h2>Страница профиля</h2>
         </div>
         {!profile && <HydrateFallback />}
         {
           profile && Array.from(Object.keys((profile as Usermeta))).map((item, index) => (
+            (arr).includes(item) &&
+            <div id={String(index)} data-name={item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
 
-            <div id={String(index)} data-name={item} className="w-full max-w-1/3">
-              <div>{item}</div>
-              <div>
+                <div className="w-[150px]">{item}</div>
+                <div className="boxfield-data w-full max-w-64">
                 {(() => {
                   switch (item) {
                     case "email":
@@ -95,7 +105,10 @@ export function ProfileFC(): JSX.Element {
                       return "";
                   }
                 })()}
-            </div></div>
+
+                </div>
+                <div data-status="close" className="toggle w-6 h-[17px] p-0 "> <input type="checkbox" className="toggle toggle-success toggle-xs" /></div>
+              </div>
           ), [])
         }
       </div>
