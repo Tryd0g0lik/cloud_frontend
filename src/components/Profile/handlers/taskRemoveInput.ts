@@ -1,11 +1,16 @@
-// src\components\Profile\handlers\taskREmoveInput.ts
+/*
+* src\components\Profile\handlers\taskREmoveInput.ts
+* This is a sub-task of the handlerProfileFields.ts
+* - Remove the INPUT field of the TEXT TYPE. This is after Event 'Enter' from the input field.
+*/
 // TASK1 - REMOVE the INPUT field of the TEXT TYPE/
-const task1 = (htmlDiv: HTMLDivElement, handler: CallableFunction ): [HTMLDivElement, string] | boolean => {
+const removeInputTask1 = (htmlDiv: HTMLDivElement, maping: Map<string, string> ): [HTMLDivElement, string] | boolean => {
 
   if (!(htmlDiv.className).includes('boxfield')) {
     throw Error("[boxfieldDataHtml::task1]: Mistake => 'Div.boxfield' not found!");
   }
-
+  // Name of field from the Event;
+  const nameOfField = htmlDiv.dataset.name;
 
   const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data") as HTMLDivElement;
   if (!boxfieldDataHtml) {
@@ -21,11 +26,8 @@ const task1 = (htmlDiv: HTMLDivElement, handler: CallableFunction ): [HTMLDivEle
   if (!newText || (((newText as string).trim().length) == 0)) {
     return false;
   };
-
+  maping.set(nameOfField as string, newText);
   boxfieldDataHtml.innerHTML = '<span className="loading loading-spinner loading-xs"></span>';
-  // ADD 'onclick'
-  // htmlDiv.onkeydown = null;
-  // htmlDiv.onclick = (e: MouseEvent) => handler(e);
   return [boxfieldDataHtml, newText];
 }
-export default task1;
+export default removeInputTask1;
