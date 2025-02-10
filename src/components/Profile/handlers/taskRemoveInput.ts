@@ -6,8 +6,7 @@ const task1 = (htmlDiv: HTMLDivElement, handler: CallableFunction ): [HTMLDivEle
     throw Error("[boxfieldDataHtml::task1]: Mistake => 'Div.boxfield' not found!");
   }
 
-  // ADD 'onclick'
-  htmlDiv.onclick = (e: MouseEvent) => handler(e);
+
   const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data") as HTMLDivElement;
   if (!boxfieldDataHtml) {
     throw new Error("[boxfieldDataHtml::task1]: Mistake => DIV.boxfield not found!")
@@ -24,6 +23,9 @@ const task1 = (htmlDiv: HTMLDivElement, handler: CallableFunction ): [HTMLDivEle
   };
 
   boxfieldDataHtml.innerHTML = '<span className="loading loading-spinner loading-xs"></span>';
+  // ADD 'onclick'
+  // htmlDiv.onkeydown = null;
+  // htmlDiv.onclick = (e: MouseEvent) => handler(e);
   return [boxfieldDataHtml, newText];
 }
 export default task1;

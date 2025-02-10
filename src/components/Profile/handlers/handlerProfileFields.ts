@@ -8,6 +8,7 @@ import React from "react";
 import { EventHandler } from "react";
 import task0 from "./taskNewInput";
 import task1 from "./taskRemoveInput";
+import task2ChangeDom from "./taskChangeDOM";
 import { fetchLoginOut } from "@Services/request/loginout";
 // interface StetusField{
 //   status: "close" | "open";
@@ -15,49 +16,48 @@ import { fetchLoginOut } from "@Services/request/loginout";
 type Status = "close" | "open";
 export function handlerProfileField(e: React.MouseEvent | KeyboardEvent) {
   const status: Status = "close";
-
+  // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
     throw new Error("[handlerProfileField]: Mistake => THe REACT_APP_SERVER_URL can't found")
   };
+  // CHECK the EVENT TYPE
   if ((e.type) && (!(e.type).toLowerCase().includes("click") && ((e as KeyboardEvent).key &&
     (e as KeyboardEvent).key !== 'Enter'))) {
     return false;
   }
-
+  // CHECK the PLACE of EVENT
   const target = (e.target as HTMLElement);
-
   if (((e.type).toLowerCase().includes("click") && target && !((target as HTMLElement).parentElement as HTMLElement).dataset.status) || (
     (e.type).toLowerCase().includes("click") && ((target as HTMLElement).parentElement as HTMLElement).dataset.status &&
     ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "close" &&
     ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "open") &&
     ((e as KeyboardEvent).key.toLowerCase().includes("Enter") && !((target as HTMLElement).parentElement as HTMLElement).classList.contains("boxfield-data"))) {
-    console.log(false);
     return false
   }
-  //
-
-
-    /**
-     *  After click on the the input field (checkbox type) we select the
-     * parent DIV
-     */
+  /**
+   *  After click on the the input field (checkbox type) we select the
+   * parent DIV
+   */
   let htmlDiv = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
   if (!htmlDiv || (htmlDiv && htmlDiv.className && htmlDiv.className !== null
     && !(htmlDiv.className).includes("boxfield"))) {
     throw new Error("[handlerProfileField]: Mistake => DIV.boxfield not found!")
   }
 
-  // TOTAL task lOOK what the PLACE of Event.
-  if ((e.type).toLowerCase().includes("click") && (target as HTMLInputElement).type !== "checkbox") {
-    throw new Error("[handlerProfileFields.ts]: Mistake => 'INPUT.checkbox' not found!")
-  }
+  // // TOTAL TASK lOOK what the PLACE of Event.
+  // if ((e.type).toLowerCase().includes("click") && (target as HTMLInputElement).type !== "checkbox") {
+  //   throw new Error("[handlerProfileFields.ts]: Mistake => 'INPUT.checkbox' not found!")
+  // }
+  // SELECT the HTMLElement
   const dataStatus = ((target as HTMLInputElement).parentElement as HTMLInputElement).dataset.status;
   if (dataStatus && dataStatus === "close" && (e.type).toLowerCase().includes("click")) {
+    // TASK0
     task0(htmlDiv, handlerProfileField);
-    //
-    // return true;
+    htmlDiv.onclick = null;
+    htmlDiv.onkeydown = handlerProfileField;
   } else if ((e as KeyboardEvent).key === 'Enter') {
+    // TASK1
     const htmlDiv2 = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
     const resolve: boolean | [HTMLDivElement, string] = task1(htmlDiv2, handlerProfileField);
 
@@ -81,21 +81,14 @@ export function handlerProfileField(e: React.MouseEvent | KeyboardEvent) {
           htmlDiv.innerHTML = newtext;
         }
       });
+    htmlDiv.onkeydown = null;
+    (htmlDiv as HTMLDivElement).onclick = handlerProfileField;
 
     // CHANGING THE:
     // - inser the new contant of the input field of the text type
   }
-  // CHANGE THE STATUS 'open' to 'close' (to the input field)
-  const htmlDivDataStatus = htmlDiv.querySelector("div[data-status]");
-  if (!htmlDivDataStatus) {
-    throw new Error("[handlerProfileField]: Mistake => DIV[data-status='close'] not found!")
-  }
-  const dataStatusValue = (htmlDivDataStatus as HTMLDivElement).dataset.status;
-  if (dataStatusValue === "open") {
-    (htmlDivDataStatus as HTMLDivElement).dataset.status = "close";
-  } else {
-    (htmlDivDataStatus as HTMLDivElement).dataset.status = "open";
-  }
+
+  task2ChangeDom(htmlDiv);
 
 
 };

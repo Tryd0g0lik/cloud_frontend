@@ -9,7 +9,7 @@
 import React from "react";
 // TASK0 - CREATE  INPUT field and INSER of the TEXT TYPE
  const task0 = async (htmlDiv: HTMLDivElement, handler: CallableFunction) => {
-   if (!htmlDiv) {
+   if (!htmlDiv || !(htmlDiv.className).includes("boxfield")) {
      throw new Error("[boxfieldDataHtml::task0]: Mistake => 'htmlDiv' not found!");
    };
    const getHtmlElement = (oldText: string | null): HTMLElement | string => {
@@ -29,7 +29,7 @@ import React from "react";
    //    throw new Error("[boxfieldDataHtml::task0]: Mistake => DIV.boxfield not found!")
    //  };
   // INSERTS 'onclick' for the input field of the text type/
-   htmlDiv.onkeydown = (e: KeyboardEvent) => handler(e);
+
    const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data");
   if (!boxfieldDataHtml) {
     throw new Error("[boxfieldDataHtml]: Mistake => DIV.boxfield-data not found!")
@@ -37,6 +37,7 @@ import React from "react";
 
   const oldText = (boxfieldDataHtml as HTMLDivElement).textContent;
    boxfieldDataHtml.innerHTML = `${getHtmlElement(oldText)}`;
-
+   //  htmlDiv.onclick = null;
+   //  htmlDiv.onkeydown = (e: KeyboardEvent) => handler(e);
 };
 export default task0;
