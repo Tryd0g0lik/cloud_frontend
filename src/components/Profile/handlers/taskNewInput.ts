@@ -6,28 +6,37 @@
       * - if the not first click on the input field (checkbox type), means that
       * user changed the text in field. Run the TASK1.
       */
+import React from "react";
 // TASK0 - CREATE  INPUT field and INSER of the TEXT TYPE
  const task0 = async (htmlDiv: HTMLDivElement, handler: CallableFunction) => {
-  const getHtmlElement = async (oldText: string | null): Promise<HTMLElement> => {
+   if (!htmlDiv) {
+     throw new Error("[boxfieldDataHtml::task0]: Mistake => 'htmlDiv' not found!");
+   };
+   const getHtmlElement = (oldText: string | null): HTMLElement | string => {
     const htmlInput = document.createElement("input");
     htmlInput.type = "text";
     htmlInput.className = "boxfield-input";
     if (oldText) {
       htmlInput.placeholder = oldText;
     }
-    return htmlInput;
+     //  return htmlInput.innerHTML;
+     return htmlInput.outerHTML;
 
-  }
-  let boxfieldDataHtml = htmlDiv.querySelector(".boxfield");
+   };
+
+   // let boxfieldDataHtml = htmlDiv.querySelector(".boxfield");
+   //  if (!boxfieldDataHtml) {
+   //    throw new Error("[boxfieldDataHtml::task0]: Mistake => DIV.boxfield not found!")
+   //  };
   // INSERTS 'onclick' for the input field of the text type/
-   (boxfieldDataHtml as HTMLDivElement).onclick = (e: MouseEvent) => handler(e);
-  boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data");
+   htmlDiv.onclick = (e) => handler(e);
+   const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data");
   if (!boxfieldDataHtml) {
     throw new Error("[boxfieldDataHtml]: Mistake => DIV.boxfield-data not found!")
   };
 
   const oldText = (boxfieldDataHtml as HTMLDivElement).textContent;
-  boxfieldDataHtml.innerHTML = `${await getHtmlElement(oldText)}`;
+   boxfieldDataHtml.innerHTML = `${getHtmlElement(oldText)}`;
 
 };
 export default task0;

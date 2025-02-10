@@ -1,6 +1,6 @@
 // src\components\Profile\handlers\taskREmoveInput.ts
 // TASK1 - REMOVE the INPUT field of the TEXT TYPE/
-const task1 = async (htmlDiv: HTMLDivElement, handler: CallableFunction ): Promise<[HTMLDivElement, string] | boolean> => {
+const task1 = (htmlDiv: HTMLDivElement, handler: CallableFunction ): [HTMLDivElement, string] | boolean => {
 
   if (!(htmlDiv.className).includes('boxfield')) {
     throw Error("[boxfieldDataHtml::task1]: Mistake => 'Div.boxfield' not found!");

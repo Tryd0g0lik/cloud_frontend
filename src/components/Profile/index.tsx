@@ -84,7 +84,7 @@ export function ProfileFC(): JSX.Element {
           profile && Array.from(Object.keys((profile as Usermeta))).map((item, index) => (
             (arr).includes(item) &&
 
-            <div onClick={(e: React.MouseEvent) => handlerProfileField(e as unknown as MouseEvent)} id={String(index)} data-name={item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
+            <div onClick={handlerProfileField} key={String(index)} data-name={item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
               {/* handlerProfileField need to add to the '.boxfield'*/}
                 <div className="w-[150px]">{item}</div>
                 <div className="boxfield-data w-full max-w-64">
