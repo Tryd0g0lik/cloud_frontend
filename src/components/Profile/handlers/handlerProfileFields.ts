@@ -1,106 +1,95 @@
 /**
  * src\components\Profile\handlers\handlerProfileFields.ts
  */
-import { CookieUser } from "@Services/cookieServices";
-import { Usermeta, UserAPI } from "@Interfaces";
-import { concat } from "lodash";
+// import { CookieUser } from "@Services/cookieServices";
+// import { Usermeta, UserAPI } from "@Interfaces";
+// import { concat } from "lodash";
+import React from "react";
+import { EventHandler } from "react";
+import task0 from "./taskNewInput";
+import task1 from "./taskRemoveInput";
+import task2ChangeDom from "./taskChangeDOM";
+import { fetchLoginOut } from "@Services/request/loginout";
 // interface StetusField{
 //   status: "close" | "open";
 // }
 type Status = "close" | "open";
-export async function handlerProfileField(e: MouseEvent): Promise<boolean>{
+export function handlerProfileField(e: React.MouseEvent | KeyboardEvent) {
   const status: Status = "close";
-
+  // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
     throw new Error("[handlerProfileField]: Mistake => THe REACT_APP_SERVER_URL can't found")
   };
-  if ((e.type) && (!(e.type).toLowerCase().includes("click"))) {
+  // CHECK the EVENT TYPE
+  if ((e.type) && (!(e.type).toLowerCase().includes("click") && ((e as KeyboardEvent).key &&
+    (e as KeyboardEvent).key !== 'Enter'))) {
     return false;
   }
+  // CHECK the PLACE of EVENT
   const target = (e.target as HTMLElement);
-
-  if (target && (!target.dataset.status) || (target.dataset.status && target.dataset.status !== "close" && target.dataset.status !== "open") ){
+  if (((e.type).toLowerCase().includes("click") && target && !((target as HTMLElement).parentElement as HTMLElement).dataset.status) || (
+    (e.type).toLowerCase().includes("click") && ((target as HTMLElement).parentElement as HTMLElement).dataset.status &&
+    ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "close" &&
+    ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "open") &&
+    ((e as KeyboardEvent).key.toLowerCase().includes("Enter") && !((target as HTMLElement).parentElement as HTMLElement).classList.contains("boxfield-data"))) {
     return false
   }
-  e.preventDefault()
-  const field = async () => {
-    // Click on the input field (by checkbox type) for redact the text of the field.
-    const htmlInput = target;
-    if (!htmlInput || (htmlInput as HTMLInputElement).type !== 'checkbox') {
-      throw new Error ("[handlerProfileField]: Mistake => The input field is not checkbox type!")
-    }
-    /**
-     *  After click on the the input field (checkbox type) we select the
-     * parent DIV
-     */
-    const htmlDiv = htmlInput.parentElement?.parentElement;
-    if ((htmlDiv && htmlDiv.className
-      && ("boxfield").includes(htmlDiv.className as string))){
-      // TASK0 - INSER INPUT field of the TEXT TYPE
-      const task0 = async () =>{
-        const getHtmlElement = async (oldText: string|null): Promise<HTMLElement> => {
-          const htmlInput = document.createElement("input");
-          htmlInput.type = "text";
-          htmlInput.className = "boxfield-input";
-          if (oldText){
-            htmlInput.placeholder = oldText;
-          }
-          return htmlInput;
-
-        }
-        const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data") as HTMLDivElement;
-        if (!boxfieldDataHtml){
-          throw new Error("[boxfieldDataHtml]: Mistake => DIV.boxfield-data not found!")
-        };
-        // INSER HENDLER for the input field of the text type/
-        (boxfieldDataHtml as HTMLDivElement).onclick = (e: MouseEvent) => handlerProfileField(e);
-        const oldText = (boxfieldDataHtml as HTMLDivElement).textContent;
-        boxfieldDataHtml.innerHTML = `${await getHtmlElement(oldText)}`;
-
-      };
-
-      // TASK1 - REMOVE the INPUT field of the TEXT TYPE/
-      const task1 = async () => {
-        const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data") as HTMLDivElement;
-        if (!boxfieldDataHtml){
-          throw new Error("[boxfieldDataHtml]: Mistake => DIV.boxfield-data not found!")
-        };
-        const htmlInputText = boxfieldDataHtml.querySelector(".boxfield-input") as HTMLInputElement;
-        if (!htmlInputText || htmlInputText.tagName.toLowerCase() !== 'input' || htmlInputText.type !== "text"){
-          throw new Error("[htmlInputText]: Mistake => INPUT.boxfield-input not found!")
-        };
-        // get the new contant of the input field of the text type
-        const newText = htmlInputText.value;
-        if (newText){
-          boxfieldDataHtml.innerHTML = '<span className="loading loading-spinner loading-xs"></span>';
-          const response = await fetch()
-          // boxfieldDataHtml.textContent = newText;
-        };
-
-        // boxfieldDataHtml.innerHTML = `${(boxfieldDataHtml as HTMLDivElement).textContent}`;
-      }
-      // TASK2 - TOTAL task
-      const task2 = async () => {
-        if ((htmlInput as HTMLInputElement).checked) {
-          task0();
-        } else {
-          null
-        }
-      }
-
-      // boxfieldDataHtml
-      // INSER checked to the INPUT of the checkbox type
-      return true;
-  };
-  status.replace(status, target.dataset.status === "close"? "open": "close");
-
-  if (status === "open" as Status){
-    null
-  } else{
-    null
+  /**
+   *  After click on the the input field (checkbox type) we select the
+   * parent DIV
+   */
+  let htmlDiv = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
+  if (!htmlDiv || (htmlDiv && htmlDiv.className && htmlDiv.className !== null
+    && !(htmlDiv.className).includes("boxfield"))) {
+    throw new Error("[handlerProfileField]: Mistake => DIV.boxfield not found!")
   }
 
-  // {/*defaultChecked */ } checked
-return true;
-}}
+  // // TOTAL TASK lOOK what the PLACE of Event.
+  // if ((e.type).toLowerCase().includes("click") && (target as HTMLInputElement).type !== "checkbox") {
+  //   throw new Error("[handlerProfileFields.ts]: Mistake => 'INPUT.checkbox' not found!")
+  // }
+  // SELECT the HTMLElement
+  const dataStatus = ((target as HTMLInputElement).parentElement as HTMLInputElement).dataset.status;
+  if (dataStatus && dataStatus === "close" && (e.type).toLowerCase().includes("click")) {
+    // TASK0
+    task0(htmlDiv, handlerProfileField);
+    htmlDiv.onclick = null;
+    htmlDiv.onkeydown = handlerProfileField;
+  } else if ((e as KeyboardEvent).key === 'Enter') {
+    // TASK1
+    const htmlDiv2 = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
+    const resolve: boolean | [HTMLDivElement, string] = task1(htmlDiv2, handlerProfileField);
+
+    // Simple CHECKS the data
+    if (!resolve && (typeof resolve === "boolean")) {
+      throw new Error("[handlerProfileFields.ts::task2]: Mistake => resolve not found!")
+    }
+    // now it contains the loader animation.
+    const htmlDiv = (resolve as [HTMLDivElement, string])[0];
+    // get new text from the input field of the text type
+    const newtext = (resolve as [HTMLDivElement, string])[1]
+    if (!htmlDiv || !newtext) {
+      throw new Error("[handlerProfileFields.ts::task2]: Mistake => 'htmlDiv' or 'newtect' not found!")
+    }
+    const body = JSON.stringify({ username: newtext });
+    // SEND the NEW TEXT to the server. This from the inpute (type text) field.
+    // const response = await
+    fetchLoginOut(body)
+      .then(respone => {
+        if (respone.ok) {
+          htmlDiv.innerHTML = newtext;
+        }
+      });
+    htmlDiv.onkeydown = null;
+    (htmlDiv as HTMLDivElement).onclick = handlerProfileField;
+
+    // CHANGING THE:
+    // - inser the new contant of the input field of the text type
+  }
+
+  task2ChangeDom(htmlDiv);
+
+
+};
+
