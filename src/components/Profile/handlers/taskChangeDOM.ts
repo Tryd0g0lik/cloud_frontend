@@ -1,7 +1,8 @@
 
 /**
  * src\components\Profile\handlers\taskChangeDOM.ts
- * @param htmlDiv
+ * Change the status of the input field from 'open' to 'close' and chane the the input field (checkbox type)
+ *  to the true or false
  */
 const changeDomTask2 = (htmlDiv: HTMLDivElement) => {
   // CHANGE THE STATUS 'open' to 'close' (to the input field)

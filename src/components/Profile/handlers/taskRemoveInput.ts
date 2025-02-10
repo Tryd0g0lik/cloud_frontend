@@ -1,4 +1,8 @@
-// src\components\Profile\handlers\taskREmoveInput.ts
+/*
+* src\components\Profile\handlers\taskREmoveInput.ts
+* This is a sub-task of the handlerProfileFields.ts
+* - Remove the INPUT field of the TEXT TYPE. This is after Event 'Enter' from the input field.
+*/
 // TASK1 - REMOVE the INPUT field of the TEXT TYPE/
 const removeInputTask1 = (htmlDiv: HTMLDivElement, maping: Map<string, string> ): [HTMLDivElement, string] | boolean => {
 
@@ -24,9 +28,6 @@ const removeInputTask1 = (htmlDiv: HTMLDivElement, maping: Map<string, string> )
   };
   maping.set(nameOfField as string, newText);
   boxfieldDataHtml.innerHTML = '<span className="loading loading-spinner loading-xs"></span>';
-  // ADD 'onclick'
-  // htmlDiv.onkeydown = null;
-  // htmlDiv.onclick = (e: MouseEvent) => handler(e);
   return [boxfieldDataHtml, newText];
 }
 export default removeInputTask1;

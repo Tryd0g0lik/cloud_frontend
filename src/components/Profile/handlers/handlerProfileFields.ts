@@ -1,20 +1,13 @@
 /**
  * src\components\Profile\handlers\handlerProfileFields.ts
  */
-// import { CookieUser } from "@Services/cookieServices";
-// import { Usermeta, UserAPI } from "@Interfaces";
-// import { concat } from "lodash";
 import insertNewInputTask0 from "./taskNewInput";
 import removeInputTask1 from "./taskRemoveInput";
 import changeDomTask2 from "./taskChangeDOM";
 import { fetchLoginOut } from "@Services/request/loginout";
 const map = new Map();
-// interface StetusField{
-//   status: "close" | "open";
-// }
-type Status = "close" | "open";
+
 export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
-  const status: Status = "close";
   // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
@@ -90,7 +83,7 @@ export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
         (htmlDivContent as HTMLDivElement).innerHTML = result[nameField as string];
       });
   }
-
+  // TASK2
   changeDomTask2(htmlDiv);
 
   return false;
