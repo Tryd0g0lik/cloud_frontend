@@ -13,25 +13,29 @@ import { fetchLoginOut } from "@Services/request/loginout";
 //   status: "close" | "open";
 // }
 type Status = "close" | "open";
-export function handlerProfileField(e: React.MouseEvent) {
+export function handlerProfileField(e: React.MouseEvent | KeyboardEvent) {
   const status: Status = "close";
 
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
     throw new Error("[handlerProfileField]: Mistake => THe REACT_APP_SERVER_URL can't found")
   };
-  if ((e.type) && (!(e.type).toLowerCase().includes("click"))) {
+  if ((e.type) && (!(e.type).toLowerCase().includes("click") && ((e as KeyboardEvent).key &&
+    (e as KeyboardEvent).key !== 'Enter'))) {
     return false;
   }
+
   const target = (e.target as HTMLElement);
 
-  if (target && (!((target as HTMLElement).parentElement as HTMLElement).dataset.status) || (
-    ((target as HTMLElement).parentElement as HTMLElement).dataset.status &&
+  if (((e.type).toLowerCase().includes("click") && target && !((target as HTMLElement).parentElement as HTMLElement).dataset.status) || (
+    (e.type).toLowerCase().includes("click") && ((target as HTMLElement).parentElement as HTMLElement).dataset.status &&
     ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "close" &&
-    ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "open")) {
+    ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "open") &&
+    ((e as KeyboardEvent).key.toLowerCase().includes("Enter") && !((target as HTMLElement).parentElement as HTMLElement).classList.contains("boxfield-data"))) {
+    console.log(false);
     return false
   }
-  e.preventDefault();
+  //
 
 
     /**
@@ -45,14 +49,15 @@ export function handlerProfileField(e: React.MouseEvent) {
   }
 
   // TOTAL task lOOK what the PLACE of Event.
-  if ((target as HTMLInputElement).type !== "checkbox") {
+  if ((e.type).toLowerCase().includes("click") && (target as HTMLInputElement).type !== "checkbox") {
     throw new Error("[handlerProfileFields.ts]: Mistake => 'INPUT.checkbox' not found!")
   }
   const dataStatus = ((target as HTMLInputElement).parentElement as HTMLInputElement).dataset.status;
-  if (dataStatus && dataStatus === "close") {
+  if (dataStatus && dataStatus === "close" && (e.type).toLowerCase().includes("click")) {
     task0(htmlDiv, handlerProfileField);
+    //
     // return true;
-  } else {
+  } else if ((e as KeyboardEvent).key === 'Enter') {
     const htmlDiv2 = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
     const resolve: boolean | [HTMLDivElement, string] = task1(htmlDiv2, handlerProfileField);
 
@@ -70,7 +75,12 @@ export function handlerProfileField(e: React.MouseEvent) {
     const body = JSON.stringify({ username: newtext });
     // SEND the NEW TEXT to the server. This from the inpute (type text) field.
     // const response = await
-    fetchLoginOut(body) //await fetch()
+    fetchLoginOut(body)
+      .then(respone => {
+        if (respone.ok) {
+          htmlDiv.innerHTML = newtext;
+        }
+      });
 
     // CHANGING THE:
     // - inser the new contant of the input field of the text type

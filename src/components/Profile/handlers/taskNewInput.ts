@@ -29,7 +29,7 @@ import React from "react";
    //    throw new Error("[boxfieldDataHtml::task0]: Mistake => DIV.boxfield not found!")
    //  };
   // INSERTS 'onclick' for the input field of the text type/
-   htmlDiv.onclick = (e) => handler(e);
+   htmlDiv.onkeydown = (e: KeyboardEvent) => handler(e);
    const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data");
   if (!boxfieldDataHtml) {
     throw new Error("[boxfieldDataHtml]: Mistake => DIV.boxfield-data not found!")
