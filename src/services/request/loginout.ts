@@ -1,5 +1,7 @@
 
-// Fetch()
+/**
+ * src\services\request\loginout.ts
+ */
 
 import { CookieUser } from "@Services/cookieServices";
 import { HttpMethods, UserAPI } from "@Interfaces";
@@ -10,11 +12,11 @@ import { AES, mode, pad, enc } from "crypto-ts";
  */
 export async function fetchLoginOut(prop: string) {
 
-  let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
+  let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL || null;
   const cookie = new CookieUser();
   let indexOfCookie = cookie.getOneCookie("index");
   let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
-  let response: Response | undefined = undefined;
+  let response: Response | null = null;
   // If a cookies data files are empty, we neet to get (restore) the user's id
   if (!indexOfCookie) {
     const secret_key = process.env.REACT_APP_SECRET_KEY || "null";
@@ -40,7 +42,7 @@ export async function fetchLoginOut(prop: string) {
       },
     });
     if (!response.ok) {
-      null
+      throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);;
     }
     const result = await response.json();
     indexOfCookie = result['data'] as string;
@@ -51,7 +53,7 @@ export async function fetchLoginOut(prop: string) {
   // first is the 'GET' method for get a 'csrftoken'
   response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
   if (!response.ok) {
-    return response;
+    throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);;
   }
   const result = await response.json();
   // AUTHORISATION
