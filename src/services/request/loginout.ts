@@ -70,6 +70,3 @@ export async function fetchLoginOut(prop: string) {
     })
   return response
 }
-
-В свагер внести линк для получения ID
-созхдать ветку files 
