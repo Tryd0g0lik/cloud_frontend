@@ -7,7 +7,7 @@ import { Usermeta, UserLevel } from "@Interfaces";
 import { HydrateFallback } from "src/components/Loading";
 import { profileLoader } from "@Services/request/profileloading"
 import { NavbarTopFC } from "src/components/NavbarTop";
-
+import { handlerProfileField } from "./handlers/handlerProfileFields"
 // The simple emapty data for the 'Profile's' page.
 const plugProfile: Usermeta = {
   "username": "Пользователь",
@@ -83,8 +83,9 @@ export function ProfileFC(): JSX.Element {
         {
           profile && Array.from(Object.keys((profile as Usermeta))).map((item, index) => (
             (arr).includes(item) &&
-            <div id={String(index)} data-name={item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
 
+            <div onClick={(e: React.MouseEvent) => handlerProfileField(e as unknown as MouseEvent)} id={String(index)} data-name={item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
+              {/* handlerProfileField need to add to the '.boxfield'*/}
                 <div className="w-[150px]">{item}</div>
                 <div className="boxfield-data w-full max-w-64">
                 {(() => {
@@ -107,7 +108,9 @@ export function ProfileFC(): JSX.Element {
                 })()}
 
                 </div>
-                <div data-status="close" className="toggle w-6 h-[17px] p-0 "> <input type="checkbox" className="toggle toggle-success toggle-xs" /></div>
+                <div data-status="close" className="toggle w-6 h-[17px] p-0 ">
+                  <input type="checkbox" className="toggle toggle-success toggle-xs" />
+                </div>
               </div>
           ), [])
         }
