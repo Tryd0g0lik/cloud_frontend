@@ -26,10 +26,22 @@ export function ProfileFC(): JSX.Element {
   const [userName, setUserName] = useState<string>("!");
 
   useEffect(() => {
-  // SEND request to the server. to get the user's information. from the server.
+    const divHtml = document.querySelectorAll(".boxfield");
+    if (divHtml) {
+      // CRUD
+      Array.from(divHtml).forEach((item) => {
+        // DELETES the EventListener
+        (item as HTMLDivElement).removeEventListener('click', handlerProfileField);
+        (item as HTMLDivElement).removeEventListener('keydown', handlerProfileField);
+        // ADD the EventListener
+        (item as HTMLDivElement).addEventListener('click', handlerProfileField);
+        (item as HTMLDivElement).addEventListener('keydown', handlerProfileField);
+      });
+    }
+    // SEND request to the server. to get the user's information. from the server.
     return (() => {
       (async () => {
-        // Run the loader request to the server. It to get the user's information.
+        // RUN the loader request to the server. It to get the user's information.
         //  from the server.
         const response: Usermeta | {} = await profileLoader();
         if (typeof response === "boolean" && typeof response !== "object") {
@@ -37,7 +49,7 @@ export function ProfileFC(): JSX.Element {
           return false;
         }
 
-        // Change Set the user's information on the 'Profile' page, from db.
+        // CHANGE Set the user's information on the 'Profile' page, from db.
         setProfile({
           "username": (response as Usermeta)["username"] || "",
           "firstname": (response as Usermeta)['first_name'] || undefined,
@@ -54,7 +66,7 @@ export function ProfileFC(): JSX.Element {
           "date_joined": (response as Usermeta)["date_joined"] ? (response as Usermeta)["date_joined"] : undefined,
           "last_login": (response as Usermeta)["last_login"] ? (response as Usermeta)["last_login"] : undefined,
         });
-        // Change Set the user's name on the 'Profile' page, from db.
+        // CHANGE Set the user's name on the 'Profile' page, from db.
         setUserName((response as Usermeta)["username"] || (response as Usermeta)["first_name"] || "");
       })();
       // The state of the CHECKBOX (for redaction on the PRIFILE's FIELDS).
@@ -84,7 +96,7 @@ export function ProfileFC(): JSX.Element {
           profile && Array.from(Object.keys((profile as Usermeta))).map((item, index) => (
             (arr).includes(item) &&
 
-            <div onClick={handlerProfileField} key={String(index)} data-name={item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
+            <div key={String(index)} data-name={item === "firstname" ? "first_name" : item} className="boxfield basis-1/4 md:basis-1/3 w-full flex flex-row flex-nowrap flex-initial ">
               {/* handlerProfileField need to add to the '.boxfield'*/}
                 <div className="w-[150px]">{item}</div>
                 <div className="boxfield-data w-full max-w-64">
