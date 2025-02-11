@@ -1,4 +1,6 @@
-import def from "ajv/dist/vocabularies/discriminator";
+/**
+ * src\components\NavbarTop\NavbarEnd\tasks\task0.ts
+ */
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 
 const task0 = () => new Promise<void>(resolve => {

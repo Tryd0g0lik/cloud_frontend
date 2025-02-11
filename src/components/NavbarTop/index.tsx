@@ -11,12 +11,18 @@ import task2 from './NavbarEnd/tasks/task2';
 import task1 from './NavbarEnd/tasks/task1';
 import task0 from './NavbarEnd/tasks/task0';
 import task3 from './NavbarEnd/tasks/task3';
+import task4 from './NavbarEnd/tasks/task4';
 
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
+
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    (async () => await Promise.allSettled([task0(), task1(setUseactive), task3(), task2(),]))(); //
+    (async () => await Promise.allSettled([
+      task0(), task1(setUseactive),
+      task3(), task2(),
+      task4(),
+    ]))(); //
     return () => {
     }
     // Note: Смотреть примечание ниже по странице.

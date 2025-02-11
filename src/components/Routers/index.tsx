@@ -52,7 +52,7 @@ const Router = createBrowserRouter([
     // }
   },
   {
-    path: "profile/cloud/:id/",
+    path: "profile/files/:id/",
     element: <CloudFC {...cloud} />,
   }
 

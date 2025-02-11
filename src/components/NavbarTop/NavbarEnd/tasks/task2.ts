@@ -1,3 +1,6 @@
+/**
+ * src\components\NavbarTop\NavbarEnd\tasks\task2.ts
+ */
 import { CookieUser } from "@Services/cookieServices";
 const task2 = () => new Promise<void>(resolve => {
 
