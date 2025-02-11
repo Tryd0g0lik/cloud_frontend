@@ -9,6 +9,9 @@ import { Loginout } from "src/interfaces";
 const task1 = (func: CallableFunction) => new Promise<void>(resolve => {
   setTimeout(() => {
     const cookieUser = new CookieUser();
+    if (!cookieUser.checkCoockie("is_active")) {
+      throw new Error('[task1CheckCookie::task1]: Mistake => The key "is_active" in cookie not found!');
+    }
     let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
 
     falseTrue = (falseTrue) ? (

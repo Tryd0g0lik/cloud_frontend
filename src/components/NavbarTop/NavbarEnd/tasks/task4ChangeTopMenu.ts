@@ -10,8 +10,11 @@
 import { CookieUser } from "@Services/cookieServices";
 const task4 = () => new Promise<void>(resolve => {
   setTimeout(() => {
-    const coockie = new CookieUser();
-    const userId = coockie.getOneCookie("index") as string;
+    const cookie = new CookieUser();
+    if (!cookie.checkCoockie("index")) {
+      throw new Error('[task4ChangeTopMenu::task4]: Mistake => The key "index" in cookie not found!');
+    }
+    const userId = cookie.getOneCookie("index") as string;
     if (!userId) {
       throw new Error("[NavbarTopFC::task4]There is not userId");
     }

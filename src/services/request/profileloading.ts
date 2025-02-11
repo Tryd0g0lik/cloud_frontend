@@ -19,6 +19,9 @@ export async function profileLoader(): Promise<Usermeta | {}> {
   }
   // Get the value from the cookie's key.
   const cookie = new CookieUser();
+  if (!cookie.checkCoockie("index")) {
+    throw new Error('[profileloading::profileLoader]: Mistake => The key "index" in cookie not found!');
+  }
   const userId = cookie.getOneCookie("index");
   if (!userId) {
 
