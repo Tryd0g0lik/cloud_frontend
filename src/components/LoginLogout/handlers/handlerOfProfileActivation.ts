@@ -102,7 +102,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         if (resp instanceof Error) {
           null
         }
-        else if (resp["is_session"]) {
+        else if (resp && resp && resp["is_session"]) {
           /**
            * If user was activation to web site, then his redictet to the profile page of web site
            */

@@ -8,6 +8,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+
 module.exports = {
 
   // entry: './src/index.ts',
@@ -28,9 +29,8 @@ module.exports = {
   cache: false, // the cache is close
   mode: 'none',
   output: {
-    // path: path.resolve(__dirname, 'dist'),
-    path: path.resolve(__dirname, '../backend/cloud_user/static'),
-    filename: '../static/scripts/main-[id]-[fullhash].js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'static/scripts/main-[id]-[fullhash].js',
     publicPath: '/',
     // publicPath: 'auto',
     clean: true,
@@ -41,6 +41,7 @@ module.exports = {
     runtimeChunk: 'single',
     // minimize: false,
     minimizer: [
+      // для минификации
       new TerserPlugin({
         terserOptions: {
           format: {
@@ -50,11 +51,17 @@ module.exports = {
         extractComments: false, // Не сохранять комментарии в отдельный файл
       }),
     ],
+    
   },
   performance: {
-    maxAssetSize: 800000, // Set max asset size to 300 KiB
-    maxEntrypointSize: 800000, // Set max entry point size to 300 KiB
-    hints: 'warning', // Can be 'error', 'warning', or false
+    // TerserPlugin
+    maxAssetSize: 1024 * 1024, // 1 MiB Set max asset size to 300 KiB
+    maxEntrypointSize: 1024 * 1024, // 1 MiB Set max entry point size to 300 KiB
+    hints: false, // Can be 'error', 'warning', or false
+    // assetFilter: function (assetFilename) {
+    //   // Игнорировать CSS-файлы // Tailwind CSS
+    //   return !assetFilename.endsWith('.css');
+    // },
   },
   target: 'web',
   module: {
@@ -97,7 +104,7 @@ module.exports = {
     new Dotenv(),
     new CleanWebpackPlugin(), // the 'dist/' is cleans
     new BundleTracker({
-      path: path.join(__dirname, '../backend/cloud_user/static/bundles'),
+      path: path.join(__dirname, '../bundles'),
       filename: 'webpack-stats.json'
     }),
 
@@ -105,12 +112,12 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: 'src/public/index_dev.html',
-      filename: "../../templates/users/index.html"
+      filename: "/index.html"
     }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
       filename: '[file].map.[query]',
-      include: path.resolve(__dirname, '../backend/cloud_user/static/bundles/maps'),
+      include: path.resolve(__dirname, '../bundles/maps'),
     }),
 
     new ESLintPlugin({
@@ -119,7 +126,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: '../static/styles/output.css'
+      filename: 'static/styles/output.css'
     }),
   ],
   watchOptions: {
@@ -146,9 +153,9 @@ module.exports = {
 
     compress: true,
     historyApiFallback: true,
-    host: "127.0.0.1"
+    host: "127.0.0.1",
     // open: true, // Автоматическое открытие браузера
-    // port: 8080
+    port: 8080
   },
 
   resolve: {
@@ -163,15 +170,7 @@ module.exports = {
     alias: {
       "@Service": path.resolve(__dirname, "src/services"),
       "@Interfaces": path.resolve(__dirname, "src/interfaces.ts"),
-
-    },
-    // packages: [
-    //   {
-    //     name: 'crypto-ts',
-    //     location: 'path-to/bower_components/crypto-ts',
-    //     main: 'index'
-    //   }
-    // ]
+    }
   },
 
 };
