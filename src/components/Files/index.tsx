@@ -5,8 +5,8 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   
   return(<>
     <NavbarTopFC {...maintitle} />
-    <section className="cloud-files ">
-      <div className="overflow-x-auto w-[100%] flex justify-center">
+    <section id="profile" className="cloud-files ">
+      <div className="profile__fields overflow-x-auto w-[100%] flex justify-center">
         <table className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg table-lg">
           {/* head */}
           <thead>
@@ -67,6 +67,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
           </tbody>
         </table>
       </div>
+
     </section>
   </>);
 }

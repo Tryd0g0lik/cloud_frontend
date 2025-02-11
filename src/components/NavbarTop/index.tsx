@@ -7,11 +7,11 @@ import { NavbarEndFC } from "./NavbarEnd";
 
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
-import task2 from './NavbarEnd/tasks/task2';
-import task1 from './NavbarEnd/tasks/task1';
+import task2 from './NavbarEnd/tasks/task2ChangeLink';
+import task1 from './NavbarEnd/tasks/task1CheckCookie';
 import task0 from './NavbarEnd/tasks/task0';
-import task3 from './NavbarEnd/tasks/task3';
-import task4 from './NavbarEnd/tasks/task4';
+import task3 from './NavbarEnd/tasks/task3ChangeButton';
+import task4 from './NavbarEnd/tasks/task4ChangeTopMenu';
 
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);

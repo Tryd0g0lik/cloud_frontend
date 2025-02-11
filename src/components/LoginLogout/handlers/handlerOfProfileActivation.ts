@@ -129,7 +129,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   /**
    * Entry point receives the key by name the 'is_active'.\
    * If the 'is_active' is the 'true', IT is means what user is activate to web site.\
-   * Next,  run the fun 'receivingDataOfFirstLogin()'.
+   *
    */
   if (!key) {
     return false;
