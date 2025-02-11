@@ -14,9 +14,7 @@ export async function fetchLoginOut(prop: string) {
 
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL || null;
   const cookie = new CookieUser();
-  if (!cookie.checkCoockie("index")) {
-    throw new Error('[loginout::fetchLoginOut]: Mistake => The key "index" in cookie not found!');
-  }
+
   let indexOfCookie = cookie.getOneCookie("index");
   let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
   let response: Response | null = null;
