@@ -79,8 +79,8 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   ) {
     (e as React.MouseEvent).preventDefault();
     /** MOUSE CLIKE
-     * If was the mouse clike on the button from menu. This is from
-     * the level top of the dashboard  of the rigth side buttom
+     * If was the mouse clike on the button from menu. This is from of
+     * the level top in the dashboard  from the rigth side buttom
      */
     passworEmail = JSON.stringify({ is_active: false });
   }
@@ -102,7 +102,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         if (resp instanceof Error) {
           null
         }
-        else if (resp && resp && resp["is_session"]) {
+        else if (resp && resp && resp["is_active"]) {
           /**
            * If user was activation to web site, then his redictet to the profile page of web site
            */
@@ -127,8 +127,8 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   }
 
   /**
-   * Entry point receives the key by name the 'is_session'.\
-   * If the 'is_session' is the 'true', IT is means what user is activate to web site.\
+   * Entry point receives the key by name the 'is_active'.\
+   * If the 'is_active' is the 'true', IT is means what user is activate to web site.\
    * Next,  run the fun 'receivingDataOfFirstLogin()'.
    */
   if (!key) {
