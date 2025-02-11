@@ -155,14 +155,14 @@ module.exports = {
     historyApiFallback: true,
     host: "127.0.0.1",
     // open: true, // Автоматическое открытие браузера
-    port: 8080
+    // port: 8080
   },
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
     plugins: [new TsconfigPathsPlugin(),],
     modules: [
-      path.resolve(__dirname, "./.browserslistrc"),
+      // path.resolve(__dirname, "./.browserslistrc"),
       path.resolve(__dirname, "node_modules"),
       // path.resolve(__dirname, "dist")
     ],

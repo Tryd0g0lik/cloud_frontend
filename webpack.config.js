@@ -155,7 +155,7 @@ module.exports = {
     extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
     plugins: [new TsconfigPathsPlugin(),],
     modules: [
-      path.resolve(__dirname, "./.browserslistrc"),
+      // path.resolve(__dirname, "./.browserslistrc"),
       path.resolve(__dirname, "node_modules"),
       // path.resolve(__dirname, "dist")
     ],

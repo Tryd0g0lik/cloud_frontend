@@ -114,10 +114,10 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
             }
             location.pathname = textOfLink;
           }
-          location.pathname = "/"
+          // location.pathname = "/"
         }
         else {
-          location.pathname = "/"
+          // location.pathname = "/"
         }
         // setTimeout(() => location.pathname = "/", 4000)
 
