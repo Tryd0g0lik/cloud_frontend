@@ -138,7 +138,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   // Run tasks some in parallel.
   const cookie = new CookieUser();
   if (!cookie.checkCoockie("is_active")) {
-    throw new Error('[handlerLogin]: Mistake => The key "is_active" in cookie not found!');
+    return false;
   }
   const session = cookie.getOneCookie(key);
   if (!session) {

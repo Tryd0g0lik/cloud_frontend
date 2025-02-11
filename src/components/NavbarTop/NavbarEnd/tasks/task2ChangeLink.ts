@@ -7,7 +7,7 @@ const task2 = () => new Promise<void>(resolve => {
   setTimeout(() => {
     const cookie = new CookieUser();
     if (!cookie.checkCoockie("index")) {
-      throw new Error('[task2ChangeLink::task2]: Mistake => The key "index" in cookie not found!');
+      return false
     }
     const userId = cookie.getOneCookie("index") as string;
     if (userId) {

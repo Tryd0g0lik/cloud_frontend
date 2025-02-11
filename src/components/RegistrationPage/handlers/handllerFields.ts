@@ -67,7 +67,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     "first_name": null,
     "email": map.get("email"),
     "password": map.get("password"),
-    "is_superuser": false
+    "is_staff": false
   }
   )
   try {
