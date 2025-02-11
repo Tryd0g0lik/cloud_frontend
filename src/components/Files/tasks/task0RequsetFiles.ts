@@ -16,20 +16,15 @@ const task0 = (func: CallableFunction) => new Promise<void>(resolve => {
   if (!cookie.checkCoockie('index')) {
     throw new Error("[task0RequsetFiles::task0]:  Mistake => The key 'index' in cookie not found!");
   }
-  const index = cookie.getOneCookie("index");
-  const urlSeparat = window.location.href.split(".")
+  const urlSeparat = window.location.href.split("profile")
   if (urlSeparat.length < 2) {
     throw new Error("[task0RequsetFiles::task0]:  Mistake => The local url from the local page not founded!");
   }
-  const url = new URL(":8000/api/v1/files/", `${urlSeparat[0]}.${urlSeparat[0]}`);
+  const url = new URL("/api/v1/files/", `${urlSeparat[0]}}`);
+  url.port = "8000";
   fetch(url, {
     method: HttpMethods.GET,
     credentials: "include",
-    headers: {
-      'Accept': 'application/json',
-      "Content-Type": "application/json",
-      // "Authorization": `Token `
-    }
   })
     .catch((e) => {
       throw new Error(`[task0RequsetFiles::task0]:  Mistake => The request to the server \
@@ -52,3 +47,4 @@ can't found! ${e}`)
 
 
 });
+export default task0;

@@ -1,7 +1,11 @@
-import React, {JSX, useState} from "react";
+import React, { JSX, useState, useEffect } from "react";
 import { NavbarTopFC } from "../NavbarTop";
+import task0 from "./tasks/task0RequsetFiles";
 interface Maintitle { maintitle: string }
+
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
+  const [files, stateFiles] = useState([]);
+  useEffect(() => { return () => { task0(stateFiles); } }, []);
   
   return(<>
     <NavbarTopFC {...maintitle} />
@@ -11,7 +15,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
           {/* head */}
           <thead>
             <tr >
-              <th>
+              <th className="w-[1.625rem] ">
                 <label>
                   <input type="checkbox" className="checkbox" />
                 </label>
@@ -25,45 +29,36 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr className="hover">
-              <th>
+            {/* {files.length === 0 } */}
+            {files.length > 0 && files.map((file, index) => {
+              return <tr key={index}>
+
+                <tr className={index % 2 === 0 ? "hover flex justify-around w-[100%] max-w-[64rem]" : "flex justify-around w-[100%] max-w-[64rem]"}>
+                  <td className="w-[1.625rem]">
                 <label>
                   <input type="checkbox" className="checkbox" />
                 </label>
-              </th>
-              <th>1</th>
+                  </td>
+                  <td>{index}</td>
               <td>Cy Ganderton</td>
               <td>Quality Control Specialist</td>
               <td>Blue</td>
               <td>Brown</td>
-            </tr>
-            {/* row 2 */}
-            <tr>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
-              <th >2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-              <td>Brown</td>
-            </tr>
+                </tr>
 
-            {/* row 3 */}
-            <tr className="hover">
-              <th>
+            </tr>
+            }) || <tr className="flex justify-around w-[100%] max-w-[64rem]">
+                <td className="w-1.625rem">
                 <label>
                   <input type="checkbox" className="checkbox" />
                 </label>
-              </th>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-              <td>Brown</td>
-            </tr>
+                </td>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>}
           </tbody>
         </table>
       </div>

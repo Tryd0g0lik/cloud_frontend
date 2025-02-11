@@ -2208,12 +2208,33 @@ html {
   width: 100%;
 }
 
+.w-max {
+  width: -webkit-max-content;
+  width: max-content;
+}
+
+.w-1 {
+  width: 0.25rem;
+}
+
+.w-\[1\.625rem\] {
+  width: 1.625rem;
+}
+
 .max-w-64 {
   max-width: 16rem;
 }
 
 .max-w-screen-lg {
   max-width: 1024px;
+}
+
+.max-w-\[1024px\] {
+  max-width: 1024px;
+}
+
+.max-w-\[64rem\] {
+  max-width: 64rem;
 }
 
 .flex-initial {
@@ -2246,6 +2267,10 @@ html {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
 }
 
 .gap-2 {
