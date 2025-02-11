@@ -16,7 +16,7 @@ import task4 from './NavbarEnd/tasks/task4';
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
 
-  /* ----- Handler activation the user profile  ----- */
+  /* ----- Handler (all taskS) activation the user profile  ----- */
   useEffect(() => {
     (async () => await Promise.allSettled([
       task0(), task1(setUseactive),

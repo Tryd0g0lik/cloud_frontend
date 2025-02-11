@@ -9,7 +9,7 @@ import { RegistrationFormFC } from "src/components/RegistrationPage";
 import { LoginLogoutFC } from "src/components/LoginLogout";
 import { NavbarTopFC } from "src/components/NavbarTop";
 import { ProfileFC } from "src/components/Profile";
-import { CloudFC } from "../Cloud";
+import { FilesdFC } from "src/components/Files";
 
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
@@ -53,7 +53,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "profile/files/:id/",
-    element: <CloudFC {...cloud} />,
+    element: <FilesdFC {...cloud} />,
   }
 
 ],
