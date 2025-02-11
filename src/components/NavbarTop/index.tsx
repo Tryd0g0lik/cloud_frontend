@@ -3,99 +3,21 @@
  * Upper navigation from the level of the 'head' on page
  */
 import React, { JSX, useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-// import { useSelector, useDispatch } from "react-redux";
-// import type { RootState } from 'src/services/redux/store';
-// import { login, logout } from "src/services/redux/counterSlice";
 import { NavbarEndFC } from "./NavbarEnd";
-import { CookieUser } from "@Services/cookieServices";
+
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
-// import { includes } from 'lodash';
-// import handlerLinkOfLogin from "src/components/NavbarTop/handlers/handlerNavbar";
-
-
-/* Get params of user for the PRIMARY ACTIVATION of the user
- after the authentification/resitration of user. */
-// const useQuery = () => {
-//   return new URLSearchParams(useLocation().search)
-// }
+import task2 from './NavbarEnd/tasks/task2';
+import task1 from './NavbarEnd/tasks/task1';
+import task0 from './NavbarEnd/tasks/task0';
+import task3 from './NavbarEnd/tasks/task3';
 
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
-  const task0 = () => new Promise<void>(resolve => {
-    setTimeout(() => {
-      const login = handlerLogin();
-      login("is_active");
-      resolve();
-    }, 200);
-
-  });
-
-  /** ---- task1 ----
-   * The data of 'is_active' geting from the cookie and change  the text to the buttom.
-   * If, it is a true, means -> NAVIGATE by profile will be ACTIVATION
-   * */
-  const task1 = () => new Promise<void>(resolve => {
-    setTimeout(() => {
-      const cookieUser = new CookieUser();
-      let falseTrue: string | boolean | null = cookieUser.getOneCookie("is_active");
-
-      falseTrue = (falseTrue) ? (
-        (falseTrue.toLowerCase()).includes("false") ? false : true
-      ) : false;
-
-      // status of a profile.
-      setUseactive((falseTrue as boolean) ? Loginout.LOGOUT : Loginout.LOGIN);
-      resolve();
-    }, 0);
-  });
-
-  /*  ---- task3 ----
-   * The right  upper button, if it has a 'Login' text, the function
-   * below inserts the link to the page of the form.
-   */
-  const task3 = () => new Promise<void>(resolve => {
-    setTimeout(() => {
-      const ancorHtml = document.querySelectorAll(".navbar-end a");
-      if (!ancorHtml) {
-        console.log('Button is invaid.');
-        return false
-      }
-      Array.from(ancorHtml).forEach((item) => {
-        if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGIN).toLowerCase())) {
-          (item as HTMLAnchorElement).href = "/users/login/";
-        } else if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGOUT).toLowerCase())) {
-          (item as HTMLAnchorElement).href = "";
-        }
-      });
-      resolve();
-    }, 100);
-  });
-
-
   /* ----- Handler activation the user profile  ----- */
   useEffect(() => {
-    const task2 = () => new Promise<void>(resolve => {
-
-      setTimeout(() => {
-        const coockie = new CookieUser();
-        const userId = coockie.getOneCookie("index") as string;
-        if (userId) {
-          const profileLink = document.querySelector('a[href="/profile/"]');
-          if (profileLink) {
-            (profileLink as HTMLAnchorElement).href =
-              (profileLink as HTMLAnchorElement).href + `${userId}/`;
-          }
-        }
-        resolve();
-      }, 100)
-    });
-    (async () => await Promise.allSettled([task0(), task1(), task3(), task2(),]))(); //
+    (async () => await Promise.allSettled([task0(), task1(setUseactive), task3(), task2(),]))(); //
     return () => {
-
-
-
     }
     // Note: Смотреть примечание ниже по странице.
   }, [])
@@ -127,10 +49,10 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <li><a href=''>Главная</a></li>
               {useactive.includes("Logout") && <li>
-                <details>
+                <details className="cloud">
                   <summary>Облако</summary>
                   <ul className="p-2">
-                    <li><a className='px-1'>Мои файлы</a></li>
+                    <li><a className='cloud-files px-1'>Мои файлы</a></li>
                     <li><a className='px-1'>Submenu 2</a></li>
                   </ul>
                 </details>
@@ -169,10 +91,10 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
               *
             */}
             {useactive.includes("Logout") && <li>
-              <details>
+              <details className="cloud">
                 <summary>Облако</summary>
                 <ul className="p-2">
-                  <li><a className='px-1'>Мои файлы</a></li>
+                  <li><a className='cloud-file px-1'>Мои файлы</a></li>
                   <li><a className='px-1'>Submenu 2</a></li>
                 </ul>
               </details>
