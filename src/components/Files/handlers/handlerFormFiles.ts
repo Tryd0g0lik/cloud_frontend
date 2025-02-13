@@ -6,7 +6,11 @@ import React, { ChangeEvent, FormEvent } from "react"
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT || '8000';
 import { HttpMethods, UserAPI } from "@Interfaces";
 
-
+/**
+ * Thi is loader (event handler) fiiles to the server
+ * @param e FormEvent.
+ * @returns 
+ */
 export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
   if (!(e.target as HTMLFormElement).form &&
   (e.target as HTMLFormElement).form[0].type !== 'file' &&

@@ -7,7 +7,7 @@ interface Maintitle { maintitle: string }
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
   useEffect(() => { return () => { task0(stateFiles); } }, []);
-  
+
   return(<>
     <NavbarTopFC {...maintitle} />
     <section id="profile" className="cloud-files ">

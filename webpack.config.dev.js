@@ -8,6 +8,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+// const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 
@@ -102,7 +103,12 @@ module.exports = {
     }),
 
     // new SpriteLoaderPlugin(), // svg
+    // new CopyPlugin({
+    //   patterns: [
+    //     { from: "src/components/Files/handlers/messages", to: "../static/scripts/messages" },
 
+    //   ],
+    // }),
     new HtmlWebpackPlugin({
       template: 'src/public/index_dev.html',
       filename: "../../templates/users/index.html"
