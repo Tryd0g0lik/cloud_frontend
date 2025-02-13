@@ -7,18 +7,19 @@ import { NavbarEndFC } from "./NavbarEnd";
 
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { Loginout } from "src/interfaces";
-import task2 from './NavbarEnd/tasks/task2ChangeLink';
-import task1 from './NavbarEnd/tasks/task1CheckCookie';
-import task0 from './NavbarEnd/tasks/task0';
-import task3 from './NavbarEnd/tasks/task3ChangeButton';
-import task4 from './NavbarEnd/tasks/task4ChangeTopMenu';
-
+import task2 from './tasks/task2ChangeLink';
+import task1 from './tasks/task1CheckCookie';
+import task0 from './tasks/task0';
+import task3 from './tasks/task3ChangeButton';
+import task4 from './tasks/task4ChangeTopMenu';
+import task5 from './tasks/task5ProfileLoader';
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
 
   /* ----- Handler (all taskS) activation the user profile  ----- */
   useEffect(() => {
     (async () => await Promise.allSettled([
+      // task5(),
       task0(), task1(setUseactive),
       task3(), task2(),
       task4(),

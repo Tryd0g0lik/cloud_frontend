@@ -85,6 +85,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
     passworEmail = JSON.stringify({ is_active: false });
   }
   if ((passworEmail).length > 3) {
+    // ACTIVATION THE USER to the profile.
     const task0 = async () => fetchLoginOut(passworEmail)
       .then(async (response) => {
       /**
@@ -140,6 +141,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   if (!cookie.checkCoockie("is_active")) {
     return false;
   }
+  // GET KEY OF COOKIE
   const session = cookie.getOneCookie(key);
   if (!session) {
     return false

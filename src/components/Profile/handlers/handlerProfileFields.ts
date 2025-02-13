@@ -44,7 +44,7 @@ export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
     // TASK0
     insertNewInputTask0(htmlDiv);
   } else if ((e as KeyboardEvent).key === 'Enter') {
-    // TASK1
+    // TASK1 update the content to the Profile page.
     const htmlDiv2 = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
     const resolve: boolean | [HTMLDivElement, string] = removeInputTask1(htmlDiv2, map);
 
