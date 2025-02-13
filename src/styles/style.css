@@ -19,10 +19,19 @@
 /* @theme {
 
 } */
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
 .profile__fields .toggle {
   border: 0;
 }
 
+#profile {
+  min-height: calc(100vh - 68px);
+}
 .profile__fields>div:first-child:hover {
   /* background-color: none; */
 }
@@ -128,33 +137,70 @@ body * {
   display: none
 }
 
+
+
 @media screen and (min-width: 8px) {
   .navbar .dropdown {
     display: inline-block;
   }
-/* -------- REGISTRATION -------- */
+}
+@media screen and (min-width: 320px) {
+  .navbar .dropdown {
+    display: inline-block;
+	}
+	/* -------- REGISTRATION -------- */
 section.registration,
-.h1 {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 5px;
-  column-gap: 5px;
-  justify-content: center;
-  max-width: 735px;
-  margin: 0 auto;
-}
-}
+	.h1 {
+		display: flex;
+		flex-wrap: wrap;
+		row-gap: 5px;
+		column-gap: 5px;
+		justify-content: center;
+		max-width: 735px;
+		margin: 0 auto;
+	}
+
  .alter {
-  max-width: 600px;
-  color: #0b9fbf;
-  display: block;
-    margin: 0 auto;
- }
+		max-width: 600px;
+		color: #0b9fbf;
+		display: block;
+			margin: 0 auto;
+	 }
 
- .alter.error {
-   color: red;
+	 .alter.error {
+		 color: red;
+	 }
+	div.loader{
+		min-height: 50px;
+	}
+	.loader-form {
+		top:0;
+		max-height: 30px;
+	min-height: 30px;}
 
- }
+	/* TABLE OF FILES */
+	.profile__fields td.num{
+		min-width: 20px;
+		width:100%;
+		max-width: 100px;
+		text-align: center;
+	}
+.profile__fields td.num + td{
+	width: 100%;
+	max-width: 225px;
+	overflow-x: hidden;
+}
+	#profile .alert-error, #profile .alert-success {	
+		
+		min-height: 30px;
+		padding-top: 0;
+		padding-bottom: 0;
+		position: absolute;
+		bottom: -32px;
+		z-index: 3;
+	}
+}
+
 @media screen and (min-width: 640px) {
   .navbar .dropdown {
     display: none;

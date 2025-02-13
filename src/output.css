@@ -2551,20 +2551,32 @@ html {
   padding-bottom: 0.5rem;
 }
 
-.table-lg :not(thead):not(tfoot) tr {
-  font-size: 1rem;
-  line-height: 1.5rem;
+.absolute {
+  position: absolute;
 }
 
-.table-lg :where(th, td) {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.relative {
+  position: relative;
+}
+
+.-top-12 {
+  top: -3rem;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.right-0 {
+  right: 0px;
 }
 
 .z-\[1\] {
   z-index: 1;
+}
+
+.z-\[3\] {
+  z-index: 3;
 }
 
 .mt-3 {
@@ -2591,12 +2603,16 @@ html {
   height: 1.25rem;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .h-\[17px\] {
   height: 17px;
 }
 
-.h-6 {
-  height: 1.5rem;
+.max-h-10 {
+  max-height: 2.5rem;
 }
 
 .max-h-6 {
@@ -2643,12 +2659,12 @@ html {
   width: 100%;
 }
 
-.w-\[150px\] {
-  width: 150px;
+.w-\[12rem\] {
+  width: 12rem;
 }
 
-.w-\[23rem\] {
-  width: 23rem;
+.w-\[150px\] {
+  width: 150px;
 }
 
 .w-full {
@@ -2715,8 +2731,8 @@ html {
   gap: 0.5rem;
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
+.overflow-visible {
+  overflow: visible;
 }
 
 .rounded-box {
@@ -2823,8 +2839,18 @@ html {
 
 } */
 
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
 .profile__fields .toggle {
   border: 0;
+}
+
+#profile {
+  min-height: calc(100vh - 68px);
 }
 
 .profile__fields>div:first-child:hover {
@@ -2941,11 +2967,17 @@ body * {
   .navbar .dropdown {
     display: inline-block;
   }
+}
+
+@media screen and (min-width: 320px) {
+  .navbar .dropdown {
+    display: inline-block;
+  }
 
   /* -------- REGISTRATION -------- */
 
   section.registration,
-.h1 {
+	.h1 {
     display: flex;
     flex-wrap: wrap;
     row-gap: 5px;
@@ -2954,17 +2986,51 @@ body * {
     max-width: 735px;
     margin: 0 auto;
   }
-}
 
-.alter {
-  max-width: 600px;
-  color: #0b9fbf;
-  display: block;
-  margin: 0 auto;
-}
+  .alter {
+    max-width: 600px;
+    color: #0b9fbf;
+    display: block;
+    margin: 0 auto;
+  }
 
-.alter.error {
-  color: red;
+  .alter.error {
+    color: red;
+  }
+
+  div.loader{
+    min-height: 50px;
+  }
+
+  .loader-form {
+    top:0;
+    max-height: 30px;
+    min-height: 30px;
+  }
+
+  /* TABLE OF FILES */
+
+  .profile__fields td.num{
+    min-width: 20px;
+    width:100%;
+    max-width: 100px;
+    text-align: center;
+  }
+
+  .profile__fields td.num + td{
+    width: 100%;
+    max-width: 225px;
+    overflow-x: hidden;
+  }
+
+  #profile .alert-error, #profile .alert-success {
+    min-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    position: absolute;
+    bottom: -32px;
+    z-index: 3;
+  }
 }
 
 @media screen and (min-width: 640px) {
