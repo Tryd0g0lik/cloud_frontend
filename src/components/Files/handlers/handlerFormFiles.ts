@@ -14,6 +14,13 @@ export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
     return false
   }
   const fileContainer = (e.target as HTMLFormElement).form[0];
+  // CHECKIING AND REMOVE the OLD ALTER
+  let alterHTML = (e.target as HTMLFormElement).parentElement as HTMLElement;
+  alterHTML = (alterHTML.parentElement as HTMLFormElement).querySelector(".loader-form + .alert") as HTMLElement;
+
+  if (alterHTML && alterHTML.classList.contains("alert")) {
+    alterHTML.remove();
+  }
   // GET THE FILE
   const file = fileContainer.files[0];
   if (!file) {
@@ -36,9 +43,53 @@ export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
       'Accept': 'application/json',
     }
   });
+
+  // PUBLIC MESSAGE
+  alterHTML = (e.target as HTMLFormElement).parentElement as HTMLElement;
   if (!response.ok) {
-    throw new Error(`[handlerFormFiles.ts::handlerFormFile]: Mistake => HTTP error! status: ${response.status}`);
+    (alterHTML as HTMLElement).insertAdjacentHTML("afterend", alterIsNotOk);
+
+    return false;
+    // throw new Error(`[handlerFormFiles.ts::handlerFormFile]: Mistake => HTTP error! status: ${response.status}`);
   }
+
+
+  (alterHTML as HTMLElement).insertAdjacentHTML("afterend", alterIsOk);
+
+
+
+  fileContainer.value = '';
   return response;
 
 };
+
+const alterIsNotOk = `<div role="alert" class="alert alert-error">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>Файл не загружен!</span>
+</div>`
+const alterIsOk = `
+<div role="alert" class="alert alert-success">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>Файл загружен!</span>
+</div>
+`
