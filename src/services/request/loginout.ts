@@ -14,6 +14,7 @@ export async function fetchLoginOut(prop: string) {
 
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL || null;
   const cookie = new CookieUser();
+
   let indexOfCookie = cookie.getOneCookie("index");
   let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
   let response: Response | null = null;
@@ -38,7 +39,7 @@ export async function fetchLoginOut(prop: string) {
       method: HttpMethods.GET,
       headers: {
         'Accept': 'application/json',
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
       },
     });
     if (!response.ok) {
@@ -53,7 +54,7 @@ export async function fetchLoginOut(prop: string) {
   // first is the 'GET' method for get a 'csrftoken'
   response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
   if (!response.ok) {
-    throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);;
+    throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);
   }
   const result = await response.json();
   // AUTHORISATION
@@ -64,7 +65,6 @@ export async function fetchLoginOut(prop: string) {
       headers: {
         'X-CSRFToken': result["csrftoken"],
         'Accept': 'application/json',
-        "Content-Type": "application/json",
       },
       // credentials: "same-origin" as RequestCredentials,
       credentials: 'include' as RequestCredentials,

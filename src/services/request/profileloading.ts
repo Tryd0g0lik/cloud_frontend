@@ -19,6 +19,9 @@ export async function profileLoader(): Promise<Usermeta | {}> {
   }
   // Get the value from the cookie's key.
   const cookie = new CookieUser();
+  if (!cookie.checkCoockie("index")) {
+    throw new Error('[profileloading::profileLoader]: Mistake => The key "index" in cookie not found!');
+  }
   const userId = cookie.getOneCookie("index");
   if (!userId) {
 
@@ -27,7 +30,14 @@ export async function profileLoader(): Promise<Usermeta | {}> {
   };
   // Create the url + the pathname of api for request to the server.
   const url = new URL(`${UserAPI.CHOICE}${userId}/`, `${REACT_APP_SERVER_URL}`,)
-  const response = await fetch(url)
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": "application/json",
+    },
+    credentials: "include" // Ceookie will be include to the request /
+  })
   if (!response.ok) {
     throw new Error(`[profileLoader]: Mistake => Server returned status ${response.status}`);
   }

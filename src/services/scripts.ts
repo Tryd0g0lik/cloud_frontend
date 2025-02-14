@@ -32,6 +32,9 @@ export async function buttonLoginLogout() {
       return false;
     }
     const cookie = new CookieUser();
+    if (!cookie.checkCoockie("is_active")) {
+      throw new Error('[scripts::buttonLoginLogout]: Mistake => The key "is_active" in cookie not found!');
+    }
     const is_active_str = cookie.getOneCookie("is_active");
 
     divArray.forEach((view, ind) => {

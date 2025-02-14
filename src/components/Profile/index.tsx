@@ -55,12 +55,12 @@ export function ProfileFC(): JSX.Element {
           "firstname": (response as Usermeta)['first_name'] || undefined,
           "lastname": (response as Usermeta)["last_name"] || undefined,
           "email": (response as Usermeta)["email"] || undefined,
-          "userlevel": (response as Usermeta)["is_superuser"] ? (
-            (response as Usermeta)["is_superuser"] ?
+          "userlevel": (response as Usermeta)["is_staff"] ? (
+            (response as Usermeta)["is_staff"] ?
               UserLevel.ADMIN : UserLevel.PASSANGER) : undefined,
           "password": false,
-          "is_staff": (response as Usermeta)["is_superuser"] ? (
-            (response as Usermeta)["is_superuser"] ?
+          "is_staff": (response as Usermeta)["is_staff"] ? (
+            (response as Usermeta)["is_staff"] ?
               true : false) : undefined,
           "is_active": (response as Usermeta)["is_active"] ? true : false,
           "date_joined": (response as Usermeta)["date_joined"] ? (response as Usermeta)["date_joined"] : undefined,
