@@ -16,7 +16,7 @@ export async function fetchLoginOut(prop: string) {
   const cookie = new CookieUser();
 
   let indexOfCookie = cookie.getOneCookie("index");
-  let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
+  let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}/`.replace(":userId", indexOfCookie as string);
   let response: Response | null = null;
   // If a cookies data files are empty, we neet to get (restore) the user's id
   if (!indexOfCookie) {
@@ -47,7 +47,7 @@ export async function fetchLoginOut(prop: string) {
     }
     const result = await response.json();
     indexOfCookie = result['data'] as string;
-    url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH}${indexOfCookie}/`;
+    url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}/`.replace(":userId", indexOfCookie as string);;
   }
 
   // CSRFTOKEN
