@@ -26,7 +26,8 @@ export enum UserAPI {
   BASIS = "/api/v1/users/",
   CHOICE = "/api/v1/users/choice/",
   PATCH = "/api/v1/users/patch/",
-  GETofAPI = "/api/v1/users/get/"
+  GETofAPI = "/api/v1/users/get/",
+  FILESREMOVE = "/api/v1/files/:userId/remove/" // :userId - replace to the id: string of the string
 }
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation

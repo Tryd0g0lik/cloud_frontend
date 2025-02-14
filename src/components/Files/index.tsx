@@ -2,7 +2,8 @@ import React, { JSX, useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { NavbarTopFC } from "../NavbarTop";
 import { CookieUser } from "@Services/cookieServices";
-import { handlerFormFile } from "./handlers/handlerFormFiles"
+import { handlerFormFile } from "./handlers/handlerFormFiles";
+import { handlerFileRemove } from "./handlers/handlerFileRemoves";
 import { handlerOlderFiles } from "./handlers/handlerOlderFiles";
 import { LocalRef } from "@Interfaces";
 interface Maintitle { maintitle: string }
@@ -10,6 +11,8 @@ interface Maintitle { maintitle: string }
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
   const navigate = useNavigate();
+
+
   useEffect(() => {
 
     return () => {
@@ -56,7 +59,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
               return <tr key={index} className={index % 2 === 0 ? "hover flex justify-around w-[100%] max-w-[64rem]" : "flex justify-around w-[100%] max-w-[64rem]"}>
                 <td className="w-[1.625rem]">
                   <label>
-                    <input type="checkbox" className="checkbox" />
+                    <input data-number={file["id"]} data-name="checkbox_file" type="checkbox" className="checkbox" />
                   </label>
                 </td>
                 <td className="num">{index}</td>
@@ -112,10 +115,17 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
             </form>
           </div>
         }
+        <div className="loader delete  w-[12rem] absolute left-0 z-[3] max-h-10 -top-12">
+          <button onClick={async (e: React.MouseEvent) => {
+            await handlerFileRemove(e);
+            const response = await handlerOlderFiles();
+            if (!response) { return }
+            stateFiles(response as Array<never>);
+
+          }} className="button-delete btn">Delete</button>
+        </div>
       </div>
-      <div className="loader delete  w-[12rem] absolute left-0 z-[3] max-h-10 -top-12">
-        <button className="btn btn-outline">Default</button>
-      </div>
+
 
     </section>
   </>);
