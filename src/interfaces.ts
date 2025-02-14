@@ -28,6 +28,11 @@ export enum UserAPI {
   PATCH = "/api/v1/users/patch/",
   GETofAPI = "/api/v1/users/get/"
 }
+export enum LocalRef {
+  ACTIVATION = "/users/login/", // Page where we can see the form actiovation
+  REGISTRATION = "/users/registration/", // // Page where we can see the form user's registration
+  PROFILEFILES = "/profile/files/"
+}
 
 export interface FetchParams {
   method: HttpMethods,

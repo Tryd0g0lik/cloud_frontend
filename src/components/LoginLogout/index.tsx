@@ -3,7 +3,7 @@
  */
 import React, { JSX } from "react";
 import { NavbarTopFC } from "../NavbarTop";
-import { HeaderForPages } from "src/interfaces";
+import { HeaderForPages, LocalRef } from "@Interfaces";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
   const maintitle = { maintitle: props.maintitle }
@@ -13,8 +13,8 @@ export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
   return (<>
     <NavbarTopFC {...maintitle} />
     <section onKeyDown={async (e: React.KeyboardEvent) => {
-      if ((location.pathname).includes("/users/registration/") || (
-        (location.pathname).includes("/users/login/"))
+      if ((location.pathname).includes(LocalRef.REGISTRATION) || (
+        (location.pathname).includes(LocalRef.ACTIVATION))
       ) {
         const login = handlerLogin(e);
         login("is_active");

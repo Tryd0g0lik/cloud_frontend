@@ -1,7 +1,8 @@
 /**
  * src\components\NavbarTop\NavbarEnd\index.tsx
  */
-import React, { JSX, useState, useEffect } from 'react';
+import React, { JSX } from 'react';
+import { LocalRef } from "@Interfaces";
 
 interface ButtonEndTitle {
   text?: "Login" | "Logout"
@@ -22,7 +23,7 @@ export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.El
 
       <div className={`registration ${text &&
         text === 'Logout' ? "remove" : ''}`} >
-        <a href='/users/registration/' className="link link-neutral">Регистрация</a>
+        <a href={`${LocalRef.REGISTRATION}`} className="link link-neutral">Регистрация</a>
       </div>
 
 

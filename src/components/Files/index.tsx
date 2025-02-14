@@ -1,15 +1,23 @@
 import React, { JSX, useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { NavbarTopFC } from "../NavbarTop";
-import task0 from "./tasks/task0RequsetFiles";
+import { CookieUser } from "@Services/cookieServices";
 import { handlerFormFile } from "./handlers/handlerFormFiles"
 import { handlerOlderFiles } from "./handlers/handlerOlderFiles";
+import { LocalRef } from "@Interfaces";
 interface Maintitle { maintitle: string }
 
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
-    // task0(stateFiles);
+
     return () => {
+      // CHECK THE ACTIVATION OF USER'S COOCKIE
+      const cookie = new CookieUser();
+      if (!cookie.checkCoockie("is_active")) {
+        navigate(LocalRef.ACTIVATION);
+      }
       (async () => {
         const response = await handlerOlderFiles();
         if (!response) { return }
@@ -101,10 +109,12 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
 
             }} className="loader-form absolute bottom-0" >
               <input type="file" className="loader-file file-input file-input-bordered file-input-xs w-full max-w-xs" />
-              {/* <button className="btn max-h-6 min-h-6 btn-outline">Загрузить</button> */}
             </form>
           </div>
         }
+      </div>
+      <div className="loader delete  w-[12rem] absolute left-0 z-[3] max-h-10 -top-12">
+        <button className="btn btn-outline">Default</button>
       </div>
 
     </section>

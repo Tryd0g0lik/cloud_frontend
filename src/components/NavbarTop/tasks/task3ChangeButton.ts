@@ -1,10 +1,10 @@
-/* 
+/*
  * src\components\NavbarTop\NavbarEnd\tasks\task3.ts
  * ---- task3 ----
  * The right  upper button, if it has a 'Login' text, the function
  * below inserts the link to the page of the form.
  */
-import { Loginout } from "src/interfaces";
+import { Loginout, LocalRef } from "@Interfaces";
 const task3 = () => new Promise<void>(resolve => {
   setTimeout(() => {
     const ancorHtml = document.querySelectorAll(".navbar-end a");
@@ -14,7 +14,7 @@ const task3 = () => new Promise<void>(resolve => {
     }
     Array.from(ancorHtml).forEach((item) => {
       if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGIN).toLowerCase())) {
-        (item as HTMLAnchorElement).href = "/users/login/";
+        (item as HTMLAnchorElement).href = LocalRef.ACTIVATION;
       } else if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGOUT).toLowerCase())) {
         (item as HTMLAnchorElement).href = "";
       }
