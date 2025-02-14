@@ -29,7 +29,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
       lebalHtml.style.border = ""
     };
 
-
+    // CHECK ON FALIDATE
     if (formHtml[i].name.toLowerCase().includes("email") && (
       !(formHtml[i].checkValidity()) || !(emailRegex.test(formHtml[i].value)
       ))) {
@@ -60,8 +60,10 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
       formHtml[i].setCustomValidity(errorFormAuthentification["password"]["valueMissing"]);
       return "Not Ok";
     }
+    // SAVE THE DATA IN THE MAP
     map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
   }
+  // SAVE THE DATA IN JSON FROM THE MAP
   const requestBody = JSON.stringify({
     "username": map.get("username"),
     "first_name": null,
@@ -71,8 +73,10 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   }
   )
   try {
+    // CREATE THE PARALLEL STREAMED - TASK0
     const task0 = () => new Promise<void>(resolve => { cleaning(); resolve()});
     (async () => await Promise.allSettled([task0]))();
+    // SEND TO THE DATA TO THE SERVER
     const response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.CHOICE}`, {
       method: "POST",
       headers: {
