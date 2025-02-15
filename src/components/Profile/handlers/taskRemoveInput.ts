@@ -1,9 +1,8 @@
-/*
+/**
 * src\components\Profile\handlers\taskREmoveInput.ts
 * This is a sub-task of the handlerProfileFields.ts
 * - Remove the INPUT field of the TEXT TYPE. This is after Event 'Enter' from the input field.
 */
-// TASK1 - REMOVE the INPUT field of the TEXT TYPE/
 const removeInputTask1 = (htmlDiv: HTMLDivElement, maping: Map<string, string> ): [HTMLDivElement, string] | boolean => {
 
   if (!(htmlDiv.className).includes('boxfield')) {
