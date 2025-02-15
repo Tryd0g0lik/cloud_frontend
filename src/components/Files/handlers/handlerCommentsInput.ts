@@ -3,6 +3,14 @@ import { UserAPI } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
 import { fetchCSRF } from "@Services/request/getCSRFtoken";
 
+/**
+ * Then we handle the input of comments and listen the event of keyboard and key 'Enter' , \
+ * to send PATCH request to server with a new comment. When we received a response \
+ * of server and status code 200 (from response) we removing the input field (from cell) and add \
+ * a new comment (update the state of all files).
+ * @param e : React.KeyboardEvent<HTMLInputElement>
+ * @returns boolean or Response from server
+ */
 export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElement> ): Promise<boolean|Response> {
   const {target} = e;
   const {localName, type} = target as HTMLInputElement;

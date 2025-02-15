@@ -1,7 +1,14 @@
 import React from "react";
 import { HandlerStateActivation } from "src/components/handlerUserNotActive";
 
-
+/**
+ *  Then we received the event from the table cell (from column of name Comments),\
+ * we insert the input in the cell. If the cell is empty, the input is empty too. \
+ * If the cell is not empty, the input is not empty too. The conten from the cell we \
+ * can see a text to the input by default/
+ * @param e : React.MouseEvent<HTMLTableCellElement>
+ * @returns boolean
+ */
 export function handlerCommentTd(e: React.MouseEvent<HTMLTableCellElement>): boolean {
   const {target} = e;
   const {localName, classList } = (target as HTMLElement);
