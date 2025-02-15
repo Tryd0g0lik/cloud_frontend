@@ -1,6 +1,7 @@
 /**
  * src\components\NavbarTop\NavbarEnd\tasks\task0.ts
  */
+import { HandlerStateActivation } from "src/components/handlerUserNotActive";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 
 const task0 = () => new Promise<void>(resolve => {

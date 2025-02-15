@@ -8,6 +8,7 @@
  */
 
 import { CookieUser } from "@Services/cookieServices";
+import { LocalRef } from "@Interfaces";
 const task4 = () => new Promise<void>(resolve => {
   setTimeout(() => {
     const cookie = new CookieUser();
@@ -19,7 +20,7 @@ const task4 = () => new Promise<void>(resolve => {
       throw new Error("[NavbarTopFC::task4]There is not userId");
     }
     const selectors = [
-      { ".cloud .cloud-file": `/profile/files/${userId}/`},
+      { ".cloud .cloud-file": `${LocalRef.PROFILEFILES}${userId}/` },
     ];
     selectors.forEach((item, index) => {
       const selector = Array.from(Object.keys(item))[0];

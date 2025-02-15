@@ -3,8 +3,10 @@
  * Open the profile page. In to 'Profile' page, you can see the user's information.
  */
 import React, { JSX, useState, useEffect } from "react";
-import { Usermeta, UserLevel } from "@Interfaces";
+import { useNavigate } from "react-router";
+import { Usermeta, UserLevel, LocalRef } from "@Interfaces";
 import { HydrateFallback } from "src/components/Loading";
+import { CookieUser } from "@Services/cookieServices";
 import { profileLoader } from "@Services/request/profileloading"
 import { NavbarTopFC } from "src/components/NavbarTop";
 import { handlerProfileField } from "./handlers/handlerProfileFields"
@@ -24,8 +26,9 @@ export function ProfileFC(): JSX.Element {
   const [profile, setProfile] = useState<Usermeta>(plugProfile);
   // userName - The user's name.
   const [userName, setUserName] = useState<string>("!");
-
+  const navigate = useNavigate();
   useEffect(() => {
+
     const divHtml = document.querySelectorAll(".boxfield");
     if (divHtml) {
       // CRUD
@@ -40,6 +43,11 @@ export function ProfileFC(): JSX.Element {
     }
     // SEND request to the server. to get the user's information. from the server.
     return (() => {
+      // CHECK THE ACTIVATION OF USER'S COOCKIE
+      const cookie = new CookieUser();
+      if (!cookie.checkCoockie("is_active")) {
+        navigate(LocalRef.ACTIVATION);
+      }
       (async () => {
         // RUN the loader request to the server. It to get the user's information.
         //  from the server.

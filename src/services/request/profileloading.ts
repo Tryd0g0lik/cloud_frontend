@@ -29,7 +29,7 @@ export async function profileLoader(): Promise<Usermeta | {}> {
 
   };
   // Create the url + the pathname of api for request to the server.
-  const url = new URL(`${UserAPI.CHOICE}${userId}/`, `${REACT_APP_SERVER_URL}`,)
+  const url = new URL(`${UserAPI.CHOICE_PK}`.replace(":userId/", `${userId}`), `${REACT_APP_SERVER_URL}`,)
   const response = await fetch(url, {
     method: "GET",
     headers: {

@@ -2571,6 +2571,10 @@ html {
   right: 0px;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .z-\[1\] {
   z-index: 1;
 }
@@ -2671,6 +2675,14 @@ html {
   width: 100%;
 }
 
+.min-w-20 {
+  min-width: 5rem;
+}
+
+.min-w-\[100px\] {
+  min-width: 100px;
+}
+
 .max-w-64 {
   max-width: 16rem;
 }
@@ -2685,6 +2697,18 @@ html {
 
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-\[100px\] {
+  max-width: 100px;
+}
+
+.max-w-\[200px\] {
+  max-width: 200px;
+}
+
+.max-w-\[225px\] {
+  max-width: 225px;
 }
 
 .flex-initial {
@@ -2729,6 +2753,10 @@ html {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-visible {

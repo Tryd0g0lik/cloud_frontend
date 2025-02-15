@@ -21,12 +21,21 @@ export enum UserLevel {
   PASSANGER = "Passanger"
 }
 
-
+// API URL
 export enum UserAPI {
   BASIS = "/api/v1/users/",
   CHOICE = "/api/v1/users/choice/",
+  CHOICE_PK = "/api/v1/users/choice/:userId/",
   PATCH = "/api/v1/users/patch/",
-  GETofAPI = "/api/v1/users/get/"
+  PATCH_PK = "/api/v1/users/patch/:userId/",
+  GETofAPI = "/api/v1/users/get/",
+  FILESREMOVE_PK = "/api/v1/files/:userId/remove/", // :userId - replace to the id: string of the string
+  FILESCOMMENT_PK = "/api/v1/files/:userId/update_comment/", // :userId
+}
+export enum LocalRef {
+  ACTIVATION = "/users/login/", // Page where we can see the form actiovation
+  REGISTRATION = "/users/registration/", // // Page where we can see the form user's registration
+  PROFILEFILES = "/profile/files/"
 }
 
 export interface FetchParams {

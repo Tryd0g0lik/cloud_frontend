@@ -12,6 +12,7 @@ import { HttpMethods, UserAPI } from "@Interfaces";
  * @returns
  */
 export async function handlerOlderFiles(): Promise<[]|[{files: []}]> { // funcState:CallableFunction
+
 const cookie = new  CookieUser();
 const userId = cookie.getOneCookie("index");
   if (!userId) {
@@ -36,6 +37,5 @@ const userId = cookie.getOneCookie("index");
     return []
   }
   result = await response.json();
-  // funcState(result["files"])
   return result["files"];
 };

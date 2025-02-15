@@ -1,4 +1,4 @@
-// import { Loginout } from "src/interfaces";
+import { LocalRef } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
 // import Encrypto from "@Services/encrypts";
 // import { result } from "lodash";
@@ -50,7 +50,7 @@ export async function buttonLoginLogout() {
       } else {
         if (ind === 0) {
           (view.firstElementChild as HTMLElement).innerText = "Login";
-          (view as HTMLAnchorElement).href = "/users/login/";
+          (view as HTMLAnchorElement).href = LocalRef.ACTIVATION;
         } else {
           view.parentElement?.classList.remove("remove");
         }
