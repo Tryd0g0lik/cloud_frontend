@@ -7,6 +7,7 @@ import { Loginout, LocalRef } from "@Interfaces";
 import { changeDOM, buttonLoginLogout, } from "@Services/scripts";
 import { fetchLoginOut } from "@Services/request/loginout";
 
+
 /**
  * This function has two  entry-points.\
  *
@@ -23,6 +24,7 @@ import { fetchLoginOut } from "@Services/request/loginout";
  * @returns boolean.
  */
 const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: string = "is_active") => {
+
   let passworEmail = "";
   // CHECK the event type. THis is the mous clik of thhe keyboard of 'Enter'.
   if (e && (e.type) && (

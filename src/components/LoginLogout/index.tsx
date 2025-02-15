@@ -5,6 +5,7 @@ import React, { JSX } from "react";
 import { NavbarTopFC } from "../NavbarTop";
 import { HeaderForPages, LocalRef } from "@Interfaces";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
+import { HandlerStateActivation } from "../handlerUserNotActive";
 export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
   const maintitle = { maintitle: props.maintitle }
 
@@ -16,6 +17,7 @@ export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
       if ((location.pathname).includes(LocalRef.REGISTRATION) || (
         (location.pathname).includes(LocalRef.ACTIVATION))
       ) {
+        HandlerStateActivation();
         const login = handlerLogin(e);
         login("is_active");
       }

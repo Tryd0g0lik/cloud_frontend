@@ -1,26 +1,22 @@
 import React, { JSX, useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 import { NavbarTopFC } from "../NavbarTop";
-import { CookieUser } from "@Services/cookieServices";
+
 import { handlerFormFile } from "./handlers/handlerFormFiles";
 import { handlerFileRemove } from "./handlers/handlerFileRemoves";
 import { handlerOlderFiles } from "./handlers/handlerOlderFiles";
-import { LocalRef } from "@Interfaces";
+import { HandlerStateActivation } from "../handlerUserNotActive";
+
 interface Maintitle { maintitle: string }
 
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
-  const navigate = useNavigate();
 
+  HandlerStateActivation();
 
   useEffect(() => {
 
     return () => {
-      // CHECK THE ACTIVATION OF USER'S COOCKIE
-      const cookie = new CookieUser();
-      if (!cookie.checkCoockie("is_active")) {
-        navigate(LocalRef.ACTIVATION);
-      }
+      HandlerStateActivation();
       (async () => {
         const response = await handlerOlderFiles();
         if (!response) { return }
@@ -100,6 +96,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   console.log(err)
                 })
                 .then(async () => {
+                  HandlerStateActivation();
                   const result = await handlerOlderFiles();
                   if (!result) { return }
                   if (result.length === 0) { return }
@@ -117,6 +114,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         }
         <div className="loader delete  w-[12rem] absolute left-0 z-[3] max-h-10 -top-12">
           <button onClick={async (e: React.MouseEvent) => {
+            HandlerStateActivation();
             await handlerFileRemove(e);
             const response = await handlerOlderFiles();
             if (!response) { return }

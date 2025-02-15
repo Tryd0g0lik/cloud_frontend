@@ -13,6 +13,7 @@ import task0 from './tasks/task0';
 import task3 from './tasks/task3ChangeButton';
 import task4 from './tasks/task4ChangeTopMenu';
 import task5 from './tasks/task5ProfileLoader';
+import { HandlerStateActivation } from '../handlerUserNotActive';
 export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   const [useactive, setUseactive] = useState(Loginout.LOGIN);
 
@@ -32,6 +33,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
+        HandlerStateActivation();
         const login = handlerLogin(e);
         login("is_active");
       }} className="navbar bg-base-100">

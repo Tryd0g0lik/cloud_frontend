@@ -2,7 +2,9 @@ import React from "react";
 import { UserAPI, HttpMethods } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
 import { fetchCSRF } from "@Services/request/getCSRFtoken"
+
 export async function handlerFileRemove(e: React.MouseEvent): Promise<boolean> {
+
   const {target } = e;
   // if (!target || !(target as HTMLInputElement).checked) {
   //   return false;
