@@ -2448,8 +2448,16 @@ html {
   width: 100%;
 }
 
+.min-w-20 {
+  min-width: 5rem;
+}
+
 .max-w-64 {
   max-width: 16rem;
+}
+
+.max-w-\[225px\] {
+  max-width: 225px;
 }
 
 .max-w-\[64rem\] {
@@ -2506,6 +2514,10 @@ html {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-visible {

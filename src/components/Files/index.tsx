@@ -5,6 +5,9 @@ import { handlerFormFile } from "./handlers/handlerFormFiles";
 import { handlerFileRemove } from "./handlers/handlerFileRemoves";
 import { handlerOlderFiles } from "./handlers/handlerOlderFiles";
 import { HandlerStateActivation } from "../handlerUserNotActive";
+import { handlerCommentTd } from "./handlers/handlerCommentsTd";
+import { handlerCommentInput } from "./handlers/handlerCommentsInput";
+import { JsonObjectExpression } from "typescript";
 
 interface Maintitle { maintitle: string }
 
@@ -30,7 +33,34 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
     <NavbarTopFC {...maintitle} />
     <section id="profile" className="cloud-files flex justify-center ">
       <div className="profile__fields w-[100%] max-w-screen-lg flex justify-center relative overflow-visible">
-        <table className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg">
+        <table onKeyDown={(e: React.KeyboardEvent) => {
+          if ((e as React.KeyboardEvent).key !== "Enter") {
+            return false;
+          }
+          handlerCommentInput(e as React.KeyboardEvent<HTMLInputElement>)
+            .then(async (response) => {
+              if (!response) {
+                return false;
+              };
+              const result = await (response as Response).json();
+              return result;
+            })
+            .then((result) => {
+              if (!result) {
+                return false;
+              };
+              // const divHmtl = (e.target as HTMLInputElement).parentElement;
+              // if (divHmtl?.classList.contains("comment-file")) {
+              //   divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
+              // }
+              (async () => {
+                const response = await handlerOlderFiles();
+                if (!response) { return }
+                stateFiles(response as Array<never>);
+
+              })();
+            })
+        }} className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg">
           {/* head */}
           <thead className="w-[100%] max-w-screen-lg">
             <tr className="flex justify-around w-[100%] max-w-[64rem]">
@@ -42,13 +72,22 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
               <th>Num.</th>
               <th>Name-file</th>
               <th>Size</th>
-
+              <th className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px] ">Comments</th>
               <th>Date</th>
               <th>Pablic-ref</th>
-              <th >Loading file</th>
+
             </tr>
           </thead>
-          <tbody className="w-[100%] max-w-screen-lg">
+          <tbody onClick={(e: React.MouseEvent | React.KeyboardEvent): boolean => {
+            if (e.type === "click") {
+              const result = handlerCommentTd(e as React.MouseEvent<HTMLTableCellElement>);
+              if (!result) {
+                return false;
+              }
+            }
+
+            return true;
+          }} className="w-[100%] max-w-screen-lg">
             {/* row 1 */}
             {/* {files.length === 0 } */}
             {files.length > 0 && Array.from(files).map((file, index) => {
@@ -61,8 +100,8 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 <td className="num">{index}</td>
                 <td>{file["original_name"]}</td>
                 <td>{file["size"]}</td>
+                <td data-number={file["id"]} className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px]">{file["comment"]}</td>
                 <td>{file["upload_date"]}</td>
-                <td></td>
                 <td ></td>
               </tr>
             }) || <tr className="flex justify-around w-[100%] max-w-[64rem]">
