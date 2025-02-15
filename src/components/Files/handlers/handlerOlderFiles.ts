@@ -37,6 +37,5 @@ const userId = cookie.getOneCookie("index");
     return []
   }
   result = await response.json();
-  // funcState(result["files"])
   return result["files"];
 };

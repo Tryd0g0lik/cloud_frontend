@@ -49,10 +49,10 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
               if (!result) {
                 return false;
               };
-              // const divHmtl = (e.target as HTMLInputElement).parentElement;
-              // if (divHmtl?.classList.contains("comment-file")) {
-              //   divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
-              // }
+              const divHmtl = (e.target as HTMLInputElement).parentElement;
+              if (divHmtl?.classList.contains("comment-file")) {
+                divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
+              }
               (async () => {
                 const response = await handlerOlderFiles();
                 if (!response) { return }
