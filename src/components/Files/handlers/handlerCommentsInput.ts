@@ -4,6 +4,7 @@ import { CookieUser } from "@Services/cookieServices";
 import { fetchCSRF } from "@Services/request/getCSRFtoken";
 
 /**
+ * src\components\Files\handlers\handlerCommentsInput.ts \
  * Then we handle the input of comments and listen the event of keyboard and key 'Enter' , \
  * to send PATCH request to server with a new comment. When we received a response \
  * of server and status code 200 (from response) we removing the input field (from cell) and add \
@@ -28,11 +29,13 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
   let result = await fetchCSRF(url);
   if (!result) {
     // NO TOKEN
+    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The 'csfrtoken' have from the server not Ok!")
     return false;
   }
   // GET USER ID FROM COOKIE
   const cookie = new CookieUser();
   if (!cookie.checkCoockie("index")) {
+    console.log("[handlerCommentsInput.ts::handlerCommentInput]: THe user id from cookie not found!")
     return false;
   }
 
@@ -58,6 +61,7 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
     credentials: "include"
   });
   if (!response.ok) {
+    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The response have from the server not Ok!")
     return false;
   }
 

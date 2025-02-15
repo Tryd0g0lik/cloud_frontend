@@ -30,7 +30,8 @@ export enum UserAPI {
   PATCH_PK = "/api/v1/users/patch/:userId/",
   GETofAPI = "/api/v1/users/get/",
   FILESREMOVE_PK = "/api/v1/files/:userId/remove/", // :userId - replace to the id: string of the string
-  FILESCOMMENT_PK = "/api/v1/files/:userId/update_comment/", // :userId
+  FILESCOMMENT_PK = "/api/v1/files/:userId/update_comment/", // :userId - replace to the id: string of the string
+  REFERRAL_LINKS = "/api/v1/files/:userId/referral_links/", // :userId - replace to the id: string of the string
 }
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation

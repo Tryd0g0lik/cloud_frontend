@@ -2414,6 +2414,27 @@ html {
   border-top-width: 4px;
 }
 
+.btn-xs {
+  height: 1.5rem;
+  min-height: 1.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.btn-square:where(.btn-xs) {
+  height: 1.5rem;
+  width: 1.5rem;
+  padding: 0px;
+}
+
+.btn-circle:where(.btn-xs) {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 9999px;
+  padding: 0px;
+}
+
 .file-input-xs {
   height: 1.5rem;
   -webkit-padding-end: 0.5rem;
@@ -2581,6 +2602,10 @@ html {
 
 .z-\[3\] {
   z-index: 3;
+}
+
+.m-auto {
+  margin: auto;
 }
 
 .mt-3 {

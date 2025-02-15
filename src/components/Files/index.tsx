@@ -1,13 +1,13 @@
 import React, { JSX, useState, useEffect } from "react";
 import { NavbarTopFC } from "../NavbarTop";
-
+import { CookieUser } from "@Services/cookieServices";
 import { handlerFormFile } from "./handlers/handlerFormFiles";
 import { handlerFileRemove } from "./handlers/handlerFileRemoves";
 import { handlerOlderFiles } from "./handlers/handlerOlderFiles";
 import { HandlerStateActivation } from "../handlerUserNotActive";
 import { handlerCommentTd } from "./handlers/handlerCommentsTd";
 import { handlerCommentInput } from "./handlers/handlerCommentsInput";
-import { JsonObjectExpression } from "typescript";
+import { handlerReferralLinks } from "./handlers/handlerReferralLinks";
 
 interface Maintitle { maintitle: string }
 
@@ -31,7 +31,25 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
 
   return(<>
     <NavbarTopFC {...maintitle} />
-    <section id="profile" className="cloud-files flex justify-center ">
+    <section onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
+      // IF USER NOT ACTIVE TO THE SITE Run the redirection to the login page.
+      HandlerStateActivation();
+      // HANDLER FOR GET REFERRAL LINKS
+      const response = handlerReferralLinks(e);
+      if (!response) {
+        console.log("[Files/index.tsx::FilesdFC]: The response have from the server not Ok!")
+        return false;
+      }
+      // handlerReferralLinks возвращает true значит в куки смотрит referral_link и вставляем ссылку вместо кнопки.
+      // при клике по ссылке получает инпут поле и вставляет ссылку в value чтоб скопировать
+      // Уточнить как копировать в буфер вместо инпута.
+      const cookie = new CookieUser();
+      if (!cookie.checkCoockie("referral_link")) {
+        console.log("[Files/index.tsx::FilesdFC]: The cookie have not the 'referral_link'!")
+        return false;
+
+      }
+    }} id="profile" className="cloud-files flex justify-center ">
       <div className="profile__fields w-[100%] max-w-screen-lg flex justify-center relative overflow-visible">
         <table onKeyDown={(e: React.KeyboardEvent) => {
           if ((e as React.KeyboardEvent).key !== "Enter") {
@@ -104,7 +122,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 <td data-number={file["id"]} className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px]">{file["comment"]}</td>
                 <td className="loaded-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["upload_date"]}</td>
                 <td className="download-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["last_downloaded"]}</td>
-                <td className="link-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]"></td>
+                <td data-number={file["id"]} className="link-file  overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px] flex"><button className="button-referralbtn btn-xs marg m-auto">Поделиться ссылкой</button></td>
               </tr>
             }) || <tr className="flex justify-around w-[100%] max-w-[64rem]">
                 <td className="w-1.625rem">
