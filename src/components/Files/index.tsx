@@ -69,12 +69,13 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   <input type="checkbox" className="checkbox" />
                 </label>
               </th>
-              <th>Num.</th>
-              <th>Name-file</th>
-              <th>Size</th>
+              <th className="num w-[100%] max-w-[100px]">Num.</th>
+              <th className="name-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">Name-file</th>
+              <th className="size-file overflow-hidden min-w-20  w-[100%]  max-w-[100px]">Size</th>
               <th className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px] ">Comments</th>
-              <th>Date</th>
-              <th>Pablic-ref</th>
+              <th className="loaded-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">Date-loaded</th>
+              <th className="download-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">Date-downloaded</th>
+              <th className="link-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">Pablic-ref</th>
 
             </tr>
           </thead>
@@ -97,12 +98,13 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                     <input data-number={file["id"]} data-name="checkbox_file" type="checkbox" className="checkbox" />
                   </label>
                 </td>
-                <td className="num">{index}</td>
-                <td>{file["original_name"]}</td>
-                <td>{file["size"]}</td>
+                <td className="num w-[100%] max-w-[100px]" >{index}</td>
+                <td className="name-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["original_name"]}</td>
+                <td className="size-file overflow-hidden min-w-20  w-[100%]  max-w-[100px]">{file["size"]}</td>
                 <td data-number={file["id"]} className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px]">{file["comment"]}</td>
-                <td>{file["upload_date"]}</td>
-                <td ></td>
+                <td className="loaded-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["upload_date"]}</td>
+                <td className="download-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["last_downloaded"]}</td>
+                <td className="link-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]"></td>
               </tr>
             }) || <tr className="flex justify-around w-[100%] max-w-[64rem]">
                 <td className="w-1.625rem">

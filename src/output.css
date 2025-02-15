@@ -2452,6 +2452,10 @@ html {
   min-width: 5rem;
 }
 
+.min-w-\[100px\] {
+  min-width: 100px;
+}
+
 .max-w-64 {
   max-width: 16rem;
 }
@@ -2470,6 +2474,14 @@ html {
 
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-\[100px\] {
+  max-width: 100px;
+}
+
+.max-w-\[200px\] {
+  max-width: 200px;
 }
 
 .flex-initial {
