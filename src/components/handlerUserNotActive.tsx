@@ -11,7 +11,8 @@ export function HandlerStateActivation() {
     if (window.location.href === LocalRef.ACTIVATION) {
       return false;
     }
+
     window.location.href = LocalRef.ACTIVATION;
-    
   }
+
 }

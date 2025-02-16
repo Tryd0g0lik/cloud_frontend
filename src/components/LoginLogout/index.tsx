@@ -17,7 +17,6 @@ export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
       if ((location.pathname).includes(LocalRef.REGISTRATION) || (
         (location.pathname).includes(LocalRef.ACTIVATION))
       ) {
-        HandlerStateActivation();
         const login = handlerLogin(e);
         login("is_active");
       }

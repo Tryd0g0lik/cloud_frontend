@@ -33,7 +33,6 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
   return (
     <>
       <div onClick={(e: React.MouseEvent) => {
-        HandlerStateActivation();
         const login = handlerLogin(e);
         login("is_active");
       }} className="navbar bg-base-100">

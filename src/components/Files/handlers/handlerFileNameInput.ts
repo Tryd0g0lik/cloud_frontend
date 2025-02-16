@@ -5,16 +5,15 @@ import { fetchCSRF } from "@Services/request/getCSRFtoken";
 import { HandlerStateActivation } from "src/components/handlerUserNotActive";
 
 /**
- * src\components\Files\handlers\handlerCommentsInput.ts \
- * Then we handle the input of comments and listen the event of keyboard and key 'Enter' , \
- * to send PATCH request to server with a new comment. When we received a response \
- * of server and status code 200 (from response) we removing the input field (from cell) and add \
- * a new comment (update the state of all files).
+ * src\components\Files\handlers\handlerFileNameInput.ts \
+ * Then we handle the input filed for file's name and listen the event of keyboard and key 'Enter' , \
+ * to send PATCH request to server with a new file's name. When we received a response \
+ * of server and status code 200 (from response) we add \
+ * a new file's name (update the state of all files).
  * @param e : React.KeyboardEvent<HTMLInputElement>
  * @returns boolean or Response from server
  */
-
-export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElement> ): Promise<boolean|Response> {
+export async function handlerFileNameInput(e: React.KeyboardEvent<HTMLInputElement> ): Promise<boolean|Response> {
   const {target} = e;
   const {localName, type} = target as HTMLInputElement;
   if (!localName || (localName && localName !== "input") || (
@@ -31,17 +30,17 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
   let result = await fetchCSRF(url);
   if (!result) {
     // NO TOKEN
-    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The 'csfrtoken' have from the server not Ok!")
+    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: The 'csfrtoken' have from the server not Ok!")
     return false;
   }
   // GET USER ID FROM COOKIE
   const cookie = new CookieUser();
   if (!cookie.checkCoockie("index")) {
-    console.log("[handlerCommentsInput.ts::handlerCommentInput]: THe user id from cookie not found!")
+    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: THe user id from cookie not found!")
     return false;
   }
 
-  url.pathname = UserAPI.FILESCOMMENT_PK.replace(":userId", cookie.getOneCookie("index") as string);
+  url.pathname = UserAPI.FILESRENAME_PK.replace(":userId", cookie.getOneCookie("index") as string);
   // GET ID OF THE FILE
   const cellHtml = (target as HTMLInputElement).parentElement;
   if (!cellHtml || cellHtml.localName !== "td" || (
@@ -51,11 +50,11 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
   }
   // cellHtml.dataset.number
   const body_ = JSON.stringify({
-    "comment": (target as HTMLInputElement).value,
+    "new_name": (target as HTMLInputElement).value,
     "fileId": cellHtml.dataset.number
   });
   const response = await fetch(url, {
-    method: HttpMethods.PATCH,
+    method: HttpMethods.POST,
     body: body_,
     headers: {
       "X-CSRFToken": result["csrftoken"] || "",
@@ -64,7 +63,7 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
   });
   HandlerStateActivation();
   if (!response.ok) {
-    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The response have from the server not Ok!")
+    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: The response have from the server not Ok!")
     return false;
   }
 
