@@ -62,11 +62,14 @@ export async function handlerFileNameInput(e: React.KeyboardEvent<HTMLInputEleme
     credentials: "include"
   });
   HandlerStateActivation();
+
+
   if (!response.ok) {
-    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: The response have from the server not Ok!")
+
+    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: The file with this name already exists!");
+
     return false;
   }
-
 
 return response;
 

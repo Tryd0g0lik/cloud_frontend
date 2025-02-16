@@ -98,6 +98,9 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
             handlerCommentInput(e as React.KeyboardEvent<HTMLInputElement>)
             .then(async (response) => {
               if (!response) {
+                const response = await handlerOlderFiles();
+                if (!response) { return }
+                stateFiles(response as Array<never>);
                 return false;
               };
               const result = await (response as Response).json();
@@ -129,9 +132,19 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 return result;
               })
               .then((result) => {
+                const divAlertHmtl = document.createElement("div");
+                divAlertHmtl.id = "alert";
+                divAlertHmtl.classList.add("alert");
+                divAlertHmtl.classList.add("referral-alert");
+                divAlertHmtl.classList.add("alert-info");
                 if (!result) {
+                  divAlertHmtl.classList.add("error")
+                  divAlertHmtl.innerText = 'Похоже файл с таким именем уже существует!';
+                  ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl);
                   return false;
                 };
+                divAlertHmtl.innerText = 'Файл переименован';
+                ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl);
                 const divHmtl = (e.target as HTMLInputElement).parentElement;
                 if (divHmtl?.classList.contains("name-file")) {
                   divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
@@ -142,6 +155,16 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   stateFiles(response as Array<never>);
 
                 })();
+              })
+              .finally(() => {
+                const alertElement = document.querySelector('.referral-alert');
+                if (!alertElement) {
+                  return false;
+                }
+                (alertElement as HTMLElement).style.display = 'block';
+                setTimeout(() => {
+                  (alertElement as HTMLElement).remove();
+                }, 2000)
               })
           }
         }} className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg">

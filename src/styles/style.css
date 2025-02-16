@@ -214,6 +214,11 @@ section.registration,
   border-radius: 5px;
   z-index: 1000;
 }
+.referral-alert.error {
+  color: #ff0909;
+  background-color: rgb(203, 189, 190);
+  border: 1px solid #ff0909;
+}
 
 @media screen and (min-width: 640px) {
   .navbar .dropdown {
