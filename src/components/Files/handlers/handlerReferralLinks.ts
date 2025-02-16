@@ -59,7 +59,7 @@ export async function handlerReferralLinks(e: React.MouseEvent<HTMLButtonElement
     credentials: "include",
     headers: {
       "X-CSRFToken": result["csrftoken"] || "",
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
     }
   });
   if (!response.ok){

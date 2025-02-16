@@ -8,7 +8,9 @@ import { HandlerStateActivation } from "../handlerUserNotActive";
 import { handlerCommentTd } from "./handlers/handlerCommentsTd";
 import { handlerCommentInput } from "./handlers/handlerCommentsInput";
 import { handlerReferralLinks } from "./handlers/handlerReferralLinks";
+import { handlerReferralBufers } from "./handlers/handlerReferralBufers";
 
+const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT || '8000';
 interface Maintitle { maintitle: string }
 
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
@@ -35,7 +37,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
       // IF USER NOT ACTIVE TO THE SITE Run the redirection to the login page.
       HandlerStateActivation();
       // HANDLER FOR GET REFERRAL LINKS
-      const response = handlerReferralLinks(e);
+      const response = await handlerReferralLinks(e);
       if (!response) {
         console.log("[Files/index.tsx::FilesdFC]: The response have from the server not Ok!")
         return false;
@@ -44,11 +46,43 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
       // при клике по ссылке получает инпут поле и вставляет ссылку в value чтоб скопировать
       // Уточнить как копировать в буфер вместо инпута.
       const cookie = new CookieUser();
+      if (cookie.checkCoockie("referral_link")) {
+        // console.log("[Files/index.tsx::FilesdFC]: The cookie have not the 'referral_link'!")
+        // return false;
+
+
+        const cellHTML = (e.target as HTMLElement).parentElement
+        if (!cellHTML || (cellHTML && !cellHTML.classList.contains("link-file"))) {
+          console.log("[Files/index.tsx::FilesdFC]: '.link-file' Not found!")
+          return false;
+        }
       if (!cookie.checkCoockie("referral_link")) {
-        console.log("[Files/index.tsx::FilesdFC]: The cookie have not the 'referral_link'!")
+        console.log("[Files/index.tsx::FilesdFC]: 'referral_link' Not found in cookie!")
         return false;
+        }
+        // GET URL
+        const pathname = (cookie.getOneCookie("referral_link") as string).slice(1, -1);
+        const url = new URL(pathname, window.location.origin);
+        url.port = REACT_APP_SERVER_PORT;
+        // CREATE ANCHOR HTML ELEMENT FOR THE LINK
+        const anchorHTML = document.createElement("a");
+        anchorHTML.href = url.toString();
+        anchorHTML.innerText = " referral link";
+        anchorHTML.className = "referral-anchor link link-hover m-auto";
+        cellHTML.innerHTML = "";
+        // PUBLISH ANCOR THE ELEMENT FOR THE LINK
+        cellHTML.appendChild(anchorHTML);
 
       }
+      // CREAT EVENT LISTENER FOR COPY LINK IN BUFER 
+      const referralLinkHTML = document.querySelector(".referral-anchor") as HTMLInputElement;
+      if (!referralLinkHTML) {
+        console.log("[Files/index.tsx::FilesdFC]: '.referral_link' Not found in DOM!")
+        return false;
+      }
+      referralLinkHTML.removeEventListener("click", (e: MouseEvent) => handlerReferralBufers(e));
+      referralLinkHTML.addEventListener("click", (e: MouseEvent) => handlerReferralBufers(e));
+
     }} id="profile" className="cloud-files flex justify-center ">
       <div className="profile__fields w-[100%] max-w-screen-lg flex justify-center relative overflow-visible">
         <table onKeyDown={(e: React.KeyboardEvent) => {
@@ -122,7 +156,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 <td data-number={file["id"]} className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px]">{file["comment"]}</td>
                 <td className="loaded-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["upload_date"]}</td>
                 <td className="download-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["last_downloaded"]}</td>
-                <td data-number={file["id"]} className="link-file  overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px] flex"><button className="button-referralbtn btn-xs marg m-auto">Поделиться ссылкой</button></td>
+                <td data-number={file["id"]} className="link-file  overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px] flex"><button className="button-referral btn btn-xs marg m-auto">Поделиться ссылкой</button></td>
               </tr>
             }) || <tr className="flex justify-around w-[100%] max-w-[64rem]">
                 <td className="w-1.625rem">
