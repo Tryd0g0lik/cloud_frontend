@@ -12,7 +12,7 @@ import { fetchLoginOut } from "@Services/request/loginout";
  * This function has two  entry-points.\
  *
  * @param e MouseEvent | null. First point.\
-  * Function for change the boolean's value for the 'is_active' of db.\
+* Function for change the boolean's value for the 'is_active' of db.\
  * It means, what the user go out from \
  * the profile. Or 'true' - it means what the user is an authorized.
  *
@@ -99,15 +99,17 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
           }
           return new Error("[handlerLogin] Response is not OK");
         }).catch(response => {
+          if (response instanceof Error) {
+            null
+          }
           console.error(response);
         })
       .then((resp) => {
-        if (resp instanceof Error) {
-          null
-        }
-        else if (resp && resp && resp["is_active"]) {
+        if (resp && resp && resp["is_active"]) {
           /**
-           * If user was activation to web site, then his redictet to the profile page of web site
+           * Here. we receving the link from 'linHtml'.
+           * If user was activation to web site, then this will be redictet to \
+           * the profile page by linl from the link from 'linHtml'. Or to the mane page/
            */
           const linHtml = document.querySelector(".navbar a[href*='/profile/']");
           if (linHtml) {

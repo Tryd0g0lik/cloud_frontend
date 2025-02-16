@@ -5,10 +5,7 @@ import { fetchCSRF } from "@Services/request/getCSRFtoken"
 
 export async function handlerFileRemove(e: React.MouseEvent): Promise<boolean> {
 
-  const {target } = e;
-  // if (!target || !(target as HTMLInputElement).checked) {
-  //   return false;
-  // };
+  const { target } = e;
   if (!target || !(target as HTMLInputElement).classList.contains("button-delete")) {
     return false;
   }

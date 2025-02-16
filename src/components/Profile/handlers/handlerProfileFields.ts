@@ -7,6 +7,14 @@ import changeDomTask2 from "./taskChangeDOM";
 import { fetchLoginOut } from "@Services/request/loginout";
 const map = new Map();
 
+/**
+ * This function is a hendler:
+ * - fileds from the Profile page. \
+ * These fields is containe information about user (name, surname, email, password,).\
+ * Inside this fields (handlerProfileField we have the sub-function) we can updpdate the content.\
+ * @param e :  MouseEvent | KeyboardEvent
+ * @returns
+ */
 export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
   // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
@@ -41,11 +49,12 @@ export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
   // SELECT the HTMLElement
   const dataStatus = ((target as HTMLInputElement).parentElement as HTMLInputElement).dataset.status;
   if ((dataStatus && dataStatus === "close" || "open") && (e.type).toLowerCase().includes("click")) {
-    // TASK0
+    // TASK0 - CREATE  INPUT field and INSER of the TEXT TYPE
     insertNewInputTask0(htmlDiv);
   } else if ((e as KeyboardEvent).key === 'Enter') {
     // TASK1 update the content to the Profile page.
     const htmlDiv2 = ((target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLDivElement;
+    // TASK1 - REMOVE the INPUT field of the TEXT TYPE
     const resolve: boolean | [HTMLDivElement, string] = removeInputTask1(htmlDiv2, map);
 
     // Simple CHECKS the data
