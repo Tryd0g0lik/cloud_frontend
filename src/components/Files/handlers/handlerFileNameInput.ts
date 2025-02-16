@@ -48,9 +48,16 @@ export async function handlerFileNameInput(e: React.KeyboardEvent<HTMLInputEleme
   )) {
     return false;
   }
+  const extansion = (target as HTMLInputElement).placeholder.split(".");
+  const newName = (target as HTMLInputElement).value;
+  const newExtansion = newName.split(".");
   // cellHtml.dataset.number
   const body_ = JSON.stringify({
-    "new_name": (target as HTMLInputElement).value,
+    "new_name": `${newName.split(".").length > 1 ? newName.split(".")[0] : newName}.${extansion ? (
+      newExtansion.length <= 1 ?
+        extansion[extansion.length - 1] :
+        newExtansion[newExtansion.length - 1]
+    ) : ''}`,
     "fileId": cellHtml.dataset.number
   });
   const response = await fetch(url, {
