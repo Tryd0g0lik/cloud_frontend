@@ -1,3 +1,6 @@
+/**
+ * src\components\Files\index.tsx
+ */
 import React, { JSX, useState, useEffect } from "react";
 import { NavbarTopFC } from "../NavbarTop";
 import { CookieUser } from "@Services/cookieServices";
@@ -13,6 +16,9 @@ import { handlerReferralBufers } from "./handlers/handlerReferralBufers";
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT || '8000';
 interface Maintitle { maintitle: string }
 
+/**
+ * Cloud of files
+ */
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
 
@@ -42,14 +48,8 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         console.log("[Files/index.tsx::FilesdFC]: The response have from the server not Ok!")
         return false;
       }
-      // handlerReferralLinks возвращает true значит в куки смотрит referral_link и вставляем ссылку вместо кнопки.
-      // при клике по ссылке получает инпут поле и вставляет ссылку в value чтоб скопировать
-      // Уточнить как копировать в буфер вместо инпута.
       const cookie = new CookieUser();
       if (cookie.checkCoockie("referral_link")) {
-        // console.log("[Files/index.tsx::FilesdFC]: The cookie have not the 'referral_link'!")
-        // return false;
-
 
         const cellHTML = (e.target as HTMLElement).parentElement
         if (!cellHTML || (cellHTML && !cellHTML.classList.contains("link-file"))) {
@@ -60,7 +60,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         console.log("[Files/index.tsx::FilesdFC]: 'referral_link' Not found in cookie!")
         return false;
         }
-        // GET URL
+        // GET URL FOR BUFER
         const pathname = (cookie.getOneCookie("referral_link") as string).slice(1, -1);
         const url = new URL(pathname, window.location.origin);
         url.port = REACT_APP_SERVER_PORT;
@@ -80,6 +80,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         console.log("[Files/index.tsx::FilesdFC]: '.referral_link' Not found in DOM!")
         return false;
       }
+      // LISTENER FOR COPY LINK IN BUFER
       referralLinkHTML.removeEventListener("click", (e: MouseEvent) => handlerReferralBufers(e));
       referralLinkHTML.addEventListener("click", (e: MouseEvent) => handlerReferralBufers(e));
 

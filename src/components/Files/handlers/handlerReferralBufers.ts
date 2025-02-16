@@ -24,7 +24,6 @@ export function handlerReferralBufers(e: MouseEvent) {
   if (!textContent || textContent.length < 10 ) {
     return false;
   }
-  // <div id="alert" class="alert">Это сообщение будет показано на 5 секунд</div>
 
   const divAlertHmtl = document.createElement("div");
   divAlertHmtl.id = "alert";
