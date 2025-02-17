@@ -28,6 +28,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   // HandlerStateActivation();
 
   useEffect(() => {
+    // CHOICE ALL FILES FROM the SINGLE CLICK 
     function addListener() {
       // CREAT EVENT LISTENER FOR CHECKBOX
       const checkboxHTML = document.querySelector(".table-zebra th input[type='checkbox']");
@@ -44,6 +45,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
     return () => {
       HandlerStateActivation();
       (async () => {
+        // STATE FILES TO THE PAGE
         const response = await handlerOlderFiles();
         if (!response) { return }
         stateFiles(response as Array<never>);
