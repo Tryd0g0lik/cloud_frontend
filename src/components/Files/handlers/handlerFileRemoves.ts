@@ -2,6 +2,7 @@ import React from "react";
 import { UserAPI, HttpMethods } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
 import { fetchCSRF } from "@Services/request/getCSRFtoken"
+import { HandlerStateActivation } from "src/components/handlerUserNotActive";
 
 export async function handlerFileRemove(e: React.MouseEvent): Promise<boolean> {
 
@@ -9,6 +10,7 @@ export async function handlerFileRemove(e: React.MouseEvent): Promise<boolean> {
   if (!target || !(target as HTMLInputElement).classList.contains("button-delete")) {
     return false;
   }
+  HandlerStateActivation();
   e.preventDefault();
   const checkboxFile = [] as Array<HTMLInputElement>;
   Array.from(document.querySelectorAll("input[data-name='checkbox_file']")).forEach(item => {

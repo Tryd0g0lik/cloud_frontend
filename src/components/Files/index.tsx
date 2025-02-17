@@ -1,7 +1,7 @@
 /**
  * src\components\Files\index.tsx
  */
-import React, { JSX, useState, useEffect } from "react";
+import React, { JSX, useState, useEffect, MouseEventHandler } from "react";
 import { NavbarTopFC } from "../NavbarTop";
 import { CookieUser } from "@Services/cookieServices";
 import { handlerFormFile } from "./handlers/handlerFormFiles";
@@ -12,6 +12,9 @@ import { handlerCommentTd } from "./handlers/handlerCommentsTd";
 import { handlerCommentInput } from "./handlers/handlerCommentsInput";
 import { handlerReferralLinks } from "./handlers/handlerReferralLinks";
 import { handlerReferralBufers } from "./handlers/handlerReferralBufers";
+import { handlerFileNameTd } from "./handlers/handlerFileNameTd";
+import { handlerFileNameInput } from "./handlers/handlerFileNameInput";
+import { handlerChoiseAllFile } from "./handlers/handlerChoiseAllFiles";
 
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT || '8000';
 interface Maintitle { maintitle: string }
@@ -22,26 +25,40 @@ interface Maintitle { maintitle: string }
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
 
-  HandlerStateActivation();
+  // HandlerStateActivation();
 
   useEffect(() => {
+    // CHOICE ALL FILES FROM the SINGLE CLICK 
+    function addListener() {
+      // CREAT EVENT LISTENER FOR CHECKBOX
+      const checkboxHTML = document.querySelector(".table-zebra th input[type='checkbox']");
+      if (!checkboxHTML) {
+        console.log("[Files/index.tsx::FilesdFC]: 'th checkbox' Not found in DOM!")
+        return false;
+      }
+      // LISTENER FOR CHECKBOX
+      (checkboxHTML as HTMLElement).removeEventListener("click", (e: MouseEvent) => handlerChoiseAllFile(e));
+      (checkboxHTML as HTMLElement).addEventListener("click", (e: MouseEvent) => handlerChoiseAllFile(e));
 
+    }
+    addListener();
     return () => {
       HandlerStateActivation();
       (async () => {
+        // STATE FILES TO THE PAGE
         const response = await handlerOlderFiles();
         if (!response) { return }
         stateFiles(response as Array<never>);
 
       })();
+
     }
   }, []);
 
   return(<>
     <NavbarTopFC {...maintitle} />
     <section onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
-      // IF USER NOT ACTIVE TO THE SITE Run the redirection to the login page.
-      HandlerStateActivation();
+
       // HANDLER FOR GET REFERRAL LINKS
       const response = await handlerReferralLinks(e);
       if (!response) {
@@ -90,9 +107,16 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
           if ((e as React.KeyboardEvent).key !== "Enter") {
             return false;
           }
-          handlerCommentInput(e as React.KeyboardEvent<HTMLInputElement>)
+          HandlerStateActivation();
+          const { classList } = (e.target as HTMLElement);
+          if (classList.contains("comment-file")) {
+          // HANDLER INPUT FROM THE COMMENT
+            handlerCommentInput(e as React.KeyboardEvent<HTMLInputElement>)
             .then(async (response) => {
               if (!response) {
+                const response = await handlerOlderFiles();
+                if (!response) { return }
+                stateFiles(response as Array<never>);
                 return false;
               };
               const result = await (response as Response).json();
@@ -113,6 +137,52 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
 
               })();
             })
+          } else if (classList.contains("name-file")) {
+            // HANDLE INPUT FROM THE FILE's NAME 
+            handlerFileNameInput(e as React.KeyboardEvent<HTMLInputElement>)
+              .then(async (response) => {
+                if (!response) {
+                  return false;
+                };
+                const result = await (response as Response).json();
+                return result;
+              })
+              .then((result) => {
+                const divAlertHmtl = document.createElement("div");
+                divAlertHmtl.id = "alert";
+                divAlertHmtl.classList.add("alert");
+                divAlertHmtl.classList.add("referral-alert");
+                divAlertHmtl.classList.add("alert-info");
+                if (!result) {
+                  divAlertHmtl.classList.add("error")
+                  divAlertHmtl.innerText = 'Похоже файл с таким именем уже существует!';
+                  ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl);
+                  return false;
+                };
+                divAlertHmtl.innerText = 'Файл переименован';
+                ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl);
+                const divHmtl = (e.target as HTMLInputElement).parentElement;
+                if (divHmtl?.classList.contains("name-file")) {
+                  divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
+                }
+                (async () => {
+                  const response = await handlerOlderFiles();
+                  if (!response) { return }
+                  stateFiles(response as Array<never>);
+
+                })();
+              })
+              .finally(() => {
+                const alertElement = document.querySelector('.referral-alert');
+                if (!alertElement) {
+                  return false;
+                }
+                (alertElement as HTMLElement).style.display = 'block';
+                setTimeout(() => {
+                  (alertElement as HTMLElement).remove();
+                }, 2000)
+              })
+          }
         }} className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg">
           {/* head */}
           <thead className="w-[100%] max-w-screen-lg">
@@ -133,17 +203,19 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
             </tr>
           </thead>
           <tbody onClick={(e: React.MouseEvent | React.KeyboardEvent): boolean => {
+
             if (e.type === "click") {
+              // HANDLER FOR COMMENT's CELL
               const result = handlerCommentTd(e as React.MouseEvent<HTMLTableCellElement>);
               if (!result) {
-                return false;
+                // HANDLER FOR CELL OF FILE's NAME
+                handlerFileNameTd(e as React.MouseEvent<HTMLTableCellElement>);
               }
             }
 
             return true;
           }} className="w-[100%] max-w-screen-lg">
-            {/* row 1 */}
-            {/* {files.length === 0 } */}
+            {/* row */}
             {files.length > 0 && Array.from(files).map((file, index) => {
               return <tr key={index} className={index % 2 === 0 ? "hover flex justify-around w-[100%] max-w-[64rem]" : "flex justify-around w-[100%] max-w-[64rem]"}>
                 <td className="w-[1.625rem]">
@@ -152,7 +224,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   </label>
                 </td>
                 <td className="num w-[100%] max-w-[100px]" >{index}</td>
-                <td className="name-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["original_name"]}</td>
+                <td data-number={file["id"]} className="name-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["original_name"]}</td>
                 <td className="size-file overflow-hidden min-w-20  w-[100%]  max-w-[100px]">{file["size"]}</td>
                 <td data-number={file["id"]} className="comment-file overflow-hidden min-w-20  w-[100%]  max-w-[225px]">{file["comment"]}</td>
                 <td className="loaded-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["upload_date"]}</td>
@@ -208,7 +280,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         }
         <div className="loader delete  w-[12rem] absolute left-0 z-[3] max-h-10 -top-12">
           <button onClick={async (e: React.MouseEvent) => {
-            HandlerStateActivation();
+
             await handlerFileRemove(e);
             const response = await handlerOlderFiles();
             if (!response) { return }
