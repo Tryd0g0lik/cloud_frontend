@@ -1,7 +1,7 @@
 /**
  * src\components\Files\index.tsx
  */
-import React, { JSX, useState, useEffect } from "react";
+import React, { JSX, useState, useEffect, MouseEventHandler } from "react";
 import { NavbarTopFC } from "../NavbarTop";
 import { CookieUser } from "@Services/cookieServices";
 import { handlerFormFile } from "./handlers/handlerFormFiles";
@@ -14,6 +14,7 @@ import { handlerReferralLinks } from "./handlers/handlerReferralLinks";
 import { handlerReferralBufers } from "./handlers/handlerReferralBufers";
 import { handlerFileNameTd } from "./handlers/handlerFileNameTd";
 import { handlerFileNameInput } from "./handlers/handlerFileNameInput";
+import { handlerChoiseAllFile } from "./handlers/handlerChoiseAllFiles";
 
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT || '8000';
 interface Maintitle { maintitle: string }
@@ -27,7 +28,19 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   // HandlerStateActivation();
 
   useEffect(() => {
+    function addListener() {
+      // CREAT EVENT LISTENER FOR CHECKBOX
+      const checkboxHTML = document.querySelector(".table-zebra th input[type='checkbox']");
+      if (!checkboxHTML) {
+        console.log("[Files/index.tsx::FilesdFC]: 'th checkbox' Not found in DOM!")
+        return false;
+      }
+      // LISTENER FOR CHECKBOX
+      (checkboxHTML as HTMLElement).removeEventListener("click", (e: MouseEvent) => handlerChoiseAllFile(e));
+      (checkboxHTML as HTMLElement).addEventListener("click", (e: MouseEvent) => handlerChoiseAllFile(e));
 
+    }
+    addListener();
     return () => {
       HandlerStateActivation();
       (async () => {
@@ -36,6 +49,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         stateFiles(response as Array<never>);
 
       })();
+
     }
   }, []);
 
