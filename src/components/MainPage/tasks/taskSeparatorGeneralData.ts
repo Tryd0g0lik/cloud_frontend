@@ -1,14 +1,17 @@
 
-export const task1 = (generaldata: { data: { users: [any], files: [any] } }) => new Promise(resolve => {
+export const task1 = (generaldata: { users: [any], files: [any] }) => new Promise(resolve => {
   /**
    *  @return {quantityAllUsers, quantityAllFiles, [{userId: number, userName: string, quantityFiles: numbers}]}
    */
   const generalValue = Object.values(generaldata);
-  if (generalValue.length === 0) {
-    return {};
+  if (generalValue.length === 0 || (generalValue.length > 0 &&
+    Object.keys(generalValue[0]).length === 0)
+  ) {
+
+    return new Object({});
   }
-  const files = generaldata["data"]["files"];
-  const users = generaldata["data"]["users"];
+  const files = generaldata["files"];
+  const users = generaldata["users"];
   const quantityAllUsers = users.length;
   const quantityAllFiles = files.length;
   interface UserMeta {
@@ -25,14 +28,26 @@ export const task1 = (generaldata: { data: { users: [any], files: [any] } }) => 
   });
   //
   const userNewMeta: UserMeta[] = [] ;
+  // FIND USERS WITH FILES
   userMeta.forEach((user, ind) => {
     let calculate = 0;
     for (let i = 0; i < files.length; i++){
-      if (user[0] === files[i]["user_id"]) {
+      if (Number(user[0]) === Number(files[i]["user"])) {
         calculate += 1;
 
     }}
     userNewMeta.push({userId: user[0], userName: user[1], quantityFiles: calculate});
+
   });
-  return { quantityAllUsers, quantityAllFiles, userNewMeta};
+
+  // FIND FILES AFTER DOWNLOADING
+  const filesDownloading = [];
+  files.forEach((file) => {
+    if (file["last_downloaded"]) {
+      filesDownloading.push(file["id"]);
+    }
+  });
+
+  resolve({ quantityAllUsers, quantityAllFiles, filesDownloading: filesDownloading.length, userNewMeta });
+
 })
