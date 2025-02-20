@@ -14,7 +14,7 @@ export async function fetchCSRF(url: string | URL) {
 
   const response = await fetch(url, {
     method: "GET",
-    credentials: "include",
+    // credentials: "include",
     // headers: {
     //   'Accept': 'application/json',
     // }
