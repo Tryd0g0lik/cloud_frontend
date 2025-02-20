@@ -10,6 +10,7 @@ import { LoginLogoutFC } from "src/components/LoginLogout";
 import { NavbarTopFC } from "src/components/NavbarTop";
 import { ProfileFC } from "src/components/Profile";
 import { FilesdFC } from "src/components/Files";
+import { MainPageFC } from "../MainPage";
 
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
@@ -29,7 +30,8 @@ const cloud = { maintitle: "Облако" };
 const Router = createBrowserRouter([
   {
     path: "/",
-    element: <NavbarTopFC {...HeaderToMain} />
+    // element: <NavbarTopFC {...HeaderToMain} />
+    element: <MainPageFC {...HeaderToMain} />
   },
   {
     path: "users/registration/",
