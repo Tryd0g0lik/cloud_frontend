@@ -5,12 +5,18 @@ import { task0 } from './tasks/taskLoaderReviewDataForAdmin';
 import { task1 } from './tasks/taskSeparatorGeneralData';
 interface GeneraReviewData { data: { users: [any], files: [any] } }
 export function MainPageFC(props: { maintitle: string }): JSX.Element{
-  const [reviewdata, setReviewdata] = useState<GeneraReviewData| null >(null) ;
+  const [reviewdata, setReviewdata] = useState<GeneraReviewData>({} as GeneraReviewData);
   
   useEffect(()=>{ 
     return ()=>{
       
-      (async () => Promise.all([task0(setReviewdata), task1(reviewdata ? reviewdata as GeneraReviewData : {} as GeneraReviewData )]))();
+      (async () => {
+        await task0(setReviewdata);
+        if (reviewdata) {
+          const result = await task1(reviewdata ? reviewdata as GeneraReviewData : {} as GeneraReviewData)
+          console.log(result)
+        }
+      })();
       
     }
   }, []);

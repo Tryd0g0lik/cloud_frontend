@@ -4,8 +4,11 @@ export const task1 = (generaldata: { data: { users: [any], files: [any] } }) => 
    *  @return {quantityAllUsers, quantityAllFiles, [{userId: number, userName: string, quantityFiles: numbers}]}
    */
   const generalValue = Object.values(generaldata);
-  const files = generalValue[0]["files"];
-  const users = generalValue[0]["users"];
+  if (generalValue.length === 0) {
+    return {};
+  }
+  const files = generaldata["data"]["files"];
+  const users = generaldata["data"]["users"];
   const quantityAllUsers = users.length;
   const quantityAllFiles = files.length;
   interface UserMeta {
