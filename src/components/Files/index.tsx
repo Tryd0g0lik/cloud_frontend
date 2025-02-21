@@ -2,6 +2,7 @@
  * src\components\Files\index.tsx
  */
 import React, { JSX, useState, useEffect, MouseEventHandler } from "react";
+import { useLoaderData } from "react-router-dom";
 import { NavbarTopFC } from "../NavbarTop";
 import { CookieUser } from "@Services/cookieServices";
 import { handlerFormFile } from "./handlers/handlerFormFiles";
@@ -24,7 +25,7 @@ interface Maintitle { maintitle: string }
  */
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
-
+  const userId = useLoaderData();
   // HandlerStateActivation();
 
   useEffect(() => {
@@ -45,8 +46,8 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
     return () => {
       HandlerStateActivation();
       (async () => {
-        // STATE FILES TO THE PAGE
-        const response = await handlerOlderFiles();
+        // STATE FILES TO THE PAGE userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null
+        const response = await handlerOlderFiles(userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null);
         if (!response) { return }
         stateFiles(response as Array<never>);
 
@@ -114,7 +115,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
             handlerCommentInput(e as React.KeyboardEvent<HTMLInputElement>)
             .then(async (response) => {
               if (!response) {
-                const response = await handlerOlderFiles();
+                const response = await handlerOlderFiles(userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null);
                 if (!response) { return }
                 stateFiles(response as Array<never>);
                 return false;
@@ -131,7 +132,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
               }
               (async () => {
-                const response = await handlerOlderFiles();
+                const response = await handlerOlderFiles(userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null);
                 if (!response) { return }
                 stateFiles(response as Array<never>);
 
@@ -166,7 +167,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   divHmtl.removeChild(divHmtl.firstChild as HTMLInputElement);
                 }
                 (async () => {
-                  const response = await handlerOlderFiles();
+                  const response = await handlerOlderFiles(userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null);
                   if (!response) { return }
                   stateFiles(response as Array<never>);
 
@@ -263,7 +264,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 })
                 .then(async () => {
                   HandlerStateActivation();
-                  const result = await handlerOlderFiles();
+                  const result = await handlerOlderFiles(userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null);
                   if (!result) { return }
                   if (result.length === 0) { return }
                   else {
@@ -282,7 +283,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
           <button onClick={async (e: React.MouseEvent) => {
 
             await handlerFileRemove(e);
-            const response = await handlerOlderFiles();
+            const response = await handlerOlderFiles(userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null);
             if (!response) { return }
             stateFiles(response as Array<never>);
 

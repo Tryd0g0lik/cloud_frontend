@@ -11,7 +11,7 @@ import { HttpMethods, UserAPI } from "@Interfaces";
  * @param e
  * @returns
  */
-export async function handlerOlderFiles(): Promise<[]|[{files: []}]> { // funcState:CallableFunction
+export async function handlerOlderFiles(index: string | null = null): Promise<[] | [{ files: [] }]> { // funcState:CallableFunction
 
 const cookie = new  CookieUser();
 const userId = cookie.getOneCookie("index");
@@ -22,7 +22,11 @@ const userId = cookie.getOneCookie("index");
   url.port = process.env.REACT_APP_SERVER_PORT || '8000';
 
   let result = await fetchCSRF(url);
+  if (index) {
+    url.pathname = UserAPI.FILES_PK.replace(":userId", index);
+  } else {
   url.pathname = UserAPI.FILES_PK.replace(":userId", userId);
+  }
   // SEND FILE TO SERVER
 
   const response = await fetch(url, {

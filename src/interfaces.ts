@@ -42,9 +42,9 @@ export enum LocalRef {
   REGISTRATION = "/users/registration/", // // Page where we can see the form user's registration
   PROFILE_FILES = "/profile/files/", // From dasbpard
   PROFILE_USER_PK = "profile/files/:id/", // From routers
-  ADMIN_TO_PROFILE_USER_PK = "/admins/to/profile/files/:id/", // From routers
+  ADMIN_TO_PROFILE_USER_PK = `/admins/to/profile/:pk/`, // From routers
   PROFILE_FILE_USER_PK = `profile/:pk/`, // From routers
-  ADMIN_TO_FILE_USER_PK = `/admins/to/profile/:pk/`, // From routers
+  ADMIN_TO_FILE_USER_PK = "/admins/to/profile/files/:pk/", // From routers
 }
 
 export interface FetchParams {
