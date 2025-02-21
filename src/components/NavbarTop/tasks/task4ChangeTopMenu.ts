@@ -20,7 +20,7 @@ const task4 = () => new Promise<void>(resolve => {
       throw new Error("[NavbarTopFC::task4]There is not userId");
     }
     const selectors = [
-      { ".cloud .cloud-file": `${LocalRef.PROFILEFILES}${userId}/` },
+      { ".cloud .cloud-file": `${LocalRef.PROFILE_FILES}${userId}/` },
     ];
     selectors.forEach((item, index) => {
       const selector = Array.from(Object.keys(item))[0];

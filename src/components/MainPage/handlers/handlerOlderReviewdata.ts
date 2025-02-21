@@ -39,7 +39,7 @@ export async function handlerOlderReviewdata(): Promise<boolean | { users: [any]
       return false;
     }
     // GET ALL REVIEW DATA BY USER AND USER's FILE
-    url.pathname = UserAPI.ADMINGETALLREVIEW;
+    url.pathname = UserAPI.ADMIN_GET_ALLREVIEW;
 
     const response = await fetch(url, {
       method: HttpMethods.GET,

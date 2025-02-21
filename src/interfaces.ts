@@ -29,16 +29,22 @@ export enum UserAPI {
   PATCH = "/api/v1/users/patch/",
   PATCH_PK = "/api/v1/users/patch/:userId/",
   GETofAPI = "/api/v1/users/get/",
+  FILES = "/api/v1/files/",
+  FILES_PK = "/api/v1/files/:userId/", // :userId - replace to the id: string of the string
   FILESREMOVE_PK = "/api/v1/files/:userId/remove/", // :userId - replace to the id: string of the string
   FILESCOMMENT_PK = "/api/v1/files/:userId/update_comment/", // :userId - replace to the id: string of the string
   REFERRAL_LINKS = "/api/v1/files/:userId/referral_links/", // :userId - replace to the id: string of the string
   FILESRENAME_PK = "/api/v1/files/:userId/rename/",
-  ADMINGETALLREVIEW = "/api/v1/admins/choice/",
+  ADMIN_GET_ALLREVIEW = "/api/v1/admins/choice/",
 }
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation
   REGISTRATION = "/users/registration/", // // Page where we can see the form user's registration
-  PROFILEFILES = "/profile/files/"
+  PROFILE_FILES = "/profile/files/", // From dasbpard
+  PROFILE_USER_PK = "profile/files/:id/", // From routers
+  ADMIN_TO_PROFILE_USER_PK = `/admins/to/profile/:pk/`, // From routers
+  PROFILE_FILE_USER_PK = `profile/:pk/`, // From routers
+  ADMIN_TO_FILE_USER_PK = "/admins/to/profile/files/:pk/", // From routers
 }
 
 export interface FetchParams {

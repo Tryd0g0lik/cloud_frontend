@@ -2,6 +2,7 @@
  * src\components\Files\index.tsx
  */
 import React, { JSX, useState, useEffect, MouseEventHandler } from "react";
+import { useLoaderData } from "react-router-dom";
 import { NavbarTopFC } from "../NavbarTop";
 import { CookieUser } from "@Services/cookieServices";
 import { handlerFormFile } from "./handlers/handlerFormFiles";
@@ -24,10 +25,11 @@ interface Maintitle { maintitle: string }
  */
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
-
   // HandlerStateActivation();
 
+
   useEffect(() => {
+
     // CHOICE ALL FILES FROM the SINGLE CLICK 
     function addListener() {
       // CREAT EVENT LISTENER FOR CHECKBOX
@@ -45,8 +47,10 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
     return () => {
       HandlerStateActivation();
       (async () => {
-        // STATE FILES TO THE PAGE
-        const response = await handlerOlderFiles();
+        // STATE FILES TO THE PAGE userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null
+        const stringArr = (window.location.pathname as string).split("/");
+        const index__s = (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
+        const response = await handlerOlderFiles(index__s);
         if (!response) { return }
         stateFiles(response as Array<never>);
 

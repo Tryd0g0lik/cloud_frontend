@@ -1,21 +1,52 @@
-import React, {JSX, useEffect, useState} from 'react';
-import { UserLevel } from "@Interfaces";
+/**
+ * src\components\MainPage\index.tsx
+ * Main page
+ */
+import React, { JSX, useEffect, useState } from 'react';
 import { NavbarTopFC } from '../NavbarTop';
-import { task1 } from './tasks/taskSeparatorGeneralData';
-import { handlerOlderReviewdata } from './nabdlers/handlerOlderReviewdata';
-import { values } from 'lodash';
-import { handlerGeneral } from './nabdlers/hendlerGeneral';
+import { handlerGeneral } from './handlers/hendlerGeneral';
+import { handlerUserOfReview } from "./handlers/listenerForSectionHtml";
+const task = async () => new Promise(resolve => {
+  const rootHTML = document.querySelector("#root");
+  if (!rootHTML) {
+    return false;
+  }
+  // rootHTML.addEventListener("DOMContentLoaded", async () => {
+  const mainPageHTML = rootHTML.querySelector("section.main-page");
+  if (!mainPageHTML) {
+    return false;
+  }
 
+  (mainPageHTML as HTMLElement).removeEventListener("mousedown", handlerUserOfReview);
+  (mainPageHTML as HTMLElement).addEventListener("mousedown", handlerUserOfReview);
+  resolve(true);
+  // })
+});
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
   const [generalValue, setGeneralValue] = useState<any>(new Object({}) as any);
 
 
   useEffect(() => {
     handlerGeneral(setGeneralValue);
+    // document.removeEventListener("DOMContentLoaded", async () => {
+    //   const mainPageHTML = document.querySelector(".main-page");
+    //   if (!mainPageHTML) {
+    //     return false;
+    //   }
+
+    //   (mainPageHTML as HTMLElement).removeEventListener("mousedown", handlerUserOfReview);
+    //   (mainPageHTML as HTMLElement).addEventListener("mousedown", handlerUserOfReview);
+
+    Promise.all([task()]);
+    // });
+
+
+
+
   }, []);
   return (<>
     <NavbarTopFC {...props} />
-    <section className="main-page">
+    <section className="main-page p-5">
 
       <div className="overflow-x-auto">
         {generalValue && (<table className="table">
@@ -55,10 +86,10 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
             {/* row 1 */}
             {Array.isArray(generalValue["userNewMeta"]) &&
               generalValue["userNewMeta"].map((oneuser, i) => (
-                <tr key={oneuser["userId"]}>
+                <tr className={i % 2 === 0 ? 'hover' : ''} data-number={oneuser["userId"]} key={oneuser["userId"]}>
                   <th>{i}</th>
-                  <td>{String(oneuser["userId"])}</td>
-                  <td>{oneuser["userName"]}</td>
+                  <td data-name="user">{String(oneuser["userId"])}</td>
+                  <td data-name="user">{oneuser["userName"]}</td>
                   <td>{oneuser["quantityFiles"]}</td>
                 </tr>
               ))}
@@ -72,5 +103,5 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
 
     </section>
   </>)
-  
+
 }

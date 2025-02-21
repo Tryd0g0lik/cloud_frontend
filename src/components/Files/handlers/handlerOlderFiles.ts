@@ -11,10 +11,10 @@ import { HttpMethods, UserAPI } from "@Interfaces";
  * @param e
  * @returns
  */
-export async function handlerOlderFiles(): Promise<[]|[{files: []}]> { // funcState:CallableFunction
+export async function handlerOlderFiles(index__s: string | null = null): Promise<[] | [{ files: [] }]> { // funcState:CallableFunction
 
-const cookie = new  CookieUser();
-const userId = cookie.getOneCookie("index");
+  const cookie = new CookieUser();
+  const userId = cookie.getOneCookie("index");
   if (!userId) {
     return [];
   }
@@ -22,7 +22,11 @@ const userId = cookie.getOneCookie("index");
   url.port = process.env.REACT_APP_SERVER_PORT || '8000';
 
   let result = await fetchCSRF(url);
-  url.pathname = `/api/v1/files/${userId}`;
+  if (index__s) {
+    url.pathname = UserAPI.FILES_PK.replace(":userId", index__s);
+  } else {
+  url.pathname = UserAPI.FILES_PK.replace(":userId", userId);
+  }
   // SEND FILE TO SERVER
 
   const response = await fetch(url, {
