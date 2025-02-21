@@ -15,7 +15,7 @@ const map = new Map();
  * @param e :  MouseEvent | KeyboardEvent
  * @returns
  */
-export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
+export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
   // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
