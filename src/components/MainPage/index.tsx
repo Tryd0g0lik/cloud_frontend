@@ -1,9 +1,9 @@
-import React, {JSX, useEffect, useState} from 'react';
-import { UserLevel } from "@Interfaces";
+/**
+ * src\components\MainPage\index.tsx
+ * Main page
+ */
+import React, { JSX, useEffect, useState } from 'react';
 import { NavbarTopFC } from '../NavbarTop';
-import { task1 } from './tasks/taskSeparatorGeneralData';
-import { handlerOlderReviewdata } from './nabdlers/handlerOlderReviewdata';
-import { values } from 'lodash';
 import { handlerGeneral } from './nabdlers/hendlerGeneral';
 
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
@@ -15,7 +15,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
   }, []);
   return (<>
     <NavbarTopFC {...props} />
-    <section className="main-page">
+    <section className="main-page p-5">
 
       <div className="overflow-x-auto">
         {generalValue && (<table className="table">
@@ -55,7 +55,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
             {/* row 1 */}
             {Array.isArray(generalValue["userNewMeta"]) &&
               generalValue["userNewMeta"].map((oneuser, i) => (
-                <tr key={oneuser["userId"]}>
+                <tr className={i % 2 === 0 ? 'hover' : ''} data-number={oneuser["userId"]} key={oneuser["userId"]}>
                   <th>{i}</th>
                   <td>{String(oneuser["userId"])}</td>
                   <td>{oneuser["userName"]}</td>
@@ -72,5 +72,5 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
 
     </section>
   </>)
-  
+
 }

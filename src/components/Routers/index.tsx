@@ -11,38 +11,28 @@ import { NavbarTopFC } from "src/components/NavbarTop";
 import { ProfileFC } from "src/components/Profile";
 import { FilesdFC } from "src/components/Files";
 import { MainPageFC } from "../MainPage";
+import { LocalRef, UserAPI } from "@Interfaces";
 
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
 const HeaderLoginLogout = { maintitle: "Авторизация" };
 const cloud = { maintitle: "Облако" };
-// const userMeta: Usermeta = {
-//   username: "NULL",
-//   firstname: "NULL",
-//   lastname: "NULL",
-//   email: "NULL",
-//   userlevel: UserLevel.PASSANGER,
-//   password: false,
-// }
-// let userId: string = "";
-
 
 const Router = createBrowserRouter([
   {
     path: "/",
-    // element: <NavbarTopFC {...HeaderToMain} />
     element: <MainPageFC {...HeaderToMain} />
   },
   {
-    path: "users/registration/",
+    path: LocalRef.REGISTRATION,
     element: <RegistrationFormFC {...HeaderToRegistration} />
   },
   {
-    path: "users/login/",
+    path: LocalRef.ACTIVATION,
     element: <LoginLogoutFC {...HeaderLoginLogout} />
   },
   {
-    path: `profile/:pk/`,
+    path: LocalRef.PROFILE_FILE_USER_PK,
     element: <ProfileFC />,
     // loader: async () => {
     //   if (userId) {
@@ -54,7 +44,15 @@ const Router = createBrowserRouter([
     // }
   },
   {
-    path: "profile/files/:id/",
+    path: LocalRef.ADMIN_TO_PROFILE_USER_PK,
+    element: <ProfileFC />,
+  },
+  {
+    path: LocalRef.PROFILE_USER_PK,
+    element: <FilesdFC {...cloud} />,
+  },
+  {
+    path: LocalRef.ADMIN_TO_PROFILE_USER_PK,
     element: <FilesdFC {...cloud} />,
   }
 

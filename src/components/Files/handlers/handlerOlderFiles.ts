@@ -22,7 +22,7 @@ const userId = cookie.getOneCookie("index");
   url.port = process.env.REACT_APP_SERVER_PORT || '8000';
 
   let result = await fetchCSRF(url);
-  url.pathname = `/api/v1/files/${userId}`;
+  url.pathname = UserAPI.FILES_PK.replace(":userId", userId);
   // SEND FILE TO SERVER
 
   const response = await fetch(url, {

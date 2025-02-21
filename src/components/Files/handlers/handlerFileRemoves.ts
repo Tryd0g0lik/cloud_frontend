@@ -40,7 +40,7 @@ export async function handlerFileRemove(e: React.MouseEvent): Promise<boolean> {
   url.port = process.env.REACT_APP_SERVER_PORT || '8000';
 
   let result = await fetchCSRF(url);
-  url.pathname = `/api/v1/files/${userId}`;
+  url.pathname = UserAPI.FILES_PK.replace(":userId", userId);
 
   url.pathname = `${UserAPI.FILESREMOVE_PK}`.replace(':userId', userId);
 

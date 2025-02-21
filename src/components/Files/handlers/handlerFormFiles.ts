@@ -38,7 +38,7 @@ export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
   url.port = REACT_APP_SERVER_PORT;
   // GET THE CSRFTOKEN
   const result = await fetchCSRF(url);
-  url.pathname = '/api/v1/files/';
+  url.pathname = UserAPI.FILES;
   // SEND FILE TO SERVER
   const response = await fetch(url, {
     method: HttpMethods.POST,
