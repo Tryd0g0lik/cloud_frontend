@@ -2981,6 +2981,13 @@ body * {
   border: 1px solid #ff0909;
 }
 
+/* -------- ADMIN -------- */
+
+.main-page td[data-files="files"] {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 640px) {
   .navbar .dropdown {
     display: none;

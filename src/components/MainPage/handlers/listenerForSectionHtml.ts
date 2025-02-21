@@ -22,7 +22,7 @@ export async function handlerUserOfReview(e: MouseEvent) {
   }
   // CHECK TARGET OF EVENT
   if (!(target as HTMLElement).dataset || (
-    (target as HTMLElement).dataset && !(target as HTMLElement).dataset.name
+    (target as HTMLElement).dataset && !(target as HTMLElement).dataset.files
   )) {
     return;
   }

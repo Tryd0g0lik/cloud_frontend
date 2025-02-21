@@ -11,38 +11,21 @@ const task = async () => new Promise(resolve => {
   if (!rootHTML) {
     return false;
   }
-  // rootHTML.addEventListener("DOMContentLoaded", async () => {
   const mainPageHTML = rootHTML.querySelector("section.main-page");
   if (!mainPageHTML) {
     return false;
   }
-
+  // LISTENER OF HANDLER FOR ADMIN INTERFACE
   (mainPageHTML as HTMLElement).removeEventListener("mousedown", handlerUserOfReview);
   (mainPageHTML as HTMLElement).addEventListener("mousedown", handlerUserOfReview);
   resolve(true);
-  // })
 });
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
-  const [generalValue, setGeneralValue] = useState<any>(new Object({}) as any);
-
-
+  const [generalValue, setGeneralValue] = useState<any>(null);
+  // RUN AFTER UPLOADING
   useEffect(() => {
     handlerGeneral(setGeneralValue);
-    // document.removeEventListener("DOMContentLoaded", async () => {
-    //   const mainPageHTML = document.querySelector(".main-page");
-    //   if (!mainPageHTML) {
-    //     return false;
-    //   }
-
-    //   (mainPageHTML as HTMLElement).removeEventListener("mousedown", handlerUserOfReview);
-    //   (mainPageHTML as HTMLElement).addEventListener("mousedown", handlerUserOfReview);
-
     Promise.all([task()]);
-    // });
-
-
-
-
   }, []);
   return (<>
     <NavbarTopFC {...props} />
@@ -88,9 +71,9 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
               generalValue["userNewMeta"].map((oneuser, i) => (
                 <tr className={i % 2 === 0 ? 'hover' : ''} data-number={oneuser["userId"]} key={oneuser["userId"]}>
                   <th>{i}</th>
-                  <td data-name="user">{String(oneuser["userId"])}</td>
+                  <td >{String(oneuser["userId"])}</td>
                   <td data-name="user">{oneuser["userName"]}</td>
-                  <td>{oneuser["quantityFiles"]}</td>
+                  <td data-files="files">{oneuser["quantityFiles"]}</td>
                 </tr>
               ))}
 
