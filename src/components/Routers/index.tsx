@@ -12,7 +12,7 @@ import { ProfileFC } from "src/components/Profile";
 import { FilesdFC } from "src/components/Files";
 import { MainPageFC } from "../MainPage";
 import { LocalRef, UserAPI } from "@Interfaces";
-import userIdRedux from "@Services/myRedux";
+// import { state } from "@Services/myRedux";
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
 const HeaderLoginLogout = { maintitle: "Авторизация" };
@@ -46,7 +46,7 @@ const Router = createBrowserRouter([
   },
   {
     path: LocalRef.ADMIN_TO_PROFILE_USER_PK,
-    loader: () => userIdRedux.state,
+    // loader: state,
     element: <ProfileFC />,
   },
   {
@@ -55,7 +55,7 @@ const Router = createBrowserRouter([
   },
   {
     path: LocalRef.ADMIN_TO_FILE_USER_PK,
-    loader: () => userIdRedux.state,
+    // loader: state,
     element: <FilesdFC {...cloud} />,
   }
 

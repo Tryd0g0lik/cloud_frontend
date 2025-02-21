@@ -1,5 +1,8 @@
+/**
+ * src\components\MainPage\handlers\listenerForSectionHtml.ts
+ */
 import { LocalRef } from "@Interfaces";
-import userIdRedux from "@Services/myRedux";
+// import { set_state } from "@Services/myRedux";
 export async function handlerUserOfReview(e: MouseEvent) {
   const { type, target } = e;
   // CHECK TYPE OF EVENT
@@ -32,7 +35,7 @@ export async function handlerUserOfReview(e: MouseEvent) {
   }
   // GET DATA OF HTML-ELement
   const userIdstr = trHTML.dataset.number as string;
-  userIdRedux.set_state(userIdstr);
+  // set_state(userIdstr);
  // RELOCATION
   setTimeout(()=>{
     window.location.href = `${window.location.origin}${LocalRef.ADMIN_TO_FILE_USER_PK}`.replace(":pk", userIdstr);
