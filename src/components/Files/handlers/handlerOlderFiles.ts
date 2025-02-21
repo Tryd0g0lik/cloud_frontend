@@ -12,8 +12,7 @@ import { HttpMethods, UserAPI } from "@Interfaces";
  * @returns
  */
 export async function handlerOlderFiles(index__s: string | null = null): Promise<[] | [{ files: [] }]> { // funcState:CallableFunction
-  const stringArr = (window.location.pathname as string).split("/");
-  index__s = (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
+
   const cookie = new CookieUser();
   const userId = cookie.getOneCookie("index");
   if (!userId) {
