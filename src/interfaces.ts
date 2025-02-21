@@ -33,6 +33,7 @@ export enum UserAPI {
   FILESCOMMENT_PK = "/api/v1/files/:userId/update_comment/", // :userId - replace to the id: string of the string
   REFERRAL_LINKS = "/api/v1/files/:userId/referral_links/", // :userId - replace to the id: string of the string
   FILESRENAME_PK = "/api/v1/files/:userId/rename/",
+  ADMINGETALLREVIEW = "/api/v1/admins/choice/",
 }
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation
