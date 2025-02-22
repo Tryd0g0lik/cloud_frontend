@@ -24,6 +24,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
   const [generalValue, setGeneralValue] = useState<any>(null);
   // RUN AFTER UPLOADING
   useEffect(() => {
+    // !!!  ПОСТАВИТЬ условие проверки прав пользователя. чтоб срабатывал только при наличии прав админа
     handlerGeneral(setGeneralValue);
     Promise.all([task()]);
   }, []);
