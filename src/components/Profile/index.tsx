@@ -9,7 +9,7 @@ import { HydrateFallback } from "src/components/Loading";
 import { CookieUser } from "@Services/cookieServices";
 import { profileLoader } from "@Services/request/profileloading"
 import { NavbarTopFC } from "src/components/NavbarTop";
-import { handlerProfileField } from "./handlers/handlerProfileFields"
+import { handlerOlderProfile } from "./handlers/handlerProfileFields"
 // The simple emapty data for the 'Profile's' page.
 const plugProfile: Usermeta = {
   "username": "Пользователь",
@@ -34,11 +34,11 @@ export function ProfileFC(): JSX.Element {
       // CRUD
       Array.from(divHtml).forEach((item) => {
         // DELETES the EventListener
-        (item as HTMLDivElement).removeEventListener('click', handlerProfileField);
-        (item as HTMLDivElement).removeEventListener('keydown', handlerProfileField);
+        (item as HTMLDivElement).removeEventListener('click', handlerOlderProfile);
+        (item as HTMLDivElement).removeEventListener('keydown', handlerOlderProfile);
         // ADD the EventListener
-        (item as HTMLDivElement).addEventListener('click', handlerProfileField);
-        (item as HTMLDivElement).addEventListener('keydown', handlerProfileField);
+        (item as HTMLDivElement).addEventListener('click', handlerOlderProfile);
+        (item as HTMLDivElement).addEventListener('keydown', handlerOlderProfile);
       });
     }
     // SEND request to the server. to get the user's information. from the server.

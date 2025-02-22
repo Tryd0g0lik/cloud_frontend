@@ -7,16 +7,18 @@ import { CookieUser } from "@Services/cookieServices";
 import { HttpMethods, UserAPI } from "@Interfaces";
 import { AES, mode, pad, enc } from "crypto-ts";
 /** ---- PATCH Method ----
-
+ * @param prop JSON string for data of request's body.
+ * @param index__s This is the user id. The events of admin is triger for geting \
+ * the user id from URL and insert to the url of request to the server
  * @returns
  */
-export async function fetchLoginOut(prop: string) {
+export async function fetchLoginOut(prop: string, index__s: string | null = null) {
 
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL || null;
   const cookie = new CookieUser();
 
   let indexOfCookie = cookie.getOneCookie("index");
-  let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}`.replace(":userId", indexOfCookie as string);
+  let url: string | URL = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}`.replace(":userId", index__s ? index__s : indexOfCookie as string);
   let response: Response | null = null;
   // If a cookies data files are empty, we neet to get (restore) the user's id
   if (!indexOfCookie) {
@@ -57,7 +59,7 @@ export async function fetchLoginOut(prop: string) {
     throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);
   }
   const result = await response.json();
-  // AUTHORISATION
+  // AUTHORISATION AND MORE DATA OF CHANGED
   response = await fetch(url,
     {
       method: HttpMethods.PATCH,

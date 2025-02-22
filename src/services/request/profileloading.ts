@@ -28,8 +28,13 @@ export async function profileLoader(): Promise<Usermeta | {}> {
     throw new Error("[profileLoader]: Mistake => THe userId from the cookie can't found")
 
   };
-  // Create the url + the pathname of api for request to the server.
-  const url = new URL(`${UserAPI.CHOICE_PK}`.replace(":userId/", `${userId}`), `${REACT_APP_SERVER_URL}`,)
+  // STATE PROFILE TO THE PAGE
+  let index__s: string | null = null;
+  // GET ID FROM THE URL BY EVENTS OF ADMIN
+  const stringArr = (window.location.pathname as string).split("/");
+  index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
+  // Create the url + the pathna  me of api for request to the server.
+  const url = new URL(`${UserAPI.CHOICE_PK}`.replace(":userId/", `${index__s ? index__s : userId}`), `${REACT_APP_SERVER_URL}`,)
   const response = await fetch(url, {
     method: "GET",
     headers: {

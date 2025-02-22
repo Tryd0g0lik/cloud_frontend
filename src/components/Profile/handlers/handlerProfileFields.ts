@@ -61,7 +61,10 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
     if (!resolve && (typeof resolve === "boolean")) {
       throw new Error("[handlerProfileFields.ts::task2]: Mistake => resolve not found!")
     }
-
+    // GET ID FROM THE URL BY EVENTS OF ADMIN
+    let index__s: string | null = null;
+    const stringArr = (window.location.pathname as string).split("/");
+    index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
     const bodyArray = Array.from(map.entries());
     const bodyObj: Record<string, string> = {};
     bodyArray.forEach(arr => {
@@ -69,7 +72,7 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
     });
     const body = JSON.stringify(bodyObj);
     // TASK3 - SEND the NEW TEXT to the server. This from the inpute (type text) field.
-    fetchLoginOut(body)
+    fetchLoginOut(body, index__s)
       .then(respone => {
         if (respone.ok) {
           const newtext = respone.json()
