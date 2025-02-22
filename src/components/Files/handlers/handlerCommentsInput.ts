@@ -59,7 +59,9 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
     body: body_,
     headers: {
       "X-CSRFToken": result["csrftoken"] || "",
-      "Content-Type": "application/json" },
+      'Accept': 'application/json'
+    },
+    // "Content-Type": "application/json" },
     credentials: "include"
   });
   HandlerStateActivation();

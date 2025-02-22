@@ -72,15 +72,14 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
     });
     const body = JSON.stringify(bodyObj);
     // TASK3 - SEND the NEW TEXT to the server. This from the inpute (type text) field.
-    fetchLoginOut(body, index__s)
+    fetchLoginOut(body, index__s?.trim())
       .then(respone => {
         if (respone.ok) {
-          const newtext = respone.json()
+          const newtext = respone.json().catch(err => {
+            console.error(new Error(`[handlerProfileFields.ts]: Mistake => ${err.statck}`));
+          })
           return newtext;
         }
-      })
-      .catch(err => {
-        throw new Error(`[handlerProfileFields.ts]: Response from the server. Mistake => ${err.messag}`);
       })
       .then(result => {
         // 'result' this is the object FROM THE SERVER.
@@ -93,6 +92,9 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
         }
         // UPDATE the CONTENT
         (htmlDivContent as HTMLDivElement).innerHTML = result[nameField as string];
+      }).catch(err => {
+        console.error(new Error(`[handlerProfileFields.ts]: Response from the server.  Mistake => ${err.stack}`));
+
       });
   }
   // TASK2
