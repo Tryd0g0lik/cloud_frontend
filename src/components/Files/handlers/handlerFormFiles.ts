@@ -34,6 +34,10 @@ export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
   }
   const fileData = new FormData();
   fileData.append('file', file);
+  // GET ID FROM THE URL BY EVENTS OF ADMIN
+  let index__s: string | null = null;
+  const stringArr = (window.location.pathname as string).split("/");
+  index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
   const url = new URL(UserAPI.BASIS, window.location.origin)
   url.port = REACT_APP_SERVER_PORT;
   // GET THE CSRFTOKEN

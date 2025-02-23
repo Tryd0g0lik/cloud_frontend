@@ -15,7 +15,7 @@ const map = new Map();
  * @param e :  MouseEvent | KeyboardEvent
  * @returns
  */
-export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
+export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
   // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
@@ -61,7 +61,10 @@ export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
     if (!resolve && (typeof resolve === "boolean")) {
       throw new Error("[handlerProfileFields.ts::task2]: Mistake => resolve not found!")
     }
-
+    // GET ID FROM THE URL BY EVENTS OF ADMIN
+    let index__s: string | null = null;
+    const stringArr = (window.location.pathname as string).split("/");
+    index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
     const bodyArray = Array.from(map.entries());
     const bodyObj: Record<string, string> = {};
     bodyArray.forEach(arr => {
@@ -69,7 +72,7 @@ export function handlerProfileField(e: MouseEvent | KeyboardEvent): boolean {
     });
     const body = JSON.stringify(bodyObj);
     // TASK3 - SEND the NEW TEXT to the server. This from the inpute (type text) field.
-    fetchLoginOut(body)
+    fetchLoginOut(body, index__s)
       .then(respone => {
         if (respone.ok) {
           const newtext = respone.json()

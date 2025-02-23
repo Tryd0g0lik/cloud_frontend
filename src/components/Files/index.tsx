@@ -47,9 +47,12 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
     return () => {
       HandlerStateActivation();
       (async () => {
-        // STATE FILES TO THE PAGE userId && "admin/to/".includes(window.location.pathname as string) ? (userId as string) : null
+        // STATE FILES TO THE PAGE 
+        let index__s: string | null = null;
+        // GET ID FROM THE URL BY EVENTS OF ADMIN
         const stringArr = (window.location.pathname as string).split("/");
-        const index__s = (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
+        index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
+        // GET THE FILES FROM THE SERVER
         const response = await handlerOlderFiles(index__s);
         if (!response) { return }
         stateFiles(response as Array<never>);

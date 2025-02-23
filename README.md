@@ -1,6 +1,30 @@
 В работе.
-
 [backend](https://github.com/Tryd0g0lik/cloud)
+
+## Обзор
+Аналогом '`.env`'файла можно назвать файл '`src\interfaces.ts`'.\
+В коде он представлен как '`import { .... } from "@Interfaces"`'.\
+Один из примеров - API маршруты представленные во многих сценариях.
+```ts
+export enum UserAPI {
+  BASIS = "/api/v1/users/",
+  CHOICE = "/api/v1/users/choice/",
+  CHOICE_PK = "/api/v1/users/choice/:userId/",
+  PATCH = "/api/v1/users/patch/",
+  PATCH_PK = "/api/v1/users/patch/:userId/",
+  GETofAPI = "/api/v1/users/get/",
+  FILES = "/api/v1/files/",
+  FILES_PK = "/api/v1/files/:userId/", // :userId - replace to the id: string of the string
+  FILESREMOVE_PK = "/api/v1/files/:userId/remove/", // :userId - replace to the id: string of the string
+  FILESCOMMENT_PK = "/api/v1/files/:userId/update_comment/", // :userId - replace to the id: string of the string
+  REFERRAL_LINKS = "/api/v1/files/:userId/referral_links/", // :userId - replace to the id: string of the string
+  FILESRENAME_PK = "/api/v1/files/:userId/rename/",
+  ADMIN_GET_ALLREVIEW = "/api/v1/admins/choice/",
+}
+```
+Если в '`.env`' возможно что-то изменить то на содержимое в '`@Interfaces`' ориентируется и с ним сверяются многие сценарии. \
+Изменение чего либо грозит поломкой интерфейса.
+
 ## Регистрация
 ![error form registration](./img/formRegistration.png)\
 Форма возвращает ошибки если данные введены не верно.
@@ -84,13 +108,15 @@ CRUD - выполнен частично.
 - cookie браузера получает данные;
 - пользователь редиректом попадет на страницу профиля. 
 
-![crud of profile](./img/profileCrud.png)
+## Редактируем 
 
 Два поля:
 - `username`;
 - `firstname` которые пользователь может редактировать. 
 
 - `email` и `password` просто заложены в логику, но не отработаны.
+
+![crud of profile](./img/profileCrud.png)
 
 # Files
 
@@ -114,8 +140,8 @@ CRUD - выполнен частично.
 
 ## Note:
 Будьте остарожные с сервером. На сервере  редактирование пароля и email не закладывалось в логику.\
-В модель базы данных закладывалось лишь что это уникальные поля и на них основывается "мир". \
-В ТЗ нет данных (по пароля и email) для простого пользователя. Только для администора.
+В модели базы данных свойство - уникальные поля и на них "основывается мир". \
+В ТЗ нет задания (для пароля и email).
  
 ## Облако Файлов
 

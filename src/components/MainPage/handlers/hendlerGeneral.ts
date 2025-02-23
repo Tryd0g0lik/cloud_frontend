@@ -5,12 +5,13 @@ interface GeneraReviewData { users: [any], files: [any] };
 
 export async function handlerGeneral(usestate: CallableFunction) {
   /**
-   * Get a general reviews the use of cloud.
+   * Get a general review to used of the cloud.
    * @param 'usestate': 'useState' from react.
    */
   const response = await handlerOlderReviewdata();
   if (!response) {
-    throw new Error("MainPageFC::handlerOlderReviewdata: Something what wrong");
+    console.warn("MainPageFC::handlerOlderReviewdata: Maybe something what wrong");
+    return false
   };
   // TASK 1
   let task1SetInterval: NodeJS.Timeout;

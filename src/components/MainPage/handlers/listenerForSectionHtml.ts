@@ -22,7 +22,9 @@ export async function handlerUserOfReview(e: MouseEvent) {
   }
   // CHECK TARGET OF EVENT
   if (!(target as HTMLElement).dataset || (
-    (target as HTMLElement).dataset && !(target as HTMLElement).dataset.name
+    (target as HTMLElement).dataset && !(target as HTMLElement).dataset.files
+  ) && (
+      (target as HTMLElement).dataset && !(target as HTMLElement).dataset.name
   )) {
     return;
   }
@@ -37,7 +39,13 @@ export async function handlerUserOfReview(e: MouseEvent) {
   const userIdstr = trHTML.dataset.number as string;
   // set_state(userIdstr);
  // RELOCATION
-  setTimeout(()=>{
-    window.location.href = `${window.location.origin}${LocalRef.ADMIN_TO_FILE_USER_PK}`.replace(":pk", userIdstr);
-}, 500);
+  if ((target as HTMLElement).dataset.files) {
+    setTimeout(() => {
+      window.location.href = `${window.location.origin}${LocalRef.ADMIN_TO_FILE_USER_PK}`.replace(":pk", userIdstr);
+    }, 500)
+  } else if ((target as HTMLElement).dataset.name) {
+    setTimeout(() => {
+      window.location.href = `${window.location.origin}${LocalRef.ADMIN_TO_PROFILE_USER_PK}`.replace(":pk", userIdstr);
+    }, 500)
+  };
 }
