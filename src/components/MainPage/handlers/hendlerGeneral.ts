@@ -5,7 +5,7 @@ interface GeneraReviewData { users: [any], files: [any] };
 
 export async function handlerGeneral(usestate: CallableFunction) {
   /**
-   * Get a general reviews the use of cloud.
+   * Get a general review to used of the cloud.
    * @param 'usestate': 'useState' from react.
    */
   const response = await handlerOlderReviewdata();
