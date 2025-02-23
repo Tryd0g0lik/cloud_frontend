@@ -5,63 +5,9 @@
 import React, { JSX, useEffect, useState } from 'react';
 import { NavbarTopFC } from '../NavbarTop';
 import { handlerGeneral } from './handlers/hendlerGeneral';
-import { handlerUserOfReview } from "./handlers/listenerForSectionHtml";
-import { handlerChoiseAllUser } from './handlers/handlerChoiseAllUsers';
-import { CookieUser } from "@Services/cookieServices";
 import { handlerUserRemove } from './handlers/handlerUserRemoves';
-import { logElementPositions } from './handlers/hendlerButtomLocation';
-import { handlerAdminClickByCheckbox } from './handlers/habdlerAdminEventCheckbox';
-import { handlerChoiseByOne } from './handlers/handlerChoiseByOneUser';
-const task = async () => new Promise(resolve => {
-  const rootHTML = document.querySelector("#root");
-  if (!rootHTML) {
-    return false;
-  }
-  const mainPageHTML = rootHTML.querySelector("section.main-page");
-  if (!mainPageHTML) {
-    return false;
-  }
-  // LISTENER OF HANDLER FOR ADMIN INTERFACE
-  (mainPageHTML as HTMLElement).removeEventListener("mousedown", handlerUserOfReview);
-  (mainPageHTML as HTMLElement).addEventListener("mousedown", handlerUserOfReview);
-  resolve(true);
-});
-
-function addListener() {
-  // GET COOKIE
-  const cookie = new CookieUser();
-  if (!cookie.checkCoockie("is_staff")) {
-    console.warn("[MainPage/index.tsx::MainPageFC]: 'is_staff' not faound to the cookie");
-    return false;
-  }
-  // CHECK COOKIE
-  if (!cookie.getOneCookie("is_staff")) {
-    // THIS IS USER IS NOT ADMIN
-    return false;
-  }
-
-  /* ---- !!! THIS IS lISTENER EVENT FROM THE CLICK ONLY !!! CHECKBOX FROM THE TABLE  ---- */
-  // CREAT EVENT LISTENER FOR CHECKBOX OF USERS FROM ADMIN INTERFACE
-  const checkboxHTML = document.querySelector(".admin-reviews th input[type='checkbox']");
-  if (!checkboxHTML) {
-    console.log("[MainPage/index.tsx::MainPageFC]: 'th checkbox' Not found in DOM!")
-    return false;
-  }
-  // LISTENER THE ADMIN's EVENTS FOR CHECKBOX OF SELECTORS "TABLE TH INPUT"
-  (checkboxHTML as HTMLElement).removeEventListener("click", handlerAdminClickByCheckbox);
-  (checkboxHTML as HTMLElement).addEventListener("click", handlerAdminClickByCheckbox);
-
-  // LISTENER THE ADMIN's EVENTS FOR CHECKBOX OF SELECTORS "TABLE TD INPUT"
-  const tableHTMLArr = document.querySelectorAll(".admin-reviews tr td:first-of-type");
-  if (tableHTMLArr.length === 0) {
-    console.log("[MainPage/index.tsx::MainPageFC]: 'th checkbox' Not found in DOM!")
-    return false;
-  }
-  tableHTMLArr.forEach(item => {
-    (item as HTMLTableElement).removeEventListener("click", handlerChoiseByOne);
-    (item as HTMLTableElement).addEventListener("click", handlerChoiseByOne);
-  });
-}
+import { addListener } from "./handlers/addListeners";
+import { task } from "./tasks/taskRunHandlersOfReview";
 
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
   const [generalValue, setGeneralValue] = useState<any>(null);
@@ -145,6 +91,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
         )
 
         }
+        {/* button for user delete */}
         {generalValue && (<div style={{ display: "none" }} className="delete  w-[12rem] absolute left-0 z-[3] max-h-10 bottom-0">
           <button onClick={async (e: React.MouseEvent) => {
 
