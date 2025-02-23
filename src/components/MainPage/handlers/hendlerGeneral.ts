@@ -10,7 +10,8 @@ export async function handlerGeneral(usestate: CallableFunction) {
    */
   const response = await handlerOlderReviewdata();
   if (!response) {
-    throw new Error("MainPageFC::handlerOlderReviewdata: Something what wrong");
+    console.warn("MainPageFC::handlerOlderReviewdata: Maybe something what wrong");
+    return false
   };
   // TASK 1
   let task1SetInterval: NodeJS.Timeout;

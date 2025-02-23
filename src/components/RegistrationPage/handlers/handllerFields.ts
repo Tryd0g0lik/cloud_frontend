@@ -76,10 +76,17 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     // CREATE THE PARALLEL STREAMED - TASK0
     const task0 = () => new Promise<void>(resolve => { cleaning(); resolve()});
     (async () => await Promise.allSettled([task0]))();
+    // REQUUEST FOR GET CRF TOKEN FROM THE SERVER
+    let response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
+    if (!response.ok) {
+      throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json();
     // SEND TO THE DATA TO THE SERVER
-    const response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.CHOICE}`, {
+    response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.CHOICE}`, {
       method: "POST",
       headers: {
+        'X-CSRFToken': result["csrftoken"],
         "content-type": "application/json",
       },
       body: requestBody
