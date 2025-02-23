@@ -65,9 +65,7 @@ export async function handlerFileNameInput(e: React.KeyboardEvent<HTMLInputEleme
     body: body_,
     headers: {
       "X-CSRFToken": result["csrftoken"] || "",
-      'Accept': 'application/json'
-    },
-    // "Content-Type": "application/json" },
+      "Content-Type": "application/json" },
     credentials: "include"
   });
   HandlerStateActivation();

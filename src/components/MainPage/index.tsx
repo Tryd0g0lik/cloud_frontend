@@ -6,11 +6,6 @@ import React, { JSX, useEffect, useState } from 'react';
 import { NavbarTopFC } from '../NavbarTop';
 import { handlerGeneral } from './handlers/hendlerGeneral';
 import { handlerUserOfReview } from "./handlers/listenerForSectionHtml";
-import { CookieUser } from "@Services/cookieServices";
-/**
- * This is task for avents of admin to the main page
- * @returns 
- */
 const task = async () => new Promise(resolve => {
   const rootHTML = document.querySelector("#root");
   if (!rootHTML) {
@@ -29,14 +24,8 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
   const [generalValue, setGeneralValue] = useState<any>(null);
   // RUN AFTER UPLOADING
   useEffect(() => {
-
-    const cookie = new CookieUser();
-    if (cookie.checkCoockie("is_staff") && "False" !== cookie.getOneCookie("is_staff")) {
-      handlerGeneral(setGeneralValue);
-      Promise.all([task()]);
-    }
-
-
+    handlerGeneral(setGeneralValue);
+    Promise.all([task()]);
   }, []);
   return (<>
     <NavbarTopFC {...props} />

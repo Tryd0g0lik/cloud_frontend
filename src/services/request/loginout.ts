@@ -37,8 +37,6 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
     }).toString()
     url = new URL(`${UserAPI.CHOICE}name/`, `${REACT_APP_SERVER_URL}`) as URL
     url.searchParams.set('data', encrypt);
-    // CLEANING THE URL
-    url.pathname = url.pathname.replace(" /", "/");
     response = await fetch(url, {
       method: HttpMethods.GET,
       headers: {
@@ -51,7 +49,7 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
     }
     const result = await response.json();
     indexOfCookie = result['data'] as string;
-    url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}`.replace(":userId", indexOfCookie as string);
+    url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}`.replace(":userId", indexOfCookie as string);;
   }
 
   // CSRFTOKEN
@@ -65,13 +63,12 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
   response = await fetch(url,
     {
       method: HttpMethods.PATCH,
-
+      // mode: 'same-origin' as RequestMode,
       headers: {
         'X-CSRFToken': result["csrftoken"],
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
       },
-
+      // credentials: "same-origin" as RequestCredentials,
       credentials: 'include' as RequestCredentials,
       body: prop //
     })

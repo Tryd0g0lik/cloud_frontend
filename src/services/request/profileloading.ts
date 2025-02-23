@@ -30,20 +30,16 @@ export async function profileLoader(): Promise<Usermeta | {}> {
   };
   // STATE PROFILE TO THE PAGE
   let index__s: string | null = null;
-
-  if (cookie.checkCoockie("is_staff") && cookie.getOneCookie("is_staff")?.toLowerCase() !== "False".toLowerCase()) {
-    // GET ID FROM THE URL BY EVENTS OF ADMIN
-    const stringArr = (window.location.pathname as string).split("/");
-    index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
-  }
-
+  // GET ID FROM THE URL BY EVENTS OF ADMIN
+  const stringArr = (window.location.pathname as string).split("/");
+  index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
   // Create the url + the pathna  me of api for request to the server.
   const url = new URL(`${UserAPI.CHOICE_PK}`.replace(":userId/", `${index__s ? index__s : userId}`), `${REACT_APP_SERVER_URL}`,)
   const response = await fetch(url, {
     method: "GET",
     headers: {
       'Accept': 'application/json',
-      // "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include" // Ceookie will be include to the request /
   })
