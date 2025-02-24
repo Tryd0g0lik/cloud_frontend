@@ -1,3 +1,6 @@
+/**
+ * src\components\MainPage\handlers\hendlerGeneral.ts
+ */
 import { task1 } from "../tasks/taskSeparatorGeneralData";
 import { handlerOlderReviewdata } from "./handlerOlderReviewdata";
 interface GeneraReviewData { users: [any], files: [any] };
@@ -11,7 +14,7 @@ export async function handlerGeneral(usestate: CallableFunction) {
    */
   const response = await handlerOlderReviewdata();
   if (!response) {
-    console.warn("MainPageFC::handlerOlderReviewdata: Maybe something what wrong");
+    console.warn("hendlerGeneral.ts::handlerGeneral: Maybe something what wrong");
     return false
   };
   // TASK 1

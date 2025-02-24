@@ -11,15 +11,25 @@ import { task } from "./tasks/taskRunHandlersOfReview";
 import { CookieUser } from "@Services/cookieServices";
 import { handlerButtonAddNewUser } from './handlers/handlerButtonAddUser';
 import { logElementButtonAdd } from './handlers/hendlerButtomAddLocation';
-
+import { handlerSaveAdministrator } from './handlers/handlerSaveAdministration';
+import { handlerOlderReviewdata } from './handlers/handlerOlderReviewdata';
+interface Older {
+  users: [any];
+  files: [any];
+}
 
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
-  const [generalValue, setGeneralValue] = useState<any>(null);
+
+  // data from 'taskSeparatorGeneralData.ts'
+  const [generalValue, setGeneralValue] = useState<any[any]>();
+  // Received "is_staff" and "index" from the cookie
   const [adminId, setAdminId] = useState<Number | null>(null);
 
   // RUN AFTER UPLOADING
   useEffect(() => {
+
     (async () => {
+      // RECEIVING DATA FROM COOKIE
       const cookie = new CookieUser();
       if (!cookie.checkCoockie("is_staff") || !cookie.checkCoockie("index")) {
         console.error(new Error("[MainPage/index.tsx::MainPageFC]: 'is_staff' or 'index' not faound to the cookie"));
@@ -33,7 +43,8 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
       }
       setAdminId(Number(index));
     }
-    )()
+    )();
+    // GET  REVIEW DATA FROM SERVER
     handlerGeneral(setGeneralValue);
     Promise.all([task()]);
     return () => {
@@ -43,7 +54,8 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
         window.removeEventListener("resixze", logElementButtonAdd);
         window.addEventListener("resixze", logElementButtonAdd);
         addListener();
-      }, 700);
+
+      }, 800);
     }
 
   }, []);
@@ -52,7 +64,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
     <section className="main-page p-5">
 
       <div className="overflow-x-auto">
-        {generalValue && (<table className="table admin-reviews">
+        {generalValue && (<table className="table admin- REVIEW">
           {/* head */}
           <thead>
             <tr>
@@ -88,7 +100,8 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
               <th>User ID</th>
               <th>User Name</th>
               <th>Quantity files of user</th>
-              <th>Administration</th>
+              <th>User status</th>
+              <th>Chabge status</th>
             </tr>
           </thead>
           <tbody >
@@ -107,18 +120,19 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
                   <td >{String(oneuser["userId"])}</td>
                   <td data-name="user">{oneuser["userName"]}</td>
                   <td data-files="files">{oneuser["quantityFiles"]}</td>
+                  <td data-name="admin">{oneuser["administrators"] ? "Admin" : "User"}</td>
                   <td className="w-[1.625rem] text-center">
                     <label>
-                      <input type="checkbox" defaultChecked className="checkbox checkbox-xs" />
+                      <input data-number={oneuser["userId"]} type="checkbox"
+                        data-name="choiceAdmin" className="choice-admin checkbox checkbox-xs" />
                     </label>
                   </td>
                 </tr>
-              ))}
+              )
+              )}
           </tbody>
         </table>
-
         )
-
         }
         {/* button for user delete */}
         {generalValue && (<div style={{ display: "none" }} className="delete  w-[12rem] absolute left-0 z-[3] max-h-10 bottom-0">
@@ -134,8 +148,18 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
             handlerButtonAddNewUser(e);
           }} className="button-adduser btn">Add user</button>
         </div>)}
+        {/* button for chenge the admin status of user */}
         {generalValue && (<div className="saving-administration adduser w-[6rem] absolute right-0 z-[3] max-h-10 bottom-0">
-          <button className="save-admin btn btn-outline">Save</button>
+          <button onClick={async (e) => {
+            // HANDLER EVENT BY CHANGE ADMIN STATUS OF USER
+            await handlerSaveAdministrator(e);
+            // GET  REVIEW DATA FROM SERVER
+            handlerGeneral(setGeneralValue);
+            const checkboxArr = document.querySelectorAll(".checkbox[data-name='choiceAdmin']");
+            Array.from(checkboxArr).forEach(one => {
+              (one as HTMLInputElement).checked = false;
+            });
+          }} className="save-admin btn btn-outline">Save</button>
 
         </div>)}
       </div>

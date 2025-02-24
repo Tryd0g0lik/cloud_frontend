@@ -1,63 +1,55 @@
 /**
- * src\components\MainPage\handlers\handlerUserRemoves.ts
+ * src\components\MainPage\handlers\handlerSaveAdministration.ts
  */
 import React from "react";
 import { UserAPI, HttpMethods } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
 import { fetchCSRF } from "@Services/request/getCSRFtoken"
-import { HandlerStateActivation } from "src/components/handlerUserNotActive";
+import { handlerOlderReviewdata } from "./handlerOlderReviewdata";
 
 /**
- * Button hendler the event to the remove users from the system. (admin interface)
- * An empty user list that we can't send (admin interface). Min one the quantity of users.
- * @param e
+ * Button's handler for admin's events saving of user's changes in admin status
+ * @param e: MouseEvent
  * @returns
  */
-export async function handlerUserRemove(e: React.MouseEvent): Promise<boolean> {
-
+export async function handlerSaveAdministrator(e: React.MouseEvent): Promise<boolean> {
   const { target } = e;
-  if (!target || !(target as HTMLInputElement).classList.contains("button-delete")) {
+  if (!target || !(target as HTMLInputElement).classList.contains("save-admin")) {
     return false;
   }
-  HandlerStateActivation();
   e.preventDefault();
+  // GET LIST CHECKBOXES FROM "input[data-name='choiceAdmin']"
   const checkboxFile = [] as Array<HTMLInputElement>;
-  Array.from(document.querySelectorAll("input[data-name='checkbox_user']")).forEach(item => {
+  Array.from(document.querySelectorAll("input[data-name='choiceAdmin']")).forEach(item => {
     if ((item as HTMLInputElement).checked === true) {
       checkboxFile.push(item as HTMLInputElement);
     }
-
-  }) as unknown as Array<HTMLInputElement>;
-  if (checkboxFile.length == 0){
+});
+  if (checkboxFile.length == 0) {
     return false;
   }
+  // GET LIST of user id
   const indexUsers = [] as Array<number>;
   Array.from(checkboxFile).forEach((item) => {
     indexUsers.push(Number(item.dataset.number));
   });
-  if (indexUsers.length === 0) {
+  if (indexUsers.length == 0) {
     return false;
   }
   // GET USER Id from cookie
-  const cookie = new  CookieUser();
+  const cookie = new CookieUser();
   const userId = cookie.getOneCookie("index");
-    if (!userId) {
-      return false;
-    }
+  if (!userId) {
+    return false;
+  }
   // GET CSRF token
   const url = new URL(UserAPI.BASIS, window.location.origin);
   url.port = process.env.REACT_APP_SERVER_PORT || '8000';
   let result = await fetchCSRF(url);
-  // Uncheck all checkbox in input[data-name='choiceAdmin']
-  checkboxFile.forEach(item => {
-    if (item) {
-      item.checked = false;
-    }
-  });
   // PUT request. Change status of admin for user
-  url.pathname = `${UserAPI.ADMIN_REMOVE_USERS_PK}`.replace(':userId', userId);
+  url.pathname = `${UserAPI.ADMIN_CHANGE_STATUS_PK}`.replace(':userId', userId);
   const response = await fetch(url, {
-    method: HttpMethods.PUT,
+    method: HttpMethods.PATCH,
     credentials: "include",
     body: JSON.stringify({ "users": indexUsers }),
     headers: {
@@ -68,6 +60,5 @@ export async function handlerUserRemove(e: React.MouseEvent): Promise<boolean> {
   if (!response.ok || response.status >= 400) {
     return false;
   }
-
-  return true
+  return true;
 }

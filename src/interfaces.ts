@@ -37,6 +37,7 @@ export enum UserAPI {
   FILESRENAME_PK = "/api/v1/files/:userId/rename/",
   ADMIN_GET_ALLREVIEW = "/api/v1/admins/choice/",
   ADMIN_REMOVE_USERS_PK = "/api/v1/admins/choice/:userId/remove/",
+  ADMIN_CHANGE_STATUS_PK = "/api/v1/admins/choice/:userId/change_status/", // change status of admin for the user
 }
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation
