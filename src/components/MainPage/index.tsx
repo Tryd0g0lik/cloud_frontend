@@ -8,12 +8,29 @@ import { handlerGeneral } from './handlers/hendlerGeneral';
 import { handlerUserRemove } from './handlers/handlerUserRemoves';
 import { addListener } from "./handlers/addListeners";
 import { task } from "./tasks/taskRunHandlersOfReview";
+import { CookieUser } from "@Services/cookieServices";
 
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
   const [generalValue, setGeneralValue] = useState<any>(null);
+  const [adminId, setAdminId] = useState<Number | null>(null);
 
   // RUN AFTER UPLOADING
   useEffect(() => {
+    (async () => {
+      const cookie = new CookieUser();
+      if (!cookie.checkCoockie("is_staff") || !cookie.checkCoockie("index")) {
+        console.error(new Error("[MainPage/index.tsx::MainPageFC]: 'is_staff' or 'index' not faound to the cookie"));
+        return false;
+      }
+      const staff = cookie.getOneCookie("is_staff");
+      const index = cookie.getOneCookie("index");
+      if (!staff) {
+        console.error(new Error("[MainPage/index.tsx::MainPageFC]: Something what wromg! 'is_staff' (cookie) if not 'true'. It's шьзщыышиду for admin permissions!!"));
+        return false;
+      }
+      setAdminId(Number(index));
+    }
+    )()
     handlerGeneral(setGeneralValue);
     Promise.all([task()]);
     return () => {
@@ -70,8 +87,9 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
           </thead>
           <tbody >
             {/* row 1 */}
-            {Array.isArray(generalValue["userNewMeta"]) &&
-              generalValue["userNewMeta"].map((oneuser, i) => (
+            {Array.isArray(generalValue["userNewMeta"]) && adminId &&
+              generalValue["userNewMeta"].filter(oneuser => oneuser["userId"] !== adminId).map((oneuser, i) => (
+
                 <tr className={i % 2 === 0 ? 'hover' : ''} data-number={oneuser["userId"]} key={oneuser["userId"]}>
 
                   <td className="w-[1.625rem]">
