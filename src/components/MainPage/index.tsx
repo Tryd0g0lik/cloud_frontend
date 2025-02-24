@@ -76,7 +76,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
 
                   <td className="w-[1.625rem]">
                     <label>
-                      <input data-remove="remove" type="checkbox" data-name="checkbox_user" className="checkbox" />
+                      <input data-remove="remove" type="checkbox" data-number={oneuser["userId"]} data-name="checkbox_user" className="checkbox" />
                     </label>
                   </td>
                   <td className="w-[1.625rem]">{i}</td>

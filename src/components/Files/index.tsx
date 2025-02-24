@@ -52,7 +52,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         // GET ID FROM THE URL BY EVENTS OF ADMIN
         const stringArr = (window.location.pathname as string).split("/");
         index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
-        // GET THE FILES FROM THE SERVER
+        // GET THE FILES FROM SERVER
         const response = await handlerOlderFiles(index__s);
         if (!response) { return }
         stateFiles(response as Array<never>);

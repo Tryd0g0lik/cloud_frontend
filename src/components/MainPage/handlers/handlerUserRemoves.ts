@@ -13,7 +13,7 @@ export async function handlerUserRemove(e: React.MouseEvent): Promise<boolean> {
   HandlerStateActivation();
   e.preventDefault();
   const checkboxFile = [] as Array<HTMLInputElement>;
-  Array.from(document.querySelectorAll("input[data-name='checkbox_file']")).forEach(item => {
+  Array.from(document.querySelectorAll("input[data-name='checkbox_user']")).forEach(item => {
     if ((item as HTMLInputElement).checked === true) {
       checkboxFile.push(item as HTMLInputElement);
     }
@@ -22,11 +22,11 @@ export async function handlerUserRemove(e: React.MouseEvent): Promise<boolean> {
   if (checkboxFile.length == 0){
     return false;
   }
-  const indexFiles = [] as Array<number>;
+  const indexUsers = [] as Array<number>;
   Array.from(checkboxFile).forEach((item) => {
-    indexFiles.push(Number(item.dataset.number));
+    indexUsers.push(Number(item.dataset.number));
   });
-  if (indexFiles.length === 0){
+  if (indexUsers.length === 0) {
     return false;
   }
   // UserAPI
@@ -42,13 +42,13 @@ export async function handlerUserRemove(e: React.MouseEvent): Promise<boolean> {
   let result = await fetchCSRF(url);
   url.pathname = UserAPI.FILES_PK.replace(":userId", userId);
 
-  url.pathname = `${UserAPI.FILESREMOVE_PK}`.replace(':userId', userId);
+  url.pathname = `${UserAPI.ADMIN_REMOVE_USERS_PK}`.replace(':userId', userId);
 
 
   const response = await fetch(url, {
     method: HttpMethods.PUT,
     credentials: "include",
-    body: JSON.stringify({"files": indexFiles}),
+    body: JSON.stringify({ "users": indexUsers }),
     headers: {
       "X-CSRFToken": result["csrftoken"] || "",
       'Accept': 'application/json',
