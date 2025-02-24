@@ -107,7 +107,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
                   <td >{String(oneuser["userId"])}</td>
                   <td data-name="user">{oneuser["userName"]}</td>
                   <td data-files="files">{oneuser["quantityFiles"]}</td>
-                  <td className="w-[1.625rem]">
+                  <td className="w-[1.625rem] text-center">
                     <label>
                       <input type="checkbox" defaultChecked className="checkbox checkbox-xs" />
                     </label>
@@ -134,11 +134,9 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
             handlerButtonAddNewUser(e);
           }} className="button-adduser btn">Add user</button>
         </div>)}
-        {generalValue && (<div className="adduser  w-[6rem] absolute right-0 z-[3] max-h-10 bottom-0">
-          <button className="btn btn-outline">Default</button>
-          <button onClick={(e: React.MouseEvent) => {
-            handlerButtonAddNewUser(e);
-          }} className="button-delete btn">Add user</button>
+        {generalValue && (<div className="saving-administration adduser w-[6rem] absolute right-0 z-[3] max-h-10 bottom-0">
+          <button className="save-admin btn btn-outline">Save</button>
+
         </div>)}
       </div>
 

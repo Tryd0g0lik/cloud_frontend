@@ -14,8 +14,8 @@ export function logElementButtonAdd() {
   // We need to get the size of woindow brwser.
   const elementHTML = document.querySelector("table th input[type='checkbox']");
   const sectionHtml = document.querySelector("section.main-page");
-  const divHTMLAdd = document.querySelector("div.adduser");
-  if (!elementHTML || !divHTMLAdd || !sectionHtml ) {
+  const divHTMLAddArr = document.querySelectorAll("div.adduser");
+  if (!elementHTML || divHTMLAddArr.length === 0 || !sectionHtml) {
     console.warn("[hendlerButtomLocation::logElementPositions]: HTMLElement Not found in DOM!")
     return false;
   }
@@ -26,7 +26,15 @@ export function logElementButtonAdd() {
   const widthBrowser = rectRemove.width;
 
   // GET LOCATION THE BUTTON ADD FROM <TH> ELEMENT TO THE BROWSER
-  (divHTMLAdd as HTMLDivElement).style.top = `${sectionHtml.scrollHeight - (sectionHtml.scrollHeight - 224)}px`;
-  (divHTMLAdd as HTMLDivElement).style.right = `${widthBrowser - (widthBrowser - widthBrowser) + 17 }px`;
+  divHTMLAddArr.forEach(divHTMLAdd => {
+    const heightSave = sectionHtml.scrollHeight - (sectionHtml.scrollHeight - 224);
+    const widthSave = widthBrowser - (widthBrowser - widthBrowser) + 17;
+    const heightAdd = sectionHtml.scrollHeight - (sectionHtml.scrollHeight - 164);
+    const widthAdd = widthBrowser - (widthBrowser - widthBrowser) + 30;
+    const div = (divHTMLAdd as HTMLDivElement);
+    div.style.top = `${div.className.includes("saving-administration") ? heightSave : heightAdd}px`;
+    div.style.right = `${div.className.includes("saving-administration") ? widthSave : widthAdd}px`;
+  });
+
 
 }
