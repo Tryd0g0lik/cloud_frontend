@@ -69,10 +69,12 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     "first_name": null,
     "email": map.get("email"),
     "password": map.get("password"),
-    "is_staff": false
+    "is_staff": ((e.target as HTMLElement).baseURI as string).includes("admins/registration") ? true : false,
   }
   )
   try {
+    // DELETE OLD MESSAGE FROM PAGE
+    document.querySelector("div.alter")?.remove();
     // CREATE THE PARALLEL STREAMED - TASK0
     const task0 = () => new Promise<void>(resolve => { cleaning(); resolve()});
     (async () => await Promise.allSettled([task0]))();
@@ -113,8 +115,8 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
           return messageHtml
         }
         (formHtml.parentElement as HTMLFormElement).insertAdjacentHTML("afterend",
-          `<div <div class='alter error'>${'Ошибка'}</div>`);
-      });
+          `<div class='alter error'>${'Ошибка'}</div>`);
+      }).catch(err => console.error(new Error(`[loginout.ts::fetchLoginOut]: Registration invalid! Mistake => ${err.stack}`)));
     }
   } catch (e: unknown | any) {
     console.error(e.message)

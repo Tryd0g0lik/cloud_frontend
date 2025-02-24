@@ -41,6 +41,7 @@ export enum UserAPI {
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation
   REGISTRATION = "/users/registration/", // // Page where we can see the form user's registration
+  REGISTRATION_ADMIN = "/admins/registration/", // // Page where we can see the form user's registration
   PROFILE_FILES = "/profile/files/", // From dasbpard
   PROFILE_USER_PK = "profile/files/:id/", // From routers
   ADMIN_TO_PROFILE_USER_PK = `/admins/to/profile/:pk/`, // From routers
