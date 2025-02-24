@@ -1,3 +1,6 @@
+/**
+ * src\components\MainPage\handlers\hendlerGeneral.ts
+ */
 import { task1 } from "../tasks/taskSeparatorGeneralData";
 import { handlerOlderReviewdata } from "./handlerOlderReviewdata";
 interface GeneraReviewData { users: [any], files: [any] };
@@ -6,11 +9,12 @@ interface GeneraReviewData { users: [any], files: [any] };
 export async function handlerGeneral(usestate: CallableFunction) {
   /**
    * Get a general review to used of the cloud.
+   * By fact , this is a loader the reviews for admin to the main page
    * @param 'usestate': 'useState' from react.
    */
   const response = await handlerOlderReviewdata();
   if (!response) {
-    console.warn("MainPageFC::handlerOlderReviewdata: Maybe something what wrong");
+    console.warn("hendlerGeneral.ts::handlerGeneral: Maybe something what wrong");
     return false
   };
   // TASK 1

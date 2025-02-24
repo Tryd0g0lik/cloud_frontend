@@ -52,7 +52,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         // GET ID FROM THE URL BY EVENTS OF ADMIN
         const stringArr = (window.location.pathname as string).split("/");
         index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
-        // GET THE FILES FROM THE SERVER
+        // GET THE FILES FROM SERVER
         const response = await handlerOlderFiles(index__s);
         if (!response) { return }
         stateFiles(response as Array<never>);
@@ -63,6 +63,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   }, []);
 
   return(<>
+
     <NavbarTopFC {...maintitle} />
     <section onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
 
@@ -110,6 +111,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
 
     }} id="profile" className="cloud-files flex justify-center ">
       <div className="profile__fields w-[100%] max-w-screen-lg flex justify-center relative overflow-visible">
+        {/* teble */}
         <table onKeyDown={(e: React.KeyboardEvent) => {
           if ((e as React.KeyboardEvent).key !== "Enter") {
             return false;
@@ -157,9 +159,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
               .then((result) => {
                 const divAlertHmtl = document.createElement("div");
                 divAlertHmtl.id = "alert";
-                divAlertHmtl.classList.add("alert");
-                divAlertHmtl.classList.add("referral-alert");
-                divAlertHmtl.classList.add("alert-info");
+                divAlertHmtl.className = "alert referral-alert alert-info";
                 if (!result) {
                   divAlertHmtl.classList.add("error")
                   divAlertHmtl.innerText = 'Похоже файл с таким именем уже существует!';

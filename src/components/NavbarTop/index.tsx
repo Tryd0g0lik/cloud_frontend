@@ -61,7 +61,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                   <summary>Облако</summary>
                   <ul className="p-2">
                     <li><a className='cloud-files px-1'>Мои файлы</a></li>
-                    <li><a className='px-1'>Submenu 2</a></li>
+
                   </ul>
                 </details>
               </li>}
@@ -103,7 +103,7 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
                 <summary>Облако</summary>
                 <ul className="p-2">
                   <li><a className='cloud-file px-1'>Мои файлы</a></li>
-                  <li><a className='px-1'>Submenu 2</a></li>
+
                 </ul>
               </details>
             </li>}

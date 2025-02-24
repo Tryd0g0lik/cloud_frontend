@@ -29,6 +29,10 @@ const Router = createBrowserRouter([
     element: <RegistrationFormFC {...HeaderToRegistration} />
   },
   {
+    path: LocalRef.REGISTRATION_ADMIN,
+    element: <RegistrationFormFC {...HeaderToRegistration} />
+  },
+  {
     path: LocalRef.ACTIVATION,
     element: <LoginLogoutFC {...HeaderLoginLogout} />
   },

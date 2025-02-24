@@ -36,10 +36,13 @@ export enum UserAPI {
   REFERRAL_LINKS = "/api/v1/files/:userId/referral_links/", // :userId - replace to the id: string of the string
   FILESRENAME_PK = "/api/v1/files/:userId/rename/",
   ADMIN_GET_ALLREVIEW = "/api/v1/admins/choice/",
+  ADMIN_REMOVE_USERS_PK = "/api/v1/admins/choice/:userId/remove/",
+  ADMIN_CHANGE_STATUS_PK = "/api/v1/admins/choice/:userId/change_status/", // change status of admin for the user
 }
 export enum LocalRef {
   ACTIVATION = "/users/login/", // Page where we can see the form actiovation
   REGISTRATION = "/users/registration/", // // Page where we can see the form user's registration
+  REGISTRATION_ADMIN = "/admins/registration/", // // Page where we can see the form user's registration
   PROFILE_FILES = "/profile/files/", // From dasbpard
   PROFILE_USER_PK = "profile/files/:id/", // From routers
   ADMIN_TO_PROFILE_USER_PK = `/admins/to/profile/:pk/`, // From routers

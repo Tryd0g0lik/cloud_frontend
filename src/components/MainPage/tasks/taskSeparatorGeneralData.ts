@@ -1,4 +1,6 @@
-
+/**
+ * src\components\MainPage\tasks\taskSeparatorGeneralData.ts
+ */
 export const task1 = (generaldata: { users: [any], files: [any] }) => new Promise(resolve => {
   /**
    *  @return {quantityAllUsers, quantityAllFiles, [{userId: number, userName: string, quantityFiles: numbers}]}
@@ -18,13 +20,16 @@ export const task1 = (generaldata: { users: [any], files: [any] }) => new Promis
     userId: number;
     userName: string;
     quantityFiles: number;
+    administrators: boolean
   }
   const userMeta = users.map((user) => {
     // GET USER NAME
-    const v = user["username"] ? user["username"] : user["first_name"];
+    const username = user["username"] ? user["username"] : user["first_name"];
     // GET USER ID
-    const k = user["id"];
-    return [k, v]
+    const userid = user["id"];
+    // GET STATUS ADMINISTRATOR
+    const admin = user["is_staff"];
+    return [username, userid, admin]
   });
   //
   const userNewMeta: UserMeta[] = [] ;
@@ -36,7 +41,7 @@ export const task1 = (generaldata: { users: [any], files: [any] }) => new Promis
         calculate += 1;
 
     }}
-    userNewMeta.push({userId: user[0], userName: user[1], quantityFiles: calculate});
+    userNewMeta.push({ userId: user[1], userName: user[0], quantityFiles: calculate, administrators: user[2] });
 
   });
 
