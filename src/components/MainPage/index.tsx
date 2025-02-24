@@ -96,7 +96,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
           <button onClick={async (e: React.MouseEvent) => {
 
             await handlerUserRemove(e);
-
+            handlerGeneral(setGeneralValue);
           }} className="button-delete btn">Delete</button>
         </div>)}
       </div>
