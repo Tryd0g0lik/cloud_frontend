@@ -9,6 +9,9 @@ import { handlerUserRemove } from './handlers/handlerUserRemoves';
 import { addListener } from "./handlers/addListeners";
 import { task } from "./tasks/taskRunHandlersOfReview";
 import { CookieUser } from "@Services/cookieServices";
+import { handlerButtonAddNewUser } from './handlers/handlerButtonAddUser';
+import { logElementButtonAdd } from './handlers/hendlerButtomAddLocation';
+
 
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
   const [generalValue, setGeneralValue] = useState<any>(null);
@@ -36,8 +39,10 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
     return () => {
       // ADD LISTENER FOR CHECKBOX OF USERS FROM ADMIN INTERFACE
       setTimeout(() => {
-
-        addListener()
+        logElementButtonAdd();
+        window.removeEventListener("resixze", logElementButtonAdd);
+        window.addEventListener("resixze", logElementButtonAdd);
+        addListener();
       }, 700);
     }
 
@@ -83,6 +88,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
               <th>User ID</th>
               <th>User Name</th>
               <th>Quantity files of user</th>
+              <th>Administration</th>
             </tr>
           </thead>
           <tbody >
@@ -101,6 +107,11 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
                   <td >{String(oneuser["userId"])}</td>
                   <td data-name="user">{oneuser["userName"]}</td>
                   <td data-files="files">{oneuser["quantityFiles"]}</td>
+                  <td className="w-[1.625rem]">
+                    <label>
+                      <input type="checkbox" defaultChecked className="checkbox checkbox-xs" />
+                    </label>
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -116,6 +127,18 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
             await handlerUserRemove(e);
             handlerGeneral(setGeneralValue);
           }} className="button-delete btn">Delete</button>
+        </div>)}
+        {/* button for adding user */}
+        {generalValue && (<div className="adduser  w-[6rem] absolute right-0 z-[3] max-h-10 bottom-0">
+          <button onClick={(e: React.MouseEvent) => {
+            handlerButtonAddNewUser(e);
+          }} className="button-adduser btn">Add user</button>
+        </div>)}
+        {generalValue && (<div className="adduser  w-[6rem] absolute right-0 z-[3] max-h-10 bottom-0">
+          <button className="btn btn-outline">Default</button>
+          <button onClick={(e: React.MouseEvent) => {
+            handlerButtonAddNewUser(e);
+          }} className="button-delete btn">Add user</button>
         </div>)}
       </div>
 

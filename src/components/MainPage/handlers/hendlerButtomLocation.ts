@@ -25,7 +25,7 @@ export function logElementPositions() {
   const rect = elementHTML.getBoundingClientRect();
   const heightBrowser = rect.height;
   const widthBrowser = rect.width;
-  // GET LOCATION THE CHECKBOX FROM <TH> ELEMENT TO THE BROWSER
+  // GET LOCATION THE BUTTON DELETE FROM <TH> ELEMENT TO THE BROWSER
   (divHTML as HTMLDivElement).style.top = `${sectionHtml.scrollHeight - (sectionHtml.scrollHeight - 224)}px`;
   (divHTML as HTMLDivElement).style.left = `${widthBrowser}px`;
 
