@@ -64,7 +64,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
     <section className="main-page p-5">
 
       <div className="overflow-x-auto">
-        {generalValue && (<table className="table admin- REVIEW">
+        {generalValue && (<table className="table admin-reviews">
           {/* head */}
           <thead>
             <tr>
@@ -101,7 +101,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
               <th>User Name</th>
               <th>Quantity files of user</th>
               <th>User status</th>
-              <th>Chabge status</th>
+              <th>Change status</th>
             </tr>
           </thead>
           <tbody >
