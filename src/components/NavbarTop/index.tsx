@@ -26,9 +26,9 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       task4(),
     ]))(); //
     return () => {
-    }
+    };
     // Note: Смотреть примечание ниже по странице.
-  }, [])
+  }, []);
 
   return (
     <>
@@ -120,5 +120,5 @@ export function NavbarTopFC(props: { maintitle: string }): JSX.Element {
       </section>
 
     </>
-  )
-}
+  );
+};

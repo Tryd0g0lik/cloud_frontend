@@ -13,7 +13,7 @@ interface ButtonEndTitle {
  * @param 'props.text': this is 'HTMLELement.text' for the '.btnend a' of 'a.btn'
  */
 export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.Element {
-  const text = props.text
+  const text = props.text;
   return (
     <div className="navbar-end w-20">
 
@@ -25,9 +25,6 @@ export function NavbarEndFC(props: ButtonEndTitle = { text: undefined }): JSX.El
         text === 'Logout' ? "remove" : ''}`} >
         <a href={`${LocalRef.REGISTRATION}`} className="link link-neutral">Регистрация</a>
       </div>
-
-
-
     </div>
-  )
+  );
 }

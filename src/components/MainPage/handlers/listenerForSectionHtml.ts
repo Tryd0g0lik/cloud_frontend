@@ -42,10 +42,10 @@ export async function handlerUserOfReview(e: MouseEvent) {
   if ((target as HTMLElement).dataset.files) {
     setTimeout(() => {
       window.location.href = `${window.location.origin}${LocalRef.ADMIN_TO_FILE_USER_PK}`.replace(":pk", userIdstr);
-    }, 500)
+    }, 500);
   } else if ((target as HTMLElement).dataset.name) {
     setTimeout(() => {
       window.location.href = `${window.location.origin}${LocalRef.ADMIN_TO_PROFILE_USER_PK}`.replace(":pk", userIdstr);
-    }, 500)
+    }, 500);
   };
 }

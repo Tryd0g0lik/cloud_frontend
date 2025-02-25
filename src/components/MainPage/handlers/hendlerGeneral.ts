@@ -15,7 +15,7 @@ export async function handlerGeneral(usestate: CallableFunction) {
   const response = await handlerOlderReviewdata();
   if (!response) {
     console.warn("hendlerGeneral.ts::handlerGeneral: Maybe something what wrong");
-    return false
+    return false;
   };
   // TASK 1
   let task1SetInterval: NodeJS.Timeout;

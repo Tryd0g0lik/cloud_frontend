@@ -29,10 +29,10 @@ export const task1 = (generaldata: { users: [any], files: [any] }) => new Promis
     const userid = user["id"];
     // GET STATUS ADMINISTRATOR
     const admin = user["is_staff"];
-    return [username, userid, admin]
+    return [username, userid, admin];
   });
   //
-  const userNewMeta: UserMeta[] = [] ;
+  const userNewMeta: UserMeta[] = [];
   // FIND USERS WITH FILES
   userMeta.forEach((user, ind) => {
     let calculate = 0;
@@ -55,4 +55,4 @@ export const task1 = (generaldata: { users: [any], files: [any] }) => new Promis
 
   resolve({ quantityAllUsers, quantityAllFiles, filesDownloading: filesDownloading.length, userNewMeta });
 
-})
+});

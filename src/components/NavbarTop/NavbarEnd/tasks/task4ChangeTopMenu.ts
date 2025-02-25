@@ -32,7 +32,7 @@ const task4 = () => new Promise<void>(resolve => {
       }
     });
     resolve();
-  }, 100)
+  }, 100);
 });
 
 export default task4;

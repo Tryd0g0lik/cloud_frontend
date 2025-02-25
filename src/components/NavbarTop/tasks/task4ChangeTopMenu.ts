@@ -22,7 +22,7 @@ const task4 = () => new Promise<void>(resolve => {
     const selectors = [
       { ".cloud .cloud-file": `${LocalRef.PROFILE_FILES}${userId}/` },
     ];
-    selectors.forEach((item, index) => {
+    selectors.forEach((item) => {
       const selector = Array.from(Object.keys(item))[0];
       const link = Array.from(Object.values(item))[0];
       const profileLinks = document.querySelectorAll(selector);
@@ -33,7 +33,7 @@ const task4 = () => new Promise<void>(resolve => {
       }
     });
     resolve();
-  }, 100)
+  }, 100);
 });
 
 export default task4;

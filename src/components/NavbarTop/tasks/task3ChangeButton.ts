@@ -10,7 +10,7 @@ const task3 = () => new Promise<void>(resolve => {
     const ancorHtml = document.querySelectorAll(".navbar-end a");
     if (!ancorHtml) {
       console.log('Button is invaid.');
-      return false
+      return false;
     }
     Array.from(ancorHtml).forEach((item) => {
       if ((item as HTMLAnchorElement).textContent?.toLowerCase().includes((Loginout.LOGIN).toLowerCase())) {

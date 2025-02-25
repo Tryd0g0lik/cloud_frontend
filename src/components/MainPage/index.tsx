@@ -12,11 +12,7 @@ import { CookieUser } from "@Services/cookieServices";
 import { handlerButtonAddNewUser } from './handlers/handlerButtonAddUser';
 import { logElementButtonAdd } from './handlers/hendlerButtomAddLocation';
 import { handlerSaveAdministrator } from './handlers/handlerSaveAdministration';
-import { handlerOlderReviewdata } from './handlers/handlerOlderReviewdata';
-interface Older {
-  users: [any];
-  files: [any];
-}
+
 
 export function MainPageFC(props: { maintitle: string }): JSX.Element {
 
@@ -56,7 +52,7 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
         addListener();
 
       }, 800);
-    }
+    };
 
   }, []);
   return (<>
@@ -165,6 +161,5 @@ export function MainPageFC(props: { maintitle: string }): JSX.Element {
       </div>
 
     </section>
-  </>)
-
+  </>);
 }
