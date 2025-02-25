@@ -3,7 +3,6 @@
  */
 import { fetchCSRF } from "@Services/request/getCSRFtoken";
 import { CookieUser } from "@Services/cookieServices";
-import React, { ChangeEvent, FormEvent } from "react"
 import { HttpMethods, UserAPI } from "@Interfaces";
 
 /**
@@ -38,7 +37,7 @@ export async function handlerOlderFiles(index__s: string | null = null): Promise
     }
   });
   if (!response.ok) {
-    return []
+    return [];
   }
   result = await response.json();
   return result["files"];

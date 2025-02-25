@@ -2,7 +2,7 @@
  * src\components\Files\handlers\handlerFormFile.ts
  */
 import { fetchCSRF } from "@Services/request/getCSRFtoken";
-import React, { ChangeEvent, FormEvent } from "react"
+import React, { ChangeEvent, FormEvent } from "react";
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT || '8000';
 import { HttpMethods, UserAPI } from "@Interfaces";
 
@@ -17,7 +17,7 @@ export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
   if (!(e.target as HTMLFormElement).form &&
   (e.target as HTMLFormElement).form[0].type !== 'file' &&
   (e.target as HTMLFormElement).form[0].value.length === 0) {
-    return false
+    return false;
   }
   const fileContainer = (e.target as HTMLFormElement).form[0];
   // CHECKIING AND REMOVE the OLD ALTER
@@ -30,15 +30,15 @@ export async function handlerFormFile(e:FormEvent): Promise<boolean| object> {
   // GET THE FILE
   const file = fileContainer.files[0];
   if (!file) {
-    return false
+    return false;
   }
   const fileData = new FormData();
   fileData.append('file', file);
   // GET ID FROM THE URL BY EVENTS OF ADMIN
   let index__s: string | null = null;
   const stringArr = (window.location.pathname as string).split("/");
-  index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
-  const url = new URL(UserAPI.BASIS, window.location.origin)
+  index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
+  const url = new URL(UserAPI.BASIS, window.location.origin);
   url.port = REACT_APP_SERVER_PORT;
   // GET THE CSRFTOKEN
   const result = await fetchCSRF(url);
@@ -86,7 +86,7 @@ const alterIsNotOk = `<div role="alert" class="alert alert-error">
       d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
   <span>Файл не загружен!</span>
-</div>`
+</div>`;
 const alterIsOk = `
 <div role="alert" class="alert alert-success">
   <svg
@@ -102,4 +102,4 @@ const alterIsOk = `
   </svg>
   <span>Файл загружен!</span>
 </div>
-`
+`;

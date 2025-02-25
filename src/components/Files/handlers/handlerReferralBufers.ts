@@ -38,8 +38,8 @@ export function handlerReferralBufers(e: MouseEvent) {
     console.error('Не удалось скопировать текст: ', err);
 
 }).then(()=>{
-  ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl)
-  console.log('Текст скопирован в буфер обмена')
+  ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl);
+  console.log('Текст скопирован в буфер обмена');
 })
 .finally(()=>{
     const alertElement = document.querySelector('.referral-alert');
@@ -49,7 +49,7 @@ export function handlerReferralBufers(e: MouseEvent) {
     (alertElement as HTMLElement).style.display = 'block';
     setTimeout(() => {
       (alertElement as HTMLElement).remove();
-    }, 2000)
+    }, 2000);
 });
 
 }

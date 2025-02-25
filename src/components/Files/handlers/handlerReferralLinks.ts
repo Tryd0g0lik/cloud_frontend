@@ -30,13 +30,13 @@ export async function handlerReferralLinks(e: React.MouseEvent<HTMLButtonElement
   let result = await fetchCSRF(url);
   if (!result) {
     // NO TOKEN
-    console.log("[handlerReferralLinks.ts::handlerReferralLinks]: The 'csfrtoken' have from the server not Ok!")
+    console.log("[handlerReferralLinks.ts::handlerReferralLinks]: The 'csfrtoken' have from the server not Ok!");
     return false;
   }
   // GET USER ID FROM COOKIE
   const cookie = new CookieUser();
   if (!cookie.getOneCookie("index")) {
-    console.log("[handlerReferralLinks.ts::handlerReferralLinks]: THe user id from cookie not found!")
+    console.log("[handlerReferralLinks.ts::handlerReferralLinks]: THe user id from cookie not found!");
     return false;
   }
   // GET THE FILE ID
@@ -63,9 +63,9 @@ export async function handlerReferralLinks(e: React.MouseEvent<HTMLButtonElement
     }
   });
   if (!response.ok){
-    console.log("[handlerReferralLinks.ts::handlerReferralLinks]: The response have from the server not Ok!")
+    console.log("[handlerReferralLinks.ts::handlerReferralLinks]: The response have from the server not Ok!");
     return false;
   }
   // If true then we have the referral links in the cookie/
   return true;
-}
+};
