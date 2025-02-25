@@ -1,39 +1,67 @@
 // eslint.config.js
-import { defineConfig } from 'eslint-define-config';
+// const { defineConfig }= require('eslint-define-config';
+// const js= require('@eslint/js';
+const eslintPluginReact = require('eslint-plugin-react');
+const eslintPluginTypeScript = require('@typescript-eslint/eslint-plugin');
+const eslintPluginPrettier = require('eslint-plugin-prettier');
+const eslintPluginStylistic = require("@stylistic/eslint-plugin");
+const eslintPlugImport = require("eslint-plugin-import");
+const eslintPluginN = require("eslint-plugin-n");
+const eslintPluginPromise = require("eslint-plugin-promise");
+const TypescriptEslintParser = require('@typescript-eslint/parser');
+const eslintPluginReactHooks = require('eslint-plugin-react-hooks');
+const stylisticEslintPlugin = require('@stylistic/eslint-plugin');
+// const stylisticTs = require('@stylistic/eslint-plugin-ts');
+module.exports = {
 
-export default defineConfig({
-  parserOptions: {
-    project: ['./tsconfig.json'],
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    tsconfigRootDir: __dirname,
-    ecmaFeatures: {
-      jsx: true,
-      tsx: true,
+
+  languageOptions: {
+    ecmaVersion: 'latest', // Версия ECMAScript
+    sourceType: 'module', // Использование модулей
+    globals: {
+      browser: true, // Глобальные переменные браузера
+      // node: true, // Глобальные переменные Node.js
+      // browser: true,
+      commonjs: true,
+      es2021: true,
+    },
+    parser: TypescriptEslintParser, // Парсер для TypeScript
+    parserOptions: {
+      project: ['./tsconfig.json'],
+      ecmaVersion: 2022, //'latest',
+      sourceType: 'module',
+      tsconfigRootDir: __dirname,
+      ecmaFeatures: {
+        jsx: true,
+        tsx: true,
+      },
     },
   },
-  env: {
-    browser: true,
-    commonjs: true,
-    es2021: true,
+
+  plugins: {
+
+    'react': eslintPluginReact,
+    prettier: eslintPluginPrettier,
+    promise: eslintPluginPromise,
+    'react-hooks': eslintPluginReactHooks,
+    '@typescript-eslint': eslintPluginTypeScript,
+    '@stylistic': eslintPluginStylistic,
+    'import': eslintPlugImport,
+    'eslintpluginn': eslintPluginN,
+
+    // '@stylistic/js': js,
+    // '@stylistic/eslint-plugin-ts': stylisticEslintPluginTS,
+    // '@stylistic/jsx',
+    '@stylistic/eslint-plugin-plus': stylisticEslintPlugin,
+  // '@stylistic/ts': stylisticTs,
   },
-  extends: [
-    'plugin:react/recommended',
-    'standard-with-typescript',
-  ],
-  overrides: [],
-  plugins: [
-    'react',
-    'react-hooks',
-    'eslint-plugin-react',
-    '@typescript-eslint',
-    '@stylistic',
-    '@stylistic/js',
-    '@stylistic/eslint-plugin-ts',
-    '@stylistic/jsx',
-    '@stylistic/eslint-plugin-plus',
-    '@stylistic/ts',
-  ],
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
+  },
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
@@ -65,7 +93,7 @@ export default defineConfig({
     '@typescript-eslint/semi': 'off',
     'react/display-name': 'off',
     'indent': 'off',
-    '@typescript-eslint/indent': ['error', 2],
+    // '@stylistic/ts/indent': ['error', 2],
     '@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: false, ignoreRestArgs: true }],
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/consistent-type-imports': 'off',
@@ -77,21 +105,21 @@ export default defineConfig({
   '@typescript-eslint/no-unsafe-call': 'off',
 
   // TypeScript - три разделителя между элементами в интерфейсах и псевдонимах типов
-  '@stylistic/ts/member-delimiter-style': [
-    'error', {
-      multiline: {
-        delimiter: 'none', // Options are ',' or ';'
-        requireLast: false, // Last line
-      },
-    },
-  ],
+    // '@stylistic/ts/member-delimiter-style': [
+    //   'error', {
+    //     multiline: {
+    //       delimiter: 'none', // Options are ',' or ';'
+    //       requireLast: false, // Last line
+    //     },
+    //   },
+    // ],
 
   defaultParamLast: 'off',
   '@typescript-eslint/default-param-last': 'off',
 
   '@typescript-eslint/prefer-nullish-coalescing': 'off', //["error", { ignoreTernaryTests: true }]
 },
-  ignorePatterns: [
+  ignores: [
   "webpack.config.js",
   "postcss.config.js",
   "/*eslintrc.js",
@@ -100,6 +128,7 @@ export default defineConfig({
   "dist/",
   "src/**/interfaces.ts",
   "src/index.ts",
-  "src/frontend/index.*"
+    "src/frontend/index.*",
+    "*.js"
 ],
-});
+};
