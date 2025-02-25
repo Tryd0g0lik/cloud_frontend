@@ -1,4 +1,6 @@
-[backend](https://github.com/Tryd0g0lik/cloud)
+[backend](https://github.com/Tryd0g0lik/cloud)\
+**Note:** 
+backend и frontend должны распологаться в одном ядре. В backend и frontend распологася конфиг-файлы и код.
 
 ## Обзор
 Аналогом '`.env`'файла можно назвать файл '`src\interfaces.ts`'.\
@@ -23,7 +25,16 @@ export enum UserAPI {
 ```
 Если в '`.env`' возможно что-то изменить то на содержимое в '`@Interfaces`' ориентируется и с ним сверяются многие сценарии. \
 Изменение чего либо грозит поломкой интерфейса.
-
+### Команды
+```js
+// package.json
+"lint": "eslint src --ext jsx,ts,tsx", // чистим код
+"cssstyle": "npx @tailwindcss/cli -i ./src/styles/style.css -o ./src/output.css --watch", // Для работы с FW 'tailwind' и 'daisyui'
+"build:prod": "webpack --mode=production --config webpack.config.js", // сборка файлов и сохранение на стороне backend
+"build:dev": "webpack --mode=development --config webpack.config.dev.js",
+"build:dist": "webpack --mode=production --config webpack.config.dist.js",
+"server": "webpack server --mode=development  --config webpack.config.dist.js" // Сервер для разработки.
+```
 # Регистрация
 ![error form registration](./img/formRegistration.png)\
 Форма возвращает ошибки если данные введены не верно.

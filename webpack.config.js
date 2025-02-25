@@ -157,7 +157,6 @@ module.exports = {
     modules: [
       // path.resolve(__dirname, "./.browserslistrc"),
       path.resolve(__dirname, "node_modules"),
-      // path.resolve(__dirname, "dist")
     ],
 
     alias: {
@@ -165,13 +164,6 @@ module.exports = {
       "@Interfaces": path.resolve(__dirname, "src/interfaces.ts"),
 
     },
-    // packages: [
-    //   {
-    //     name: 'crypto-ts',
-    //     location: 'path-to/bower_components/crypto-ts',
-    //     main: 'index'
-    //   }
-    // ]
   },
 
 };
