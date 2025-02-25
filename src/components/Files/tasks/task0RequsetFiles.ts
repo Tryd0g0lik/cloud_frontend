@@ -16,8 +16,7 @@ const task0 = (func: CallableFunction) => new Promise<void>(resolve => {
   if (!cookie.checkCoockie('index')) {
     throw new Error("[task0RequsetFiles::task0]:  Mistake => The key 'index' in cookie not found!");
   }
-  const index = cookie.getOneCookie("index");
-  const urlSeparat = window.location.href.split(".")
+  const urlSeparat = window.location.href.split(".");
   if (urlSeparat.length < 2) {
     throw new Error("[task0RequsetFiles::task0]:  Mistake => The local url from the local page not founded!");
   }
@@ -33,22 +32,20 @@ const task0 = (func: CallableFunction) => new Promise<void>(resolve => {
   })
     .catch((e) => {
       throw new Error(`[task0RequsetFiles::task0]:  Mistake => The request to the server \
-can't found! ${e}`)
+can't found! ${e}`);
     })
     .then(response => {
       if (response.ok) {
         const result = response.json();
         return result;
       }
-      return false
+      return false;
     })
     .then(result => {
       if (result) {
-        func(result)
+        func(result);
       }
       func([]);
       resolve();
-    })
-
-
+    });
 });

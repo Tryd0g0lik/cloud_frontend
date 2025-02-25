@@ -18,7 +18,7 @@ export function handlerAdminClickByCheckbox(e: MouseEvent) {
   // GET THE HTML OF DIV.DELETE (buttom for delete) FROM MAIN PAGE
   const divHTML = document.querySelector("div.delete");
   if (!divHTML) {
-    console.warn("[habdlerAdminEventCheckbox.ts::handlerAdminClickByCheckbox]: 'div.delete' Not found in DOM!")
+    console.warn("[habdlerAdminEventCheckbox.ts::handlerAdminClickByCheckbox]: 'div.delete' Not found in DOM!");
     return false;
   }
   // Selectors: "table td Array<HTMLInputElement>" Where "input.checked === true"!
@@ -58,7 +58,7 @@ export function handlerAdminClickByCheckbox(e: MouseEvent) {
 
     ) {
       if ((divHTML as HTMLDivElement).style.display.toLowerCase().includes("block")) {
-        (divHTML as HTMLDivElement).style.display.toLowerCase().includes("block")
+        (divHTML as HTMLDivElement).style.display.toLowerCase().includes("block");
         if (
           ((target as HTMLInputElement).checked === true) &&
           (calculateArr as Array<HTMLInputElement>).length > 0) {

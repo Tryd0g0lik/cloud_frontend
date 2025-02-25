@@ -15,7 +15,7 @@ export function handlerButtonAddNewUser(e: React.MouseEvent) {
   // GET THE HTML OF DIV.ADDUSER (button for adding a new user ) FROM MAIN PAGE
   const divHTML = document.querySelector("div.adduser");
   if (!divHTML) {
-    console.warn("[handlerAddUser.ts::handlerAddNewUser]: 'div.ADDUSER' Not found in DOM!")
+    console.warn("[handlerAddUser.ts::handlerAddNewUser]: 'div.ADDUSER' Not found in DOM!");
     return false;
   }
 

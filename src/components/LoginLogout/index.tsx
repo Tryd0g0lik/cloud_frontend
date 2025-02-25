@@ -7,7 +7,7 @@ import { HeaderForPages, LocalRef } from "@Interfaces";
 import handlerLogin from "src/components/LoginLogout/handlers/handlerOfProfileActivation";
 import { HandlerStateActivation } from "../handlerUserNotActive";
 export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
-  const maintitle = { maintitle: props.maintitle }
+  const maintitle = { maintitle: props.maintitle };
 
 
 
@@ -51,5 +51,5 @@ export function LoginLogoutFC(props: HeaderForPages): JSX.Element {
 
       </form>
     </section>
-  </>)
+  </>);
 }

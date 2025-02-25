@@ -30,7 +30,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   if (e && (e.type) && (
     ((e.type).toLowerCase() !== 'click') && ((e as React.KeyboardEvent).key !== 'Enter')
   )) {
-    return false
+    return false;
   }
   else if ((location.pathname.includes(LocalRef.ACTIVATION)) &&
     (e && (e as React.KeyboardEvent).key === 'Enter')
@@ -49,7 +49,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
       // Remove the color red from border of the label
       if (formHtml[i].parentElement.style.border.length > 0) {
         const lebalHtml = formHtml[i].parentElement;
-        lebalHtml.style.border = ""
+        lebalHtml.style.border = "";
       };
       // VALIDATE the form
       if (formHtml[i].name.toLowerCase().includes("email") && (
@@ -65,7 +65,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
         formHtml[i].setCustomValidity(error["password"]["valueMissing"]);
         return "Not Ok";
       }
-      map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
+      map.set(formHtml[i].name.toLowerCase(), formHtml[i].value);
     }
     // SEND the data to the server for activation the user to the profile.
     passworEmail = JSON.stringify({
@@ -100,7 +100,7 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
           return new Error("[handlerLogin] Response is not OK");
         }).catch(response => {
           if (response instanceof Error) {
-            null
+            null;
           }
           console.error(response);
         })
@@ -119,10 +119,10 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
             }
             location.pathname = textOfLink;
           }
-          location.pathname = "/"
+          location.pathname = "/";
         }
         else {
-          location.pathname = "/"
+          location.pathname = "/";
         }
         // setTimeout(() => location.pathname = "/", 4000)
 
@@ -148,14 +148,14 @@ const handlerLogin = (e?: React.MouseEvent | React.KeyboardEvent) => (key: strin
   // GET KEY OF COOKIE
   const session = cookie.getOneCookie(key);
   if (!session) {
-    return false
+    return false;
   }
-  // const task0 = () => new Promise(resolve => resolve(receivingDataOfFirstLogin(key as string)));
   const task1 = () => new Promise<void>(resolve => { changeDOM("true".includes(key) ? true : false); resolve() });
   const task2 = () => new Promise<void>(resolve => { buttonLoginLogout(); resolve() });
   (async () => {
+    ;
     await Promise.allSettled([task1(), task2()]); // task0(),
   })();
   return true;
-}
+};
 export default handlerLogin;

@@ -21,7 +21,7 @@ export function addListener() {
   // CREAT EVENT LISTENER FOR CHECKBOX OF USERS FROM ADMIN INTERFACE
   const checkboxHTML = document.querySelector(".admin-reviews th input[type='checkbox']");
   if (!checkboxHTML) {
-    console.log("[addListeners.ts::MainPageFC]: 'th checkbox' Not found in DOM!")
+    console.log("[addListeners.ts::MainPageFC]: 'th checkbox' Not found in DOM!");
     return false;
   }
   // LISTENER THE ADMIN's EVENTS FOR CHECKBOX OF SELECTORS "TABLE TH INPUT"
@@ -31,7 +31,7 @@ export function addListener() {
   // LISTENER THE ADMIN's EVENTS FOR CHECKBOX OF SELECTORS "TABLE TD INPUT"
   const tableHTMLArr = document.querySelectorAll(".admin-reviews tr td:first-of-type");
   if (tableHTMLArr.length === 0) {
-    console.log("[addListeners.ts::MainPageFC]: 'th checkbox' Not found in DOM!")
+    console.log("[addListeners.ts::MainPageFC]: 'th checkbox' Not found in DOM!");
     return false;
   }
   tableHTMLArr.forEach(item => {

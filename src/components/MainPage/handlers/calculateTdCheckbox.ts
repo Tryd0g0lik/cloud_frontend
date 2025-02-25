@@ -10,7 +10,7 @@
 export function calculateCheckbox(quantity = false) {
   const checkboxesArr = document.querySelectorAll(".admin-reviews td input[type='checkbox']");
   if (checkboxesArr.length === 0) {
-    console.warn("[calculateTdCheckbox.ts::calculateCheckbox]: Chackboxes of files not found!")
+    console.warn("[calculateTdCheckbox.ts::calculateCheckbox]: Chackboxes of files not found!");
     return false;
   }
 
