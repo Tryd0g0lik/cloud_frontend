@@ -45,7 +45,7 @@ export async function buttonLoginLogout() {
           (view.firstElementChild as HTMLElement).innerText = "Logout";
           (view as HTMLAnchorElement).href = "";
         } else {
-          view.classList.add("remove")
+          view.classList.add("remove");
         }
       } else {
         if (ind === 0) {
@@ -66,7 +66,7 @@ export async function buttonLoginLogout() {
 export default async function cleaning() {
   const alterHtml = document.querySelectorAll('.alter');
   if (alterHtml.length === 0) {
-    return false
+    return false;
   }
   Array.from(alterHtml).forEach((item) => {
     item.remove();
@@ -87,4 +87,4 @@ export const errorFormAuthentification = {
   password: {
     valueMissing: "Проверьте количество сиволов или наличие пробелов. Min. 6. "
   }
-}
+};

@@ -9,23 +9,15 @@ import { CookieUser } from "@Services/cookieServices";
  * @returns object of type '{"csrftoken": string }'.
  */
 export async function fetchCSRF(url: string | URL) {
-  // debugger
-
-
   const response = await fetch(url, {
     method: "GET",
-    // credentials: "include",
-    // headers: {
-    //   'Accept': 'application/json',
-    // }
   });
   if (!response.ok && response.status !== 200) {
-    return false
-    // throw new Error(`[getCSRFtoken.ts::fetchCSRF]: Mistake => HTTP error! status: ${response.status}`);
+    return false;
   }
   const result = await response.json();
 
-  const cookie = new CookieUser()
+  const cookie = new CookieUser();
   cookie.sessionId = "csrftoken";
   cookie.liveTimer = 10;
   cookie.setCookie(result["csrftoken"] || "");

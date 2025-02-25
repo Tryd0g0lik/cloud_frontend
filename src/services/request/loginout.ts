@@ -34,8 +34,8 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
       "iv": iv,
       "mode": mode.CBC,
       "padding": pad.PKCS7
-    }).toString()
-    url = new URL(`${UserAPI.CHOICE}name/`, `${REACT_APP_SERVER_URL}`) as URL
+    }).toString();
+    url = new URL(`${UserAPI.CHOICE}name/`, `${REACT_APP_SERVER_URL}`) as URL;
     url.searchParams.set('data', encrypt);
     response = await fetch(url, {
       method: HttpMethods.GET,
@@ -45,11 +45,11 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
       },
     });
     if (!response.ok) {
-      throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);;
+      throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
     indexOfCookie = result['data'] as string;
-    url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}`.replace(":userId", indexOfCookie as string);;
+    url = `${REACT_APP_SERVER_URL}${UserAPI.PATCH_PK}`.replace(":userId", indexOfCookie as string);
   }
 
   // CSRFTOKEN
@@ -72,5 +72,5 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
       credentials: 'include' as RequestCredentials,
       body: prop //
     })
-  return response
-}
+  return response;
+};
