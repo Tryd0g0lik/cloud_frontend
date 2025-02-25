@@ -22,5 +22,4 @@ export async function fetchCSRF(url: string | URL) {
   cookie.liveTimer = 10;
   cookie.setCookie(result["csrftoken"] || "");
   return result;
-
-}
+};

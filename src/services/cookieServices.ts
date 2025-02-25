@@ -19,8 +19,8 @@ interface CookieOptions {
  * @sessionId string. It is a key for cookie.
  */
 export class CookieUser {
-  private _sessionId?: string
-  private __liveTimer: number | string
+  private _sessionId?: string;
+  private __liveTimer: number | string;
   constructor() {
     this._sessionId = undefined;
     this.__liveTimer = 86400;
@@ -31,7 +31,7 @@ export class CookieUser {
    * The 'sessionId' it is 'set'/'get'
    */
   get sessionId(): string {
-    return this._sessionId as string
+    return this._sessionId as string;
   }
 
   /**
@@ -116,13 +116,13 @@ export class CookieUser {
       for (let optionsKey in options) {
         updateCookie += `; ${optionsKey}`;
         // if (Object.hasOwn(options, optionsKey)) {
-        updateCookie += `=${options[optionsKey as keyof CookieOptions]}`
+        updateCookie += `=${options[optionsKey as keyof CookieOptions]}`;
       // }
       }
       document.cookie = updateCookie;
       return true;
     } catch (e: unknown | object | string) {
-      throw new Error(e as string)
+      throw new Error(e as string);
     }
   }
 
@@ -155,7 +155,7 @@ export class CookieUser {
 
 
     key = key ? this.__encodeKey(key) : this.__encodeKey();
-    const parts = `; ${cookies}`.split(`; ${key}=`)
+    const parts = `; ${cookies}`.split(`; ${key}=`);
     if (parts.length === 2) {
       return parts.pop()?.split(';').shift() as string;
     }
@@ -193,19 +193,17 @@ export class CookieUser {
     if (key.match(/^\w+$/)) {
       key = encodeURIComponent(key);
     } else if (!key.match(/^\w+$/)) {
-      return true
+      return true;
     }
-
-    return false
-  }
-}
+    return false;
+  };
+};
 
 
 /**
  * Encode a key and value for the key, before when be save in cookie
  */
 export function encodeKeyValueOfCookie(key: string, value: string | number): string {
-
   let updateCookie: string = "";
   if (String(value).match(/^\w+$/) && String(key).match(/^\w+$/)) {
     updateCookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
@@ -219,5 +217,4 @@ export function encodeKeyValueOfCookie(key: string, value: string | number): str
     updateCookie = `${key}=${value}`;
   }
   return updateCookie;
-}
-
+};

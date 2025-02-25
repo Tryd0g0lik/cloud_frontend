@@ -15,7 +15,7 @@ const SECRETKEY = process.env.REACT_APP_SECRET_KEY ? process.env.REACT_APP_SECRE
  * And second the 'this.dencrypt' return a basis message/text.
  */
 export default class Encrypto {
-  message: string
+  message: string;
 
   /**
    *
@@ -62,6 +62,6 @@ export default class Encrypto {
     }
     const bytes = CryptoJS.AES.decrypt(this.message.slice(), key);
     const originalText = bytes.toString(CryptoJS.enc.Utf8);
-    return originalText
-  }
-}
+    return originalText;
+  };
+};

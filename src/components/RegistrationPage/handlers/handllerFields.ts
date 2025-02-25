@@ -2,7 +2,7 @@
  * src\components\RegistrationPage\handlers\handllerFields.ts
  */
 import cleaning, { errorFormAuthentification } from "@Services/scripts";
-import { KeyboardEvent } from "react"
+import { KeyboardEvent } from "react";
 import { UserLevel, UserAPI } from "@Interfaces";
 /**
  * Here is we creat a new user of web-site.
@@ -12,21 +12,20 @@ import { UserLevel, UserAPI } from "@Interfaces";
 const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
   let REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
   const regexUsername = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;
-  const regexLogin = /^[a-zA-Z\s0-9_-]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if ((e.type) && (!(e.type).toLowerCase().includes("keydown")) || (
     e.key && !(e.key.toLowerCase()).includes("enter")
   )) {
-    return "Not Ok"
+    return "Not Ok";
   }
-  e.preventDefault()
-  const map = new Map()
-  const formHtml = (e.target as HTMLFormElement).form
+  e.preventDefault();
+  const map = new Map();
+  const formHtml = (e.target as HTMLFormElement).form;
   for (let i = 0; i < formHtml.length; i++) {
     // Remove the color red from border of the label
     if (formHtml[i].parentElement.style.border.length > 0) {
       const lebalHtml = formHtml[i].parentElement;
-      lebalHtml.style.border = ""
+      lebalHtml.style.border = "";
     };
 
     // CHECK ON FALIDATE
@@ -61,7 +60,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
       return "Not Ok";
     }
     // SAVE THE DATA IN THE MAP
-    map.set(formHtml[i].name.toLowerCase(), formHtml[i].value)
+    map.set(formHtml[i].name.toLowerCase(), formHtml[i].value);
   }
   // SAVE THE DATA IN JSON FROM THE MAP
   const requestBody = JSON.stringify({
@@ -71,15 +70,15 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
     "password": map.get("password"),
     "is_staff": ((e.target as HTMLElement).baseURI as string).includes("admins/registration") ? true : false,
   }
-  )
+  );
   try {
     // DELETE OLD MESSAGE FROM PAGE
     document.querySelector("div.alter")?.remove();
     // CREATE THE PARALLEL STREAMED - TASK0
-    const task0 = () => new Promise<void>(resolve => { cleaning(); resolve()});
+    const task0 = () => new Promise<void>(resolve => { cleaning(); resolve(); });
     (async () => await Promise.allSettled([task0]))();
     // REQUUEST FOR GET CRF TOKEN FROM THE SERVER
-    let response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
+    let response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`);
     if (!response.ok) {
       throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);
     }
@@ -92,7 +91,7 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
         "content-type": "application/json",
       },
       body: requestBody
-    })
+    });
     if (response.ok) {
       const responseJson = await response.json();
       const messageHtml = "<div class='alter'><storng>Сообщение на почте</storng>";
@@ -112,18 +111,18 @@ const sendFieldsOfRegistr = async (e: KeyboardEvent): Promise<string> => {
           messageHtml += "</div>";
 
           (formHtml.parentElement as HTMLFormElement).insertAdjacentHTML("afterend", messageHtml);
-          return messageHtml
+          return messageHtml;
         }
         (formHtml.parentElement as HTMLFormElement).insertAdjacentHTML("afterend",
           `<div class='alter error'>${'Ошибка'}</div>`);
       }).catch(err => console.error(new Error(`[loginout.ts::fetchLoginOut]: Registration invalid! Mistake => ${err.stack}`)));
     }
-  } catch (e: unknown | any) {
-    console.error(e.message)
+  } catch (e: unknown | Error) {
+    console.error((e as Error).message);
   } finally {
-    null
+    null;
   }
-  return "Ok"
-}
+  return "Ok";
+};
 
-export default sendFieldsOfRegistr
+export default sendFieldsOfRegistr;

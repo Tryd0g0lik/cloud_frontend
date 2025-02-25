@@ -2,17 +2,13 @@
  * src\components\Routers\index.tsx
  */
 import React from "react";
-// import { Provider } from "react-redux";
-// import { store } from "src/services/redux/store";
-import { Navigate, createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegistrationFormFC } from "src/components/RegistrationPage";
 import { LoginLogoutFC } from "src/components/LoginLogout";
-import { NavbarTopFC } from "src/components/NavbarTop";
 import { ProfileFC } from "src/components/Profile";
 import { FilesdFC } from "src/components/Files";
 import { MainPageFC } from "../MainPage";
-import { LocalRef, UserAPI } from "@Interfaces";
-// import { state } from "@Services/myRedux";
+import { LocalRef } from "@Interfaces";
 const HeaderToMain = { maintitle: "Главная" };
 const HeaderToRegistration = { maintitle: "Регистрация" };
 const HeaderLoginLogout = { maintitle: "Авторизация" };
@@ -39,14 +35,6 @@ const Router = createBrowserRouter([
   {
     path: LocalRef.PROFILE_FILE_USER_PK,
     element: <ProfileFC />,
-    // loader: async () => {
-    //   if (userId) {
-    //     const coockie = new CookieUser();
-    //     const userId = coockie.getOneCookie("index")
-    //     return <Navigate to={`profile/${userId}/`} />
-    //   }
-    //   return <Navigate to="/" />
-    // }
   },
   {
     path: LocalRef.ADMIN_TO_PROFILE_USER_PK,
@@ -70,12 +58,10 @@ const Router = createBrowserRouter([
 
     },
   }
-)
+);
 
 export function PagesFC() {
   return <RouterProvider future={{
     v7_startTransition: true,
-  }} router={Router} />
-}
-{/* < login: work801@mail.ru />
-  <Passwor> 3!p~TT{:(Cdx/eBf  </Passwor> */ }
+  }} router={Router} />;
+};
