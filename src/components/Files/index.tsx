@@ -182,7 +182,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 (alertElement as HTMLElement).style.display = 'block';
                 setTimeout(() => {
                   (alertElement as HTMLElement).remove();
-                }, 2000)
+                }, 2000);
               });
           }
         }} className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg">
@@ -258,7 +258,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   if (!response) {
                     return false;
                   };
-                  return response
+                  return response;
                 })
                 .catch((err) => {
                   console.log(err);

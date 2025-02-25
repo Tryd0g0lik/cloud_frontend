@@ -30,13 +30,13 @@ export async function handlerFileNameInput(e: React.KeyboardEvent<HTMLInputEleme
   let result = await fetchCSRF(url);
   if (!result) {
     // NO TOKEN
-    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: The 'csfrtoken' have from the server not Ok!")
+    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: The 'csfrtoken' have from the server not Ok!");
     return false;
   }
   // GET USER ID FROM COOKIE
   const cookie = new CookieUser();
   if (!cookie.checkCoockie("index")) {
-    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: THe user id from cookie not found!")
+    console.log("[handlerFileNameInput.ts::handlerFileNameInput]: THe user id from cookie not found!");
     return false;
   }
 

@@ -31,13 +31,13 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
   let result = await fetchCSRF(url);
   if (!result) {
     // NO TOKEN
-    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The 'csfrtoken' have from the server not Ok!")
+    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The 'csfrtoken' have from the server not Ok!");
     return false;
   }
   // GET USER ID FROM COOKIE
   const cookie = new CookieUser();
   if (!cookie.checkCoockie("index")) {
-    console.log("[handlerCommentsInput.ts::handlerCommentInput]: THe user id from cookie not found!")
+    console.log("[handlerCommentsInput.ts::handlerCommentInput]: THe user id from cookie not found!");
     return false;
   }
 
@@ -64,7 +64,7 @@ export async function handlerCommentInput(e: React.KeyboardEvent<HTMLInputElemen
   });
   HandlerStateActivation();
   if (!response.ok) {
-    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The response have from the server not Ok!")
+    console.log("[handlerCommentsInput.ts::handlerCommentInput]: The response have from the server not Ok!");
     return false;
   }
 

@@ -1,7 +1,7 @@
 /**
  * src\components\HomePage\index.tsx
  */
-import React from "react"
+import React from "react";
 
 export function HomePageFC(): React.JSX.Element {
 
