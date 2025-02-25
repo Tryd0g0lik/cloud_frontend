@@ -7,9 +7,9 @@ import { useNavigate } from "react-router";
 import { Usermeta, UserLevel, LocalRef } from "@Interfaces";
 import { HydrateFallback } from "src/components/Loading";
 import { CookieUser } from "@Services/cookieServices";
-import { profileLoader } from "@Services/request/profileloading"
+import { profileLoader } from "@Services/request/profileloading";
 import { NavbarTopFC } from "src/components/NavbarTop";
-import { handlerOlderProfile } from "./handlers/handlerProfileFields"
+import { handlerOlderProfile } from "./handlers/handlerProfileFields";
 // The simple emapty data for the 'Profile's' page.
 const plugProfile: Usermeta = {
   "username": "Пользователь",
@@ -53,7 +53,7 @@ export function ProfileFC(): JSX.Element {
         //  from the server.
         const response: Usermeta | {} = await profileLoader();
         if (typeof response === "boolean" && typeof response !== "object") {
-          console.log("[ProfileFC]: 'Profile\index.tsx' Mistake => Somefing What wrang not true ")
+          console.log("[ProfileFC]: 'Profile\index.tsx' Mistake => Somefing What wrang not true ");
           return false;
         }
 
@@ -89,7 +89,7 @@ export function ProfileFC(): JSX.Element {
   // greeting - The greeting for the user name.
   const greeting = !userName || userName === "!" || userName === "Пользователь" ? "!" : `, ${userName}!`;
   const maintitle = { maintitle: `Здравствуйте${greeting}` };
-  const arr = ["email", "username", "firstname", "userLevel", "password"]
+  const arr = ["email", "username", "firstname", "userLevel", "password"];
   return <>
     <NavbarTopFC {...maintitle} />
 
@@ -136,5 +136,5 @@ export function ProfileFC(): JSX.Element {
         }
       </div>
   </section>
-  </>
+  </>;
 }

@@ -19,7 +19,8 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
   // CHECK .ENV
   const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL ? process.env.REACT_APP_SERVER_URL as string : "";
   if (!REACT_APP_SERVER_URL) {
-    throw new Error("[handlerProfileField]: Mistake => THe REACT_APP_SERVER_URL can't found")
+    console.warn(new Error("[handlerProfileField]: Mistake => THe REACT_APP_SERVER_URL can't found"));
+    return false;
   };
   // CHECK the EVENT TYPE
   if ((e.type) && (!(e.type).toLowerCase().includes("click") && ((e as KeyboardEvent).key &&
@@ -43,7 +44,8 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
 
   if (!htmlDiv || (htmlDiv && htmlDiv.className && htmlDiv.className !== null
     && !(htmlDiv.className).includes("boxfield"))) {
-    throw new Error("[handlerProfileField]: Mistake => DIV.boxfield not found!")
+    console.warn(new Error("[handlerProfileField]: Mistake => DIV.boxfield not found!"));
+    return false;
   }
 
   // SELECT the HTMLElement
@@ -59,7 +61,8 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
 
     // Simple CHECKS the data
     if (!resolve && (typeof resolve === "boolean")) {
-      throw new Error("[handlerProfileFields.ts::task2]: Mistake => resolve not found!")
+      console.warn(new Error("[handlerProfileFields.ts::task2]: Mistake => resolve not found!"));
+      return false;
     }
     // GET ID FROM THE URL BY EVENTS OF ADMIN
     let index__s: string | null = null;
@@ -75,7 +78,7 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
     fetchLoginOut(body, index__s)
       .then(respone => {
         if (respone.ok) {
-          const newtext = respone.json()
+          const newtext = respone.json();
           return newtext;
         }
       })
@@ -97,7 +100,6 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
   }
   // TASK2
   changeDomTask2(htmlDiv);
-
   return false;
 };
 

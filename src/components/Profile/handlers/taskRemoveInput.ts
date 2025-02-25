@@ -6,19 +6,22 @@
 const removeInputTask1 = (htmlDiv: HTMLDivElement, maping: Map<string, string> ): [HTMLDivElement, string] | boolean => {
 
   if (!(htmlDiv.className).includes('boxfield')) {
-    throw Error("[boxfieldDataHtml::task1]: Mistake => 'Div.boxfield' not found!");
+    console.warn(Error("[boxfieldDataHtml::task1]: Mistake => 'Div.boxfield' not found!"));
+    return false;
   }
   // Name of field from the Event;
   const nameOfField = htmlDiv.dataset.name;
 
   const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data") as HTMLDivElement;
   if (!boxfieldDataHtml) {
-    throw new Error("[boxfieldDataHtml::task1]: Mistake => DIV.boxfield not found!")
+    console.warn(new Error("[boxfieldDataHtml::task1]: Mistake => DIV.boxfield not found!"));
+    return false;
   };
   // SELECT THE INPUT field of type text
   const htmlInputText = boxfieldDataHtml.querySelector(".boxfield-input") as HTMLInputElement;
   if (!htmlInputText || htmlInputText.tagName.toLowerCase() !== 'input' || htmlInputText.type !== "text") {
-    throw new Error("[htmlInputText]: Mistake => INPUT.boxfield-input not found!")
+    console.warn(new Error("[htmlInputText]: Mistake => INPUT.boxfield-input not found!"));
+    return false;
   };
   // GET THE NEW CONTANT of the input field of the text type
   const newText = htmlInputText.value;
@@ -28,5 +31,5 @@ const removeInputTask1 = (htmlDiv: HTMLDivElement, maping: Map<string, string> )
   maping.set(nameOfField as string, newText);
   boxfieldDataHtml.innerHTML = '<span className="loading loading-spinner loading-xs"></span>';
   return [boxfieldDataHtml, newText];
-}
+};
 export default removeInputTask1;

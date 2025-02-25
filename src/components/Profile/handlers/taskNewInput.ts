@@ -15,7 +15,8 @@
 */
 const insertNewInputTask0 = async (htmlDiv: HTMLDivElement) => {
    if (!htmlDiv || !(htmlDiv.className).includes("boxfield")) {
-     throw new Error("[boxfieldDataHtml::task0]: Mistake => 'htmlDiv' not found!");
+     console.warn(new Error("[boxfieldDataHtml::task0]: Mistake => 'htmlDiv' not found!"));
+     return false;
    };
   const boxfieldDataHtml = htmlDiv.querySelector(".boxfield-data");
   const nputHtml = htmlDiv.querySelector(".boxfield-input");
@@ -26,14 +27,14 @@ const insertNewInputTask0 = async (htmlDiv: HTMLDivElement) => {
       htmlInput.className = "boxfield-input";
       if (oldText) {
         htmlInput.placeholder = oldText;
-      }
-      //  return htmlInput.innerHTML;
+      };
       return htmlInput.outerHTML;
 
     };
 
     if (!boxfieldDataHtml) {
-      throw new Error("[boxfieldDataHtml::tosk0]: Mistake => DIV.boxfield-data not found!")
+      console.warn(new Error("[boxfieldDataHtml::tosk0]: Mistake => DIV.boxfield-data not found!"));
+      return false;
     };
 
     const oldText = (boxfieldDataHtml as HTMLDivElement).textContent;
@@ -41,7 +42,8 @@ const insertNewInputTask0 = async (htmlDiv: HTMLDivElement) => {
   } else {
     const inputHtml = htmlDiv.querySelector(".boxfield-input");
     if (!inputHtml) {
-      throw new Error("[boxfieldDataHtml::tosk0]: Mistake => DIV.boxfield-data not found!")
+      console.warn(new Error("[boxfieldDataHtml::tosk0]: Mistake => DIV.boxfield-data not found!"));
+      return false;
     };
     const oldContent = (inputHtml as HTMLInputElement).placeholder;
     (boxfieldDataHtml as HTMLDivElement).innerHTML = oldContent;

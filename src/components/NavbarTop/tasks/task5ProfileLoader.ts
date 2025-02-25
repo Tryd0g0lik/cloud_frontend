@@ -8,8 +8,8 @@ const task5 = () => new Promise(resolve => {
   if (regexp.test(window.location.href) ){
     profileLoader()
     .then((response =>{
-      resolve(response)
+      resolve(response);
     }));
   };
-})
+});
 export default task5;

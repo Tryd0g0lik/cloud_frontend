@@ -8,7 +8,8 @@ const changeDomTask2 = (htmlDiv: HTMLDivElement) => {
   // CHANGE THE STATUS 'open' to 'close' (to the input field)
   const htmlDivDataStatus = htmlDiv.querySelector("div[data-status]");
   if (!htmlDivDataStatus) {
-    throw new Error("[handlerProfileField]: Mistake => DIV[data-status='close'] not found!")
+    console.warn(new Error("[handlerProfileField]: Mistake => DIV[data-status='close'] not found!"));
+    return false;
   }
   const dataStatusValue = (htmlDivDataStatus as HTMLDivElement).dataset.status;
   if (dataStatusValue === "open") {
@@ -17,5 +18,5 @@ const changeDomTask2 = (htmlDiv: HTMLDivElement) => {
   } else {
     (htmlDivDataStatus as HTMLDivElement).dataset.status = "open";
   }
-}
+};
 export default changeDomTask2;
