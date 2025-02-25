@@ -25,17 +25,14 @@ interface Maintitle { maintitle: string }
  */
 export function FilesdFC(maintitle: Maintitle ): JSX.Element{
   const [files, stateFiles] = useState([]);
-  // HandlerStateActivation();
-
 
   useEffect(() => {
-
     // CHOICE ALL FILES FROM the SINGLE CLICK 
     function addListener() {
       // CREAT EVENT LISTENER FOR CHECKBOX
       const checkboxHTML = document.querySelector(".table-zebra th input[type='checkbox']");
       if (!checkboxHTML) {
-        console.log("[Files/index.tsx::FilesdFC]: 'th checkbox' Not found in DOM!")
+        console.log("[Files/index.tsx::FilesdFC]: 'th checkbox' Not found in DOM!");
         return false;
       }
       // LISTENER FOR CHECKBOX
@@ -51,38 +48,36 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
         let index__s: string | null = null;
         // GET ID FROM THE URL BY EVENTS OF ADMIN
         const stringArr = (window.location.pathname as string).split("/");
-        index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null
+        index__s = ((window.location.pathname).includes("admins/to")) && (/[0-9]+/.test(stringArr[stringArr.length - 2])) ? stringArr[stringArr.length - 2] : null;
         // GET THE FILES FROM SERVER
         const response = await handlerOlderFiles(index__s);
-        if (!response) { return }
+        if (!response) { return; };
         stateFiles(response as Array<never>);
 
       })();
-
-    }
+    };
   }, []);
 
-  return(<>
-
+  return (<>
     <NavbarTopFC {...maintitle} />
     <section onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
 
       // HANDLER FOR GET REFERRAL LINKS
       const response = await handlerReferralLinks(e);
       if (!response) {
-        console.log("[Files/index.tsx::FilesdFC]: The response have from the server not Ok!")
+        console.log("[Files/index.tsx::FilesdFC]: The response have from the server not Ok!");
         return false;
       }
       const cookie = new CookieUser();
       if (cookie.checkCoockie("referral_link")) {
 
-        const cellHTML = (e.target as HTMLElement).parentElement
+        const cellHTML = (e.target as HTMLElement).parentElement;
         if (!cellHTML || (cellHTML && !cellHTML.classList.contains("link-file"))) {
-          console.log("[Files/index.tsx::FilesdFC]: '.link-file' Not found!")
+          console.log("[Files/index.tsx::FilesdFC]: '.link-file' Not found!");
           return false;
         }
       if (!cookie.checkCoockie("referral_link")) {
-        console.log("[Files/index.tsx::FilesdFC]: 'referral_link' Not found in cookie!")
+        console.log("[Files/index.tsx::FilesdFC]: 'referral_link' Not found in cookie!");
         return false;
         }
         // GET URL FOR BUFER
@@ -102,7 +97,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
       // CREAT EVENT LISTENER FOR COPY LINK IN BUFER 
       const referralLinkHTML = document.querySelector(".referral-anchor") as HTMLInputElement;
       if (!referralLinkHTML) {
-        console.log("[Files/index.tsx::FilesdFC]: '.referral_link' Not found in DOM!")
+        console.log("[Files/index.tsx::FilesdFC]: '.referral_link' Not found in DOM!");
         return false;
       }
       // LISTENER FOR COPY LINK IN BUFER
@@ -124,7 +119,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
             .then(async (response) => {
               if (!response) {
                 const response = await handlerOlderFiles();
-                if (!response) { return }
+                if (!response) { return; };
                 stateFiles(response as Array<never>);
                 return false;
               };
@@ -141,11 +136,11 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
               }
               (async () => {
                 const response = await handlerOlderFiles();
-                if (!response) { return }
+                if (!response) { return; };
                 stateFiles(response as Array<never>);
 
               })();
-            })
+            });
           } else if (classList.contains("name-file")) {
             // HANDLE INPUT FROM THE FILE's NAME 
             handlerFileNameInput(e as React.KeyboardEvent<HTMLInputElement>)
@@ -161,7 +156,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 divAlertHmtl.id = "alert";
                 divAlertHmtl.className = "alert referral-alert alert-info";
                 if (!result) {
-                  divAlertHmtl.classList.add("error")
+                  divAlertHmtl.classList.add("error");
                   divAlertHmtl.innerText = 'Похоже файл с таким именем уже существует!';
                   ((e.target as HTMLElement).parentElement as HTMLElement).insertAdjacentElement("afterend", divAlertHmtl);
                   return false;
@@ -174,7 +169,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 }
                 (async () => {
                   const response = await handlerOlderFiles();
-                  if (!response) { return }
+                  if (!response) { return; }
                   stateFiles(response as Array<never>);
 
                 })();
@@ -188,7 +183,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 setTimeout(() => {
                   (alertElement as HTMLElement).remove();
                 }, 2000)
-              })
+              });
           }
         }} className="table-zebra  table-pin-rows w-[100%] max-w-screen-lg">
           {/* head */}
@@ -237,7 +232,7 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                 <td className="loaded-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["upload_date"]}</td>
                 <td className="download-file overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px]">{file["last_downloaded"]}</td>
                 <td data-number={file["id"]} className="link-file  overflow-hidden min-w-[100px]  w-[100%]  max-w-[200px] flex"><button className="button-referral btn btn-xs marg m-auto">Поделиться ссылкой</button></td>
-              </tr>
+              </tr>;
             }) || <tr className="flex justify-around w-[100%] max-w-[64rem]">
                 <td className="w-1.625rem">
                 <label>
@@ -266,18 +261,18 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
                   return response
                 })
                 .catch((err) => {
-                  console.log(err)
+                  console.log(err);
                 })
                 .then(async () => {
                   HandlerStateActivation();
                   const result = await handlerOlderFiles();
-                  if (!result) { return }
-                  if (result.length === 0) { return }
+                  if (!result) { return; }
+                  if (result.length === 0) { return; }
                   else {
                     stateFiles(result as unknown as Array<never>);
                   }
 
-                })
+                });
 
 
             }} className="loader-form absolute bottom-0" >
@@ -290,14 +285,12 @@ export function FilesdFC(maintitle: Maintitle ): JSX.Element{
 
             await handlerFileRemove(e);
             const response = await handlerOlderFiles();
-            if (!response) { return }
+            if (!response) { return; }
             stateFiles(response as Array<never>);
 
           }} className="button-delete btn">Delete</button>
         </div>
       </div>
-
-
     </section>
   </>);
-}
+};
