@@ -54,7 +54,7 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
 
   // CSRFTOKEN
   // first is the 'GET' method for get a 'csrftoken'
-  response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`)
+  response = await fetch(`${REACT_APP_SERVER_URL}${UserAPI.BASIS}`);
   if (!response.ok) {
     throw new Error(`[loginout.ts::fetchLoginOut]: HTTP error! status: ${response.status}`);
   }
@@ -71,6 +71,6 @@ export async function fetchLoginOut(prop: string, index__s: string | null = null
       // credentials: "same-origin" as RequestCredentials,
       credentials: 'include' as RequestCredentials,
       body: prop //
-    })
+    });
   return response;
 };

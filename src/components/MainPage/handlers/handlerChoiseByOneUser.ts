@@ -21,7 +21,7 @@ logElementPositions();
   // GET THE HTML OF DIV.DELETE (buttom for delete ) FROM MAIN PAGE
   const divHTML = document.querySelector("div.delete");
   if (!divHTML) {
-    console.warn("[handlerChoiseByOneUser.ts::handlerChoiseByOne]: 'div.delete' Not found in DOM!")
+    console.warn("[handlerChoiseByOneUser.ts::handlerChoiseByOne]: 'div.delete' Not found in DOM!");
     return false;
   }
 

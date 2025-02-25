@@ -142,7 +142,7 @@ export class CookieUser {
         key = this.sessionId.slice();
       }
     }
-    return key.slice()
+    return key.slice();
   }
 
   /***
@@ -151,7 +151,7 @@ export class CookieUser {
   getOneCookie(key: undefined | string = undefined): string | null {
     // const keyBool = this.checkCoockie(key);
 
-    const cookies = document.cookie
+    const cookies = document.cookie;
 
 
     key = key ? this.__encodeKey(key) : this.__encodeKey();

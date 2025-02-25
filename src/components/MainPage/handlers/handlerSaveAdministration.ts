@@ -4,8 +4,7 @@
 import React from "react";
 import { UserAPI, HttpMethods } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
-import { fetchCSRF } from "@Services/request/getCSRFtoken"
-import { handlerOlderReviewdata } from "./handlerOlderReviewdata";
+import { fetchCSRF } from "@Services/request/getCSRFtoken";
 
 /**
  * Button's handler for admin's events saving of user's changes in admin status
@@ -56,7 +55,7 @@ export async function handlerSaveAdministrator(e: React.MouseEvent): Promise<boo
       "X-CSRFToken": result["csrftoken"] || "",
       'Accept': 'application/json',
     }
-  })
+  });
   if (!response.ok || response.status >= 400) {
     return false;
   }

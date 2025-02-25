@@ -34,7 +34,7 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
     ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "close" &&
     ((target as HTMLElement).parentElement as HTMLElement).dataset.status !== "open") &&
     ((e as KeyboardEvent).key.toLowerCase().includes("Enter") && !((target as HTMLElement).parentElement as HTMLElement).classList.contains("boxfield-data"))) {
-    return false
+    return false;
   }
   /**
    *  After click on the the input field (checkbox type) we select the
@@ -92,7 +92,8 @@ export function handlerOlderProfile(e: MouseEvent | KeyboardEvent): boolean {
         // SELECTS a FIELD for updating of content.
         const htmlDivContent = htmlDiv.querySelector(".boxfield-data");
         if (!htmlDivContent && !nameField) {
-          throw new Error("[handlerProfileFields]: Mistake => 'DIV.boxfield-data' not found!")
+          console.error(new Error("[handlerProfileFields]: Mistake => 'DIV.boxfield-data' not found!"));
+          return false;
         }
         // UPDATE the CONTENT
         (htmlDivContent as HTMLDivElement).innerHTML = result[nameField as string];

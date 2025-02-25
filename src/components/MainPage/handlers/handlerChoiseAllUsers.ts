@@ -10,11 +10,11 @@
  */
 export function handlerChoiseAllUser(e: MouseEvent) {
   const checkboxesArr = document.querySelectorAll("input[data-remove='remove']");
-  const thCheckboxeHTML = (e.target as HTMLInputElement)
+  const thCheckboxeHTML = (e.target as HTMLInputElement);
 
 
   if (checkboxesArr.length === 0 || !thCheckboxeHTML) {
-    console.log("[handlerChoiseAllUsers::handlerChoiseAllFile]: Chackboxes of files not found!")
+    console.log("[handlerChoiseAllUsers::handlerChoiseAllFile]: Chackboxes of files not found!");
     return false;
   }
   checkboxesArr.forEach(item => {

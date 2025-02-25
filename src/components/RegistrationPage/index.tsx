@@ -8,12 +8,12 @@ import sendFieldsOfRegistr from "./handlers/handllerFields";
 import { HeaderForPages } from "src/interfaces";
 
 export function RegistrationFormFC(props: HeaderForPages): JSX.Element {
-  const maintitle = { maintitle: props.maintitle }
+  const maintitle = { maintitle: props.maintitle };
 
   return (<>
     <NavbarTopFC {...maintitle} />
     <section onKeyDown={async (e: React.KeyboardEvent) => {
-      await sendFieldsOfRegistr(e)
+      await sendFieldsOfRegistr(e);
     }} className="registration">
       <form>
         <label className="input input-bordered flex items-center gap-2">
@@ -68,5 +68,5 @@ export function RegistrationFormFC(props: HeaderForPages): JSX.Element {
         </label>
       </form>
     </section>
-  </>)
+  </>);
 }

@@ -16,7 +16,7 @@ export function logElementButtonAdd() {
   const sectionHtml = document.querySelector("section.main-page");
   const divHTMLAddArr = document.querySelectorAll("div.adduser");
   if (!elementHTML || divHTMLAddArr.length === 0 || !sectionHtml) {
-    console.warn("[hendlerButtomLocation::logElementPositions]: HTMLElement Not found in DOM!")
+    console.warn("[hendlerButtomLocation::logElementPositions]: HTMLElement Not found in DOM!");
     return false;
   }
 

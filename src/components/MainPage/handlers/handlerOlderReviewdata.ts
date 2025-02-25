@@ -20,12 +20,12 @@ export async function handlerOlderReviewdata(): Promise<boolean | { users: [any]
   try{
     if (!cookie.checkCoockie("is_staff")) {
       console.log("[handlerOlderReviewdata.ts::handlerOlderReviewdata]: 'is_staff' key not found ");
-      return false
+      return false;
     }
     if (!cookie.getOneCookie("is_staff") &&
       "True".toLowerCase() !== cookie.getOneCookie("is_staff")?.toLocaleLowerCase()) {
       console.log("[handlerOlderReviewdata.ts::handlerOlderReviewdata]: The user has not permission");
-      return false
+      return false;
     }
     const host = window.location.origin.toString();
     const url = new URL(UserAPI.BASIS, host);
@@ -35,7 +35,7 @@ export async function handlerOlderReviewdata(): Promise<boolean | { users: [any]
     let result = await fetchCSRF(url);
     if (!result) {
       // NO TOKEN
-      console.log("[andlerOlderReviewdata.ts::handlerOlderReviewdata]: The 'csfrtoken' have from the server not Ok!")
+      console.log("[andlerOlderReviewdata.ts::handlerOlderReviewdata]: The 'csfrtoken' have from the server not Ok!");
       return false;
     }
     // GET ALL REVIEW DATA BY USER AND USER's FILE
@@ -49,15 +49,15 @@ export async function handlerOlderReviewdata(): Promise<boolean | { users: [any]
       credentials: "include",
     });
     if (!response.ok) {
-      console.log("[andlerOlderReviewdata.ts::handlerOlderReviewdata]: The 'csfrtoken' have from the server not Ok!")
+      console.log("[andlerOlderReviewdata.ts::handlerOlderReviewdata]: The 'csfrtoken' have from the server not Ok!");
       return false;
     }
     const data = await response.json();
     // useState from react
 
-    return { ...data }
+    return { ...data };
 } catch (err){
-    console.error(`[andlerOlderReviewdata.ts::handlerOlderReviewdata]: Mistake => ${(err as Error).message}`)
+    console.error(`[andlerOlderReviewdata.ts::handlerOlderReviewdata]: Mistake => ${(err as Error).message}`);
     return false;
 }
 }

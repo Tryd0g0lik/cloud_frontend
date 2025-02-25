@@ -16,7 +16,7 @@ export function logElementPositions() {
   const sectionHtml = document.querySelector("section.main-page");
   const divHTML = document.querySelector("div.delete");
   if (!elementHTML || !sectionHtml || !divHTML) {
-    console.warn("[hendlerButtomLocation::logElementPositions]: HTMLElement Not found in DOM!")
+    console.warn("[hendlerButtomLocation::logElementPositions]: HTMLElement Not found in DOM!");
     return false;
   }
 

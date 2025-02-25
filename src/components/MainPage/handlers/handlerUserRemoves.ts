@@ -4,7 +4,7 @@
 import React from "react";
 import { UserAPI, HttpMethods } from "@Interfaces";
 import { CookieUser } from "@Services/cookieServices";
-import { fetchCSRF } from "@Services/request/getCSRFtoken"
+import { fetchCSRF } from "@Services/request/getCSRFtoken";
 import { HandlerStateActivation } from "src/components/handlerUserNotActive";
 
 /**
@@ -64,10 +64,10 @@ export async function handlerUserRemove(e: React.MouseEvent): Promise<boolean> {
       "X-CSRFToken": result["csrftoken"] || "",
       'Accept': 'application/json',
     }
-  })
+  });
   if (!response.ok || response.status >= 400) {
     return false;
   }
 
-  return true
+  return true;
 }
